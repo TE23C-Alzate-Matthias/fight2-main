@@ -7,7 +7,7 @@ int storyProgression = 0;
 string attackChoice;
 string heroName;
 string villanName;
-string keepPlaying = "ja";
+string keepPlaying = "yes";
 
 List<string> acceptable = ["1", "2", "3", "4"];
 
@@ -34,7 +34,7 @@ while (keepPlaying == "ja")
     {
 
         story();
-        Console.WriteLine("Skriv ja om du vill försöka om igen, lämna det tomt om du vill stänga programmet");
+        Console.WriteLine("Write yes to restart from the beginning, leave it empty to exit");
         keepPlaying = Console.ReadLine();
         storyProgression = 0;
 
