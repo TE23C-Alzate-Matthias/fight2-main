@@ -1,0 +1,37 @@
+give backstory to why you are in the fight arena
+
+choose name on hero (you)
+
+while numbers, to short, to long
+    tell user to change name
+
+give stats to character
+    attack - how hard you punch
+    defence - makes you take less dmg
+    speed - checks if you attack first
+    accuracy - how often you hit your attacks
+    dexterity - if your able to dodge your attacks
+    stamina - allows you to do actions, if no stamina you skip your turn and are vunlerbale to attacks
+
+give options to what to do
+    check stats
+        option to refund stat points
+            then respec stats
+    check next enemy
+        shows the stats of the next enemy
+    start next fight
+    exit program
+        confirms if you want to exit the program
+
+start fight with enemy
+    user action option defult:
+        heavy attack - takes more stamina, more dmg, less accuracy, if miss you dont attack next time
+        light attack - takes little stamina, less dmg, better accuracy
+        dodge - you dont attack but have higher chance to dodge the enemies attack 
+        rest - gives you back some random hp and stamina
+
+    enemy action option defult:
+        heavy attack - takes more stamina, more dmg, less accuracy, if miss you dont attack next time
+        light attack - takes little stamina, less dmg, better accuracy
+        dodge - you dont attack but have higher chance to dodge the enemies attack
+        rest - gives you back some random hp and stamina

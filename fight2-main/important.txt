@@ -1,0 +1,9 @@
+// gör mig kunna använda Regex för att ta reda på att om ett svar har ett nummer i sig
+using System.Text.RegularExpressions;
+
+bool ContainsNumbers(string input)
+{
+    return Regex.IsMatch(input, @"\d");
+}
+
+ContainsNumbers(heroName)
