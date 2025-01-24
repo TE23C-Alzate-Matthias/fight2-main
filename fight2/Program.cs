@@ -1,17 +1,18 @@
 ﻿// allows me to use Regex to know if an answer has numbers in it
 using System.Text.RegularExpressions;
 
+Characters p1 = new();
+Characters e1 = new();
+Characters e2 = new();
+Characters e3 = new();
+
 int randomChoice;
-int storyProgression = 0;
-int choice = 0;
+int storyPoint = 0;
 int statPoints = 20;
 
-string option;
-string heroName;
-string villanName;
 string keepPlaying = "yes";
 
-string[] acceptable = ["1", "2", "3", "4"];
+List<string> enemy = [e1.Name, e2.Name, e3.Name];
 
 Random generator = new Random();
 
@@ -25,64 +26,74 @@ bool ContainsNumbers(string input)
 
 // ==================== MAIN ====================
 
+// lets you choose your name
+Console.WriteLine("Choose your characters name (3-14 characters long, no numbers)");
+Console.WriteLine("This is your name as long you are inside the program");
+        p1.Name = Console.ReadLine();
+
+        while (p1.Name.Length < 3 || p1.Name.Length > 15 || ContainsNumbers(p1.Name))
+        {
+            // if the name is shorter than 3 it tells me to try again
+            if (p1.Name.Length < 3)
+            {
+                Console.WriteLine("Name is to short, please try again");
+                p1.Name = Console.ReadLine();
+            }
+            // same thing but if longer than 15
+            else if (p1.Name.Length > 15)
+            {
+                Console.WriteLine("Namn is to long, please try again");
+                p1.Name = Console.ReadLine();
+            }
+            // same thing but if it has numbers in it
+            else if (ContainsNumbers(p1.Name))
+            {
+                Console.WriteLine("Namn has numbers in it, please try again");
+                p1.Name = Console.ReadLine();
+            }
+        }
+
 while (keepPlaying == "yes")
 {
     // just happens when you start the program or decide to reset
-    if (storyProgression == 0)
+    if (storyPoint == 0)
     {
-        story();
+        story(storyPoint);
     }
 
-    betweenFight();
+    Console.WriteLine(p1.Name);
+    betweenFight(p1);
+    storyPoint++;
 
     // when you finish the game or lose one fight you get here
-    if (storyProgression == 4 || storyProgression == 3)
+    if (storyPoint == 4 || storyPoint == 3)
     {
 
-        story();
+        story(storyPoint);
         Console.WriteLine("Write yes to restart from the beginning, leave it empty to exit");
         keepPlaying = Console.ReadLine();
-        storyProgression = 0;
+        storyPoint = 0;
+
+    }
+    else
+    {
+
+        story(storyPoint);
 
     }
 
 }
 
 // ==================== METODER ====================
-void story()
+static int story(int story)
 {
+    int storyProgression = story;
 
     if (storyProgression == 0)
     {
-        Console.WriteLine("Choose your characters name (3-14 characters long, no numbers)");
-        heroName = Console.ReadLine();
-
-        while (heroName.Length < 3 || heroName.Length > 15 || ContainsNumbers(heroName))
-        {
-            // if the name is shorter than 3 it tells me to try again
-            if (heroName.Length < 3)
-            {
-                Console.WriteLine("Name is to short, please try again");
-                heroName = Console.ReadLine();
-            }
-            // same thing but if longer than 15
-            else if (heroName.Length > 15)
-            {
-                Console.WriteLine("Namn is to long, please try again");
-                heroName = Console.ReadLine();
-            }
-            // same thing but if it has numbers in it
-            else if (ContainsNumbers(heroName))
-            {
-                Console.WriteLine("Namn has numbers in it, please try again");
-                heroName = Console.ReadLine();
-            }
-        }
-
-
+        
         Console.WriteLine("placeholder start story\n");
         Console.ReadLine();
-
 
     }
     else if (storyProgression == 1)
@@ -113,11 +124,15 @@ void story()
         Console.ReadLine();
 
     }
+    return storyProgression;
 
 }
 
-void betweenFight()
+static Characters betweenFight(Characters hero)
 {
+    int choice = 0;
+    string option;
+    string[] acceptable = ["1", "2", "3", "4"];
 
     while (choice != 3)
     {
@@ -141,6 +156,7 @@ void betweenFight()
         {
 
             // stats option
+            
 
         }
         else if (choice == 2)
@@ -169,26 +185,7 @@ void betweenFight()
 
     }
 
-}
-
-void stats()
-{
-
-
-
-}
-
-void heroAction()
-{
-
-
-
-}
-
-void enemyAction()
-{
-
-
+    return hero;  
 
 }
 
