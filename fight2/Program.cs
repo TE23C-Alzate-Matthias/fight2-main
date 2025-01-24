@@ -2,6 +2,7 @@
 using System.Text.RegularExpressions;
 
 Characters p1 = new();
+
 Characters e1 = new();
 Characters e2 = new();
 Characters e3 = new();
@@ -12,7 +13,6 @@ int statPoints = 20;
 
 string keepPlaying = "yes";
 
-List<string> enemy = [e1.Name, e2.Name, e3.Name];
 
 Random generator = new Random();
 
@@ -64,6 +64,9 @@ while (keepPlaying == "yes")
     Console.WriteLine(p1.Name);
     betweenFight(p1);
     storyPoint++;
+
+    while (p1.Hp > 0 && e1.Hp > 0)
+
 
     // when you finish the game or lose one fight you get here
     if (storyPoint == 4 || storyPoint == 3)
