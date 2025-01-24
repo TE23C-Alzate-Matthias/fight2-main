@@ -9,7 +9,7 @@ string heroName;
 string villanName;
 string keepPlaying = "yes";
 
-List<string> acceptable = ["1", "2", "3", "4"];
+string[] acceptable = ["1", "2", "3", "4"];
 
 Random generator = new Random();
 
@@ -23,13 +23,15 @@ bool ContainsNumbers(string input)
 
 // ==================== MAIN ====================
 
-while (keepPlaying == "ja")
+while (keepPlaying == "yes")
 {
 
-    story();
-    storyProgression++;
-    Console.ReadLine();
+    if (storyProgression == 0)
+    {
+        story();
+    }
 
+    // when you finish the game or lose one fight you get here
     if (storyProgression == 4 || storyProgression == 3)
     {
 
@@ -74,34 +76,46 @@ void story()
         }
 
 
-        Console.WriteLine("test\n");
+        Console.WriteLine("placeholder start story\n");
+        Console.ReadLine();
 
 
     }
     else if (storyProgression == 1)
     {
 
-        Console.WriteLine("testing this shit");
+        Console.WriteLine("placeholder win first fight");
+        Console.ReadLine();
 
     }
     else if (storyProgression == 2)
     {
 
-        Console.WriteLine("placeholder");
+        Console.WriteLine("placeholder win second fight");
+        Console.ReadLine();
 
     }
     else if (storyProgression == 3)
     {
 
-        Console.WriteLine("placeholder winning");
+        Console.WriteLine("placeholder win last fight");
+        Console.ReadLine();
 
     }
     else if (storyProgression == 4)
     {
 
-        Console.WriteLine("Placeholder losing");
+        Console.WriteLine("Placeholder losing anytime");
+        Console.ReadLine();
 
     }
+
+}
+
+void betweenFight() 
+{
+
+    
 
 }
 
@@ -120,9 +134,17 @@ void enemyAction()
 }
 
 
+
 // ==================== CLASS ====================
 
-// will maybe just not use class but have it here just in case
+// Hp - Vitality
+// Atk - Attack
+// Def - Defense
+// Spd - Speed
+// Acc - Accuracy
+// Dex - Dexterity
+// Stm - Stamina
+
 class Characters
 {
     public string Name;

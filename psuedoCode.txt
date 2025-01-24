@@ -8,6 +8,7 @@ while numbers, to short, to long
 give stats to character
     attack - how hard you punch
     defence - makes you take less dmg
+    vitality - amount of hp someone has
     speed - checks if you attack first
     accuracy - how often you hit your attacks
     dexterity - if your able to dodge your attacks
