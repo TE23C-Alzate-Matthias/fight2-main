@@ -3,8 +3,10 @@ using System.Text.RegularExpressions;
 
 int randomChoice;
 int storyProgression = 0;
+int choice = 0;
+int statPoints = 20;
 
-string attackChoice;
+string option;
 string heroName;
 string villanName;
 string keepPlaying = "yes";
@@ -25,11 +27,13 @@ bool ContainsNumbers(string input)
 
 while (keepPlaying == "yes")
 {
-
+    // just happens when you start the program or decide to reset
     if (storyProgression == 0)
     {
         story();
     }
+
+    betweenFight();
 
     // when you finish the game or lose one fight you get here
     if (storyProgression == 4 || storyProgression == 3)
@@ -112,14 +116,58 @@ void story()
 
 }
 
-void betweenFight() 
+void betweenFight()
+{
+
+    while (choice != 3)
+    {
+
+        Console.WriteLine("1) Check Stats");
+        Console.WriteLine("2) Next Enemy");
+        Console.WriteLine("3) Start Next Fight");
+        Console.WriteLine("4) Quit");
+
+        option = Console.ReadLine();
+        int.TryParse(option, out choice);
+
+        // if your answer does not contain 1, 2, 3 or 4 
+        if (!acceptable.Contains(option))
+        {
+
+            Console.WriteLine("Unknown option, please try again");
+
+        }
+        else if (choice == 1)
+        {
+
+            // stats option
+
+        }
+        else if (choice == 2)
+        {
+
+            // check next enemy option
+
+        }
+        else if (choice == 4)
+        {
+
+            // if you want to exit program
+
+        }
+
+    }
+
+}
+
+void stats()
 {
 
     
 
 }
 
-void heroAction() 
+void heroAction()
 {
 
 
@@ -129,7 +177,7 @@ void heroAction()
 void enemyAction()
 {
 
-    
+
 
 }
 
