@@ -62,19 +62,19 @@ void story()
             // if the name is shorter than 3 it tells me to try again
             if (heroName.Length < 3)
             {
-                Console.WriteLine("Namnet är för kort, försök igen");
+                Console.WriteLine("Name is to short, please try again");
                 heroName = Console.ReadLine();
             }
             // same thing but if longer than 15
             else if (heroName.Length > 15)
             {
-                Console.WriteLine("Namnet är för långt, försök igen");
+                Console.WriteLine("Namn is to long, please try again");
                 heroName = Console.ReadLine();
             }
             // same thing but if it has numbers in it
             else if (ContainsNumbers(heroName))
             {
-                Console.WriteLine("Namnet har nummer i sig, försök igen");
+                Console.WriteLine("Namn has numbers in it, please try again");
                 heroName = Console.ReadLine();
             }
         }
@@ -153,8 +153,19 @@ void betweenFight()
         {
 
             // if you want to exit program
+            Console.WriteLine("Are you sure you want to quit? (Write yes if you want to quit)");
+            option = Console.ReadLine();
+            if (option == "yes")
+            {
+
+                // exits the enviroment
+                Environment.Exit(0);
+
+            }
 
         }
+
+        Console.Clear();
 
     }
 
@@ -163,7 +174,7 @@ void betweenFight()
 void stats()
 {
 
-    
+
 
 }
 
