@@ -196,7 +196,8 @@ static Characters betweenFight(Characters hero)
 
 // ==================== CLASS ====================
 
-// Hp - Vitality
+// Hp - hitpoint
+// Vt - Vitality
 // Atk - Attack
 // Def - Defense
 // Spd - Speed
@@ -208,6 +209,7 @@ class Characters
 {
     public string Name;
     public int Hp;
+    public int Vitality;
     public int Atk;
     public int Def;
     public int Spd;
