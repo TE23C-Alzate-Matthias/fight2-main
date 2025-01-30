@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 Characters p1 = new();
 p1.Hp = 100;
-p1.Vitality = 0;
+p1.Vt = 0;
 p1.Atk = 0;
 p1.Def = 0;
 p1.Spd = 0;
@@ -168,16 +168,20 @@ static Characters betweenFight(Characters hero)
         int.TryParse(option, out choice);
 
         // if your answer does not contain 1, 2, 3 or 4 
-        if (!acceptable.Contains(option))
+        while (!acceptable.Contains(option))
         {
 
             Console.WriteLine("Unknown option, please try again");
+            option = Console.ReadLine();
+            int.TryParse(option, out choice);
 
         }
-        else if (choice == 1)
+
+        if (choice == 1)
         {
 
             // stats option
+            StatPoints(hero);
 
 
         }
@@ -218,19 +222,98 @@ static Characters FirstStats(Characters hero)
 
     int choice = 0;
     string option;
-    string[] acceptable = ["1", "2", "3", "4", "5", "6"];
+    string[] acceptable = ["1", "2", "3", "4", "5", "6", "7"];
 
     while (startPoints > 0)
     {
 
-        Console.WriteLine("Add Statpoints to your character:");
+        Console.WriteLine($"Total Stat Points left: {startPoints}");
+        Console.WriteLine("Add Statpoints to your character:\n");
+        Console.WriteLine($"1) Vitality: {hero.Vt}");
+        Console.WriteLine($"2) Attack: {hero.Atk}");
+        Console.WriteLine($"3) Defence: {hero.Def}");
+        Console.WriteLine($"4) Speed: {hero.Spd}");
+        Console.WriteLine($"5) Accuracy: {hero.Acc}");
+        Console.WriteLine($"6) Dexterity: {hero.Dex}");
+        Console.WriteLine($"7) Help");
 
+        option = Console.ReadLine();
+        int.TryParse(option, out choice);
+
+        // if your answer does not contain 1, 2, 3, 4, 5, 6, 7
+        while (!acceptable.Contains(option))
+        {
+
+            Console.WriteLine("Unknown option, please try again");
+            option = Console.ReadLine();
+            int.TryParse(option, out choice);
+
+        }  
+
+        // i feel like this can get more compacted but will leave it like thos for now
+        if (choice == 1)
+        {
+
+            hero.Vt++;
+            startPoints--;
+
+        }
+        else if (choice == 2)
+        {
+
+            hero.Atk++;
+            startPoints--;
+
+        }
+        else if (choice == 3)
+        {
+
+            hero.Def++;
+            startPoints--;
+
+        }
+        else if (choice == 4)
+        {
+
+            hero.Spd++;
+            startPoints--;
+
+        }
+        else if (choice == 5)
+        {
+
+            hero.Acc++;
+            startPoints--;
+
+        }
+        else if (choice == 6)
+        {
+
+            hero.Dex++;
+            startPoints--;
+
+        }
+        else if (choice == 7)
+        {
+
+
+
+        }
+
+        Console.Clear();
 
     }
 
     return hero;
 }
 
+// ALL OTHER TIMES YOU CHOOSE STATPOINTS AS AN OPTION
+static Characters StatPoints(Characters hero)
+{
+
+    return hero;
+
+}
 
 // ==================== CLASS ====================
 
@@ -247,7 +330,7 @@ class Characters
 {
     public string Name;
     public int Hp;
-    public int Vitality;
+    public int Vt;
     public int Atk;
     public int Def;
     public int Spd;
