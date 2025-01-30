@@ -1,18 +1,17 @@
-give backstory to why you are in the fight arena
-
 choose name on hero (you)
 
 while numbers, to short, to long
     tell user to change name
 
+give backstory to why you are in the fight arena
+
 give stats to character
-    attack - how hard you punch
-    defence - makes you take less dmg
-    vitality - amount of hp someone has
-    speed - checks if you attack first
-    accuracy - how often you hit your attacks
-    dexterity - if your able to dodge your attacks
-    stamina - allows you to do actions, if no stamina you skip your turn and are vunlerbale to attacks
+    vitality - gives 10 hp per vitality (defult: 0)
+    attack - how mcuh harder you punch (defult: 0)
+    defence - makes you take less dmg   (defult: 0)
+    speed - checks if you attack first  (defult: 0)
+    accuracy - how often you hit your attacks (defult: 0)
+    dexterity - if your able to dodge your attacks (defult: 0)
 
 give options to what to do
     check stats

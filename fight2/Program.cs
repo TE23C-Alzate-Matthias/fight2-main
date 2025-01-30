@@ -1,15 +1,25 @@
 ﻿// allows me to use Regex to know if an answer has numbers in it
+using System.Diagnostics.Contracts;
 using System.Text.RegularExpressions;
 
 Characters p1 = new();
+p1.Hp = 100;
+p1.Vitality = 0;
+p1.Atk = 0;
+p1.Def = 0;
+p1.Spd = 0;
+p1.Acc = 0;
+p1.Dex = 0;
 
 Characters e1 = new();
+e1.Name = "Jax";
+e1.Hp = 100;
+
 Characters e2 = new();
 Characters e3 = new();
 
-int randomChoice;
+// int randomChoice;
 int storyPoint = 0;
-int statPoints = 20;
 
 string keepPlaying = "yes";
 
@@ -26,9 +36,14 @@ bool ContainsNumbers(string input)
 
 // ==================== MAIN ====================
 
-// lets you choose your name
-Console.WriteLine("Choose your characters name (3-14 characters long, no numbers)");
-Console.WriteLine("This is your name as long you are inside the program");
+while (keepPlaying == "yes")
+{
+    // just happens when you start the program or decide to reset
+    if (storyPoint == 0)
+    {
+        // lets you choose your name
+        Console.WriteLine("Choose your characters name (3-14 characters long, no numbers)");
+        Console.WriteLine("This is your name as long you are inside the program");
         p1.Name = Console.ReadLine();
 
         while (p1.Name.Length < 3 || p1.Name.Length > 15 || ContainsNumbers(p1.Name))
@@ -53,48 +68,51 @@ Console.WriteLine("This is your name as long you are inside the program");
             }
         }
 
-while (keepPlaying == "yes")
-{
-    // just happens when you start the program or decide to reset
-    if (storyPoint == 0)
-    {
         story(storyPoint);
+        p1 = FirstStats(p1);
     }
 
     Console.WriteLine(p1.Name);
-    betweenFight(p1);
+    p1 = betweenFight(p1);
     storyPoint++;
 
-    while (p1.Hp > 0 && e1.Hp > 0)
-
-
-    // when you finish the game or lose one fight you get here
-    if (storyPoint == 4 || storyPoint == 3)
+    while (p1.Hp > 0 && e1.Hp > 0) 
     {
 
-        story(storyPoint);
-        Console.WriteLine("Write yes to restart from the beginning, leave it empty to exit");
-        keepPlaying = Console.ReadLine();
-        storyPoint = 0;
+
 
     }
-    else
-    {
 
-        story(storyPoint);
 
-    }
+        // when you finish the game or lose one fight you get here
+        if (storyPoint == 4 || storyPoint == 3)
+        {
+
+            story(storyPoint);
+            Console.WriteLine("Write yes to restart from the beginning, leave it empty to exit");
+            keepPlaying = Console.ReadLine();
+            storyPoint = 0;
+
+        }
+        else
+        {
+
+            story(storyPoint);
+
+        }
 
 }
 
 // ==================== METODER ====================
+
+// STORY PROGRESSION
 static int story(int story)
 {
     int storyProgression = story;
 
     if (storyProgression == 0)
     {
-        
+
         Console.WriteLine("placeholder start story\n");
         Console.ReadLine();
 
@@ -131,6 +149,7 @@ static int story(int story)
 
 }
 
+// STUFF YOU CAN DO BETWEEN FIGHTS
 static Characters betweenFight(Characters hero)
 {
     int choice = 0;
@@ -159,7 +178,7 @@ static Characters betweenFight(Characters hero)
         {
 
             // stats option
-            
+
 
         }
         else if (choice == 2)
@@ -188,10 +207,29 @@ static Characters betweenFight(Characters hero)
 
     }
 
-    return hero;  
+    return hero;
 
 }
 
+// FIRST TIME YOU WILL ADD STATPOINTS
+static Characters FirstStats(Characters hero)
+{
+    int startPoints = 20;
+
+    int choice = 0;
+    string option;
+    string[] acceptable = ["1", "2", "3", "4", "5", "6"];
+
+    while (startPoints > 0)
+    {
+
+        Console.WriteLine("Add Statpoints to your character:");
+
+
+    }
+
+    return hero;
+}
 
 
 // ==================== CLASS ====================
@@ -215,6 +253,5 @@ class Characters
     public int Spd;
     public int Acc;
     public int Dex;
-    public int Stm;
 
 }
