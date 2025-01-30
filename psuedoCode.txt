@@ -28,10 +28,10 @@ start fight with enemy
         heavy attack - takes more stamina, more dmg, less accuracy, if miss you dont attack next time
         light attack - takes little stamina, less dmg, better accuracy
         dodge - you dont attack but have higher chance to dodge the enemies attack 
-        rest - gives you back some random hp and stamina
+        rest - gives you back some random hp
 
     enemy action option defult:
         heavy attack - takes more stamina, more dmg, less accuracy, if miss you dont attack next time
         light attack - takes little stamina, less dmg, better accuracy
         dodge - you dont attack but have higher chance to dodge the enemies attack
-        rest - gives you back some random hp and stamina
+        rest - gives you back some random hp

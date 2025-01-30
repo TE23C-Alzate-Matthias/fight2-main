@@ -296,7 +296,14 @@ static Characters FirstStats(Characters hero)
         else if (choice == 7)
         {
 
-
+            Console.WriteLine("Vitality: +10 hp per point");
+            Console.WriteLine("Attack: +2 Damage when hitting an attack on someone per point");
+            Console.WriteLine("Defence: -1 Damage when getting hit by an attack per point");
+            Console.WriteLine("Speed: +5 on Speed Checks per point");
+            Console.WriteLine("Accuracy: +1% Chance to hit an attack per point");
+            Console.WriteLine("Dexterity: +1% Chance to dodge an attack per point");
+            Console.WriteLine("(Click Anything to get back)");
+            Console.ReadLine();
 
         }
 
