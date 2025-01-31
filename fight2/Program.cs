@@ -13,7 +13,13 @@ p1.Stat = 20;
 
 Characters e1 = new();
 e1.Name = "Jax";
-e1.Hp = 100;
+e1.Vt = 2;
+e1.Atk = 3;
+e1.Def = 0;
+e1.Spd = 8;
+e1.Acc = 3;
+e1.Dex = 0;
+e1.Hp = 100 + (10 * e1.Vt);
 
 Characters e2 = new();
 Characters e3 = new();
@@ -70,21 +76,23 @@ while (keepPlaying == "yes")
 
         story(storyPoint);
         p1 = FirstStats(p1);
+
     }
 
     Console.WriteLine(p1.Name);
     p1 = betweenFight(p1);
     storyPoint++;
 
-    while (p1.Hp > 0 && e1.Hp > 0) 
-    {
+    //while (p1.Hp > 0 && e1.Hp > 0)
+    //{
 
 
 
-    }
+    //}
 
 
-     // ======================== FIGHT END ========================
+
+    // ======================== FIGHT END ========================
 
     Console.WriteLine("\n======== FIGHT IS OVER ========");
 
@@ -110,22 +118,22 @@ while (keepPlaying == "yes")
 
     }
 
-        // when you finish the game (3) or lose one fight (4) you get here
-        if (storyPoint == 4 || storyPoint == 3)
-        {
+    // when you finish the game (3) or lose one fight (4) you get here
+    if (storyPoint == 4 || storyPoint == 3)
+    {
 
-            story(storyPoint);
-            Console.WriteLine("Write yes to restart from the beginning, leave it empty to exit");
-            keepPlaying = Console.ReadLine();
-            storyPoint = 0;
+        story(storyPoint);
+        Console.WriteLine("Write yes to restart from the beginning, leave it empty to exit");
+        keepPlaying = Console.ReadLine();
+        storyPoint = 0;
 
-        }
-        else
-        {
+    }
+    else
+    {
 
-            story(storyPoint);
+        story(storyPoint);
 
-        }
+    }
 
 }
 
@@ -262,6 +270,7 @@ static Characters FirstStats(Characters hero)
         Console.WriteLine($"6) Dexterity: {hero.Dex}");
         Console.WriteLine($"7) Help");
         Console.WriteLine($"8) Reset Stat Points");
+        Console.WriteLine($"9) Exit");
 
         option = Console.ReadLine();
         int.TryParse(option, out choice);
@@ -274,7 +283,7 @@ static Characters FirstStats(Characters hero)
             option = Console.ReadLine();
             int.TryParse(option, out choice);
 
-        }  
+        }
 
         // i feel like this can get more compacted but will leave it like this for now
         if (choice == 1)
@@ -328,8 +337,8 @@ static Characters FirstStats(Characters hero)
             Console.WriteLine("Speed: +5 on Speed Checks per point");
             Console.WriteLine("Accuracy: +1% Chance to hit an attack per point");
             Console.WriteLine("Dexterity: +1% Chance to dodge an attack per point");
-            Console.WriteLine("(Click Anything to get back)");
-            Console.ReadKey();
+            Console.WriteLine("(Click Enter to get back)");
+            Console.ReadLine();
 
         }
         else if (choice == 8)
@@ -358,19 +367,22 @@ static Characters FirstStats(Characters hero)
 
     }
 
+    hero.Hp = 100 + (10 * hero.Vt);
     return hero;
 }
 
 // ALL OTHER TIMES YOU CHOOSE STATPOINTS AS AN OPTION
 static Characters StatPoints(Characters hero)
 {
-    int choice;
-    string option = "";
+
+    int choice = 0;
+    string option;
     string[] acceptable = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
-    while (option != "9")
+    while (choice != 9)
     {
 
+        Console.Clear();
         Console.WriteLine($"Total Stat Points left: {hero.Stat}");
         Console.WriteLine("Add Statpoints to your character:\n");
         Console.WriteLine($"1) Vitality: {hero.Vt}");
@@ -381,7 +393,6 @@ static Characters StatPoints(Characters hero)
         Console.WriteLine($"6) Dexterity: {hero.Dex}");
         Console.WriteLine($"7) Help");
         Console.WriteLine($"8) Reset Stat Points");
-        Console.WriteLine($"9) Exit");
 
         option = Console.ReadLine();
         int.TryParse(option, out choice);
@@ -394,13 +405,54 @@ static Characters StatPoints(Characters hero)
             option = Console.ReadLine();
             int.TryParse(option, out choice);
 
-        }  
+        }
 
         // i feel like this can get more compacted but will leave it like this for now
-        if (hero.Stat == 0)
+        if (choice == 7)
         {
 
-            Console.WriteLine("No stat points left, Reset if you want to reassign stat points");
+            Console.WriteLine("\nVitality: +10 hp per point");
+            Console.WriteLine("Attack: +2 Damage when hitting an attack on someone per point");
+            Console.WriteLine("Defence: -1 Damage taken when getting hit per point");
+            Console.WriteLine("Speed: +5 on Speed Checks per point");
+            Console.WriteLine("Accuracy: +1% Chance to hit an attack per point");
+            Console.WriteLine("Dexterity: +1% Chance to dodge an attack per point");
+            Console.WriteLine("(Click Enter to get back)");
+            Console.ReadLine();
+
+        }
+        else if (choice == 8)
+        {
+
+            Console.WriteLine("Are you sure you want to reset your stats?");
+            Console.WriteLine("Write 'yes' if you are sure");
+            option = Console.ReadLine();
+
+            if (option == "yes")
+            {
+
+                hero.Stat = hero.Stat + hero.Vt + hero.Atk + hero.Def + hero.Spd + hero.Acc + hero.Dex;
+                hero.Vt = 0;
+                hero.Atk = 0;
+                hero.Def = 0;
+                hero.Spd = 0;
+                hero.Acc = 0;
+                hero.Dex = 0;
+
+            }
+
+        }
+        else if (choice == 9)
+        {
+
+
+
+        }
+        else if (hero.Stat == 0)
+        {
+
+            Console.WriteLine("No stat points left, please try again");
+            Console.ReadLine();
 
         }
         else if (choice == 1)
@@ -445,45 +497,10 @@ static Characters StatPoints(Characters hero)
             hero.Stat--;
 
         }
-        else if (choice == 7)
-        {
-
-            Console.WriteLine("\nVitality: +10 hp per point");
-            Console.WriteLine("Attack: +2 Damage when hitting an attack on someone per point");
-            Console.WriteLine("Defence: -1 Damage taken when getting hit per point");
-            Console.WriteLine("Speed: +5 on Speed Checks per point");
-            Console.WriteLine("Accuracy: +1% Chance to hit an attack per point");
-            Console.WriteLine("Dexterity: +1% Chance to dodge an attack per point");
-            Console.WriteLine("(Click Anything to get back)");
-            Console.ReadKey();
-
-        }
-        else if (choice == 8)
-        {
-
-            Console.WriteLine("Are you sure you want to reset your stats?");
-            Console.WriteLine("Write 'yes' if you are sure");
-            option = Console.ReadLine();
-
-            if (option == "yes")
-            {
-
-                hero.Stat = hero.Stat + hero.Vt + hero.Atk + hero.Def + hero.Spd + hero.Acc + hero.Dex;
-                hero.Vt = 0;
-                hero.Atk = 0;
-                hero.Def = 0;
-                hero.Spd = 0;
-                hero.Acc = 0;
-                hero.Dex = 0;
-
-            }
-
-        }
-
-        Console.Clear();
 
     }
 
+    hero.Hp = 100 + (10 * hero.Vt);
     return hero;
 
 }
