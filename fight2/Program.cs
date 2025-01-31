@@ -49,7 +49,6 @@ while (keepPlaying == "yes")
     {
         // lets you choose your name
         Console.WriteLine("Choose your characters name (3-14 characters long, no numbers)");
-        Console.WriteLine("This is your name as long you are inside the program");
         p1.Name = Console.ReadLine();
 
         while (p1.Name.Length < 3 || p1.Name.Length > 15 || ContainsNumbers(p1.Name))
@@ -79,8 +78,7 @@ while (keepPlaying == "yes")
 
     }
 
-    Console.WriteLine(p1.Name);
-    p1 = betweenFight(p1);
+    p1 = betweenFight(p1, e1);
     storyPoint++;
 
     //while (p1.Hp > 0 && e1.Hp > 0)
@@ -110,6 +108,7 @@ while (keepPlaying == "yes")
         storyPoint = 4;
 
     }
+    // change this to else if (e1.Hp == 0)
     else
     {
 
@@ -134,6 +133,7 @@ while (keepPlaying == "yes")
         story(storyPoint);
 
     }
+    Console.Clear();
 
 }
 
@@ -184,7 +184,7 @@ static int story(int story)
 }
 
 // STUFF YOU CAN DO BETWEEN FIGHTS
-static Characters betweenFight(Characters hero)
+static Characters betweenFight(Characters hero, Characters enemy)
 {
     int choice = 0;
     string option;
@@ -222,7 +222,17 @@ static Characters betweenFight(Characters hero)
         else if (choice == 2)
         {
 
-            // check next enemy option
+            Console.Clear();
+            Console.WriteLine($"Next enemy: {enemy.Name}");
+            Console.WriteLine($"Hp: {enemy.Hp}");
+            Console.WriteLine($"Vitality: {enemy.Vt}");
+            Console.WriteLine($"Attack: {enemy.Atk}");
+            Console.WriteLine($"Defence: {enemy.Def}");
+            Console.WriteLine($"Speed: {enemy.Spd}");
+            Console.WriteLine($"Accuracy: {enemy.Acc}");
+            Console.WriteLine($"Dexterity: {enemy.Dex}");
+            Console.WriteLine($"Press enter to get back");
+            Console.ReadLine();
 
         }
         else if (choice == 4)
@@ -270,7 +280,6 @@ static Characters FirstStats(Characters hero)
         Console.WriteLine($"6) Dexterity: {hero.Dex}");
         Console.WriteLine($"7) Help");
         Console.WriteLine($"8) Reset Stat Points");
-        Console.WriteLine($"9) Exit");
 
         option = Console.ReadLine();
         int.TryParse(option, out choice);
@@ -393,6 +402,7 @@ static Characters StatPoints(Characters hero)
         Console.WriteLine($"6) Dexterity: {hero.Dex}");
         Console.WriteLine($"7) Help");
         Console.WriteLine($"8) Reset Stat Points");
+        Console.WriteLine($"9) Exit");
 
         option = Console.ReadLine();
         int.TryParse(option, out choice);
