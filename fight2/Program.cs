@@ -1,4 +1,4 @@
-﻿// allows me to use Regex to know if an answer has numbers in it
+// allows me to use Regex to know if an answer has numbers in it
 using System.Text.RegularExpressions;
 
 Characters p1 = new();
@@ -512,6 +512,14 @@ static Characters StatPoints(Characters hero)
 
     hero.Hp = 100 + (10 * hero.Vt);
     return hero;
+
+}
+
+static Characters fight(Characters hero, Characters enemy)
+{
+    Random generator = new Random();
+    int accuracy;
+    
 
 }
 
