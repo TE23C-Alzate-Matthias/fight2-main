@@ -7,3 +7,41 @@ bool ContainsNumbers(string input)
 }
 
 ContainsNumbers(heroName)
+
+
+
+    //while (p1.Hp > 0 && e1.Hp > 0)
+    //{
+
+
+
+    //}
+
+
+
+    // ======================== FIGHT END ========================
+
+    Console.WriteLine("\n======== FIGHT IS OVER ========");
+
+    if (p1.Hp == 0 && p1.Hp == 0)
+    {
+
+        Console.WriteLine("Both died, no one won\n");
+        storyPoint = 4;
+
+    }
+    else if (p1.Hp == 0)
+    {
+
+        Console.WriteLine($"{p1.Name} died, {e1.Name} Won!\n");
+        storyPoint = 4;
+
+    }
+    // change this to else if (e1.Hp == 0)
+    else
+    {
+
+        Console.WriteLine($"{e1.Name} died, {p1.Name} won!\n");
+        storyPoint++;
+
+    }

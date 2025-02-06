@@ -78,44 +78,29 @@ while (keepPlaying == "yes")
 
     }
 
-    p1 = betweenFight(p1, e1);
-    storyPoint++;
-
-    //while (p1.Hp > 0 && e1.Hp > 0)
-    //{
-
-
-
-    //}
-
-
-
-    // ======================== FIGHT END ========================
-
-    Console.WriteLine("\n======== FIGHT IS OVER ========");
-
-    if (p1.Hp == 0 && p1.Hp == 0)
+    if (storyPoint == 0)
     {
-
-        Console.WriteLine("Both died, no one won\n");
-        storyPoint = 4;
+        
+        p1 = betweenFight(p1, e1);
+        (p1, e1, storyPoint) = fight(p1, e1, storyPoint);
 
     }
-    else if (p1.Hp == 0)
+    else if (storyPoint == 1)
     {
 
-        Console.WriteLine($"{p1.Name} died, {e1.Name} Won!\n");
-        storyPoint = 4;
+        p1 = betweenFight(p1, e2);
+        (p1, e2, storyPoint) = fight(p1, e2, storyPoint);
 
     }
-    // change this to else if (e1.Hp == 0)
-    else
+    else if (storyPoint == 2)
     {
 
-        Console.WriteLine($"{e1.Name} died, {p1.Name} won!\n");
-        storyPoint++;
+        p1 = betweenFight(p1, e3);
+        (p1, e3, storyPoint) = fight(p1, e3, storyPoint);
 
     }
+
+
 
     // when you finish the game (3) or lose one fight (4) you get here
     if (storyPoint == 4 || storyPoint == 3)
@@ -142,44 +127,43 @@ while (keepPlaying == "yes")
 // STORY PROGRESSION
 static int story(int story)
 {
-    int storyProgression = story;
 
-    if (storyProgression == 0)
+    if (story == 0)
     {
 
         Console.WriteLine("placeholder start story\n");
         Console.ReadLine();
 
     }
-    else if (storyProgression == 1)
+    else if (story == 1)
     {
 
         Console.WriteLine("placeholder win first fight");
         Console.ReadLine();
 
     }
-    else if (storyProgression == 2)
+    else if (story == 2)
     {
 
         Console.WriteLine("placeholder win second fight");
         Console.ReadLine();
 
     }
-    else if (storyProgression == 3)
+    else if (story == 3)
     {
 
         Console.WriteLine("placeholder win last fight");
         Console.ReadLine();
 
     }
-    else if (storyProgression == 4)
+    else if (story == 4)
     {
 
         Console.WriteLine("Placeholder losing anytime");
         Console.ReadLine();
 
     }
-    return storyProgression;
+    return story;
 
 }
 
@@ -512,6 +496,30 @@ static Characters StatPoints(Characters hero)
 
     hero.Hp = 100 + (10 * hero.Vt);
     return hero;
+
+}
+
+static (Characters hero, Characters enemy, int story) fight(Characters hero, Characters enemy, int story)
+{
+    Random generator = new Random();
+    int accuracy;
+    
+    while (hero.Hp > 0 && enemy.Hp > 0)
+    {
+        
+        // going to impliment speed check later
+
+        Console.Clear();
+        Console.WriteLine("======= NEW ROUND =======");
+        Console.WriteLine($"{hero.Name}: {hero.Hp} Hp  |  {enemy.Name}: {enemy.Hp} Hp\n");
+
+        // lets the user choose what action they want to do
+        Console.WriteLine("--- Choose Action ---");
+
+    }
+
+
+    return (hero, enemy, story);
 
 }
 
