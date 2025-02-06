@@ -518,7 +518,6 @@ static (Characters hero, Characters enemy, int story) fight(Characters hero, Cha
 
     }
 
-
     return (hero, enemy, story);
 
 }
