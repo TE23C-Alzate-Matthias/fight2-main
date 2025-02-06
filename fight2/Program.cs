@@ -20,6 +20,7 @@ e1.Spd = 8;
 e1.Acc = 3;
 e1.Dex = 0;
 e1.Hp = 100 + (10 * e1.Vt);
+e1.MaxHp = e1.Hp;
 
 Characters e2 = new();
 Characters e3 = new();
@@ -72,54 +73,39 @@ while (keepPlaying == "yes")
                 p1.Name = Console.ReadLine();
             }
         }
-
         story(storyPoint);
         p1 = FirstStats(p1);
-
     }
 
     if (storyPoint == 0)
     {
-        
         p1 = betweenFight(p1, e1);
         (p1, e1, storyPoint) = fight(p1, e1, storyPoint);
-
     }
     else if (storyPoint == 1)
     {
-
         p1 = betweenFight(p1, e2);
         (p1, e2, storyPoint) = fight(p1, e2, storyPoint);
-
     }
     else if (storyPoint == 2)
     {
-
         p1 = betweenFight(p1, e3);
         (p1, e3, storyPoint) = fight(p1, e3, storyPoint);
-
     }
-
-
 
     // when you finish the game (3) or lose one fight (4) you get here
     if (storyPoint == 4 || storyPoint == 3)
     {
-
         story(storyPoint);
         Console.WriteLine("Write yes to restart from the beginning, leave it empty to exit");
         keepPlaying = Console.ReadLine();
         storyPoint = 0;
-
     }
     else
     {
-
         story(storyPoint);
-
     }
     Console.Clear();
-
 }
 
 // ==================== METODER ====================
@@ -130,41 +116,30 @@ static int story(int story)
 
     if (story == 0)
     {
-
         Console.WriteLine("placeholder start story\n");
         Console.ReadLine();
-
     }
     else if (story == 1)
     {
-
         Console.WriteLine("placeholder win first fight");
         Console.ReadLine();
-
     }
     else if (story == 2)
     {
-
         Console.WriteLine("placeholder win second fight");
         Console.ReadLine();
-
     }
     else if (story == 3)
     {
-
         Console.WriteLine("placeholder win last fight");
         Console.ReadLine();
-
     }
     else if (story == 4)
     {
-
         Console.WriteLine("Placeholder losing anytime");
         Console.ReadLine();
-
     }
     return story;
-
 }
 
 // STUFF YOU CAN DO BETWEEN FIGHTS
@@ -176,7 +151,6 @@ static Characters betweenFight(Characters hero, Characters enemy)
 
     while (choice != 3)
     {
-
         Console.WriteLine("1) Check Stats");
         Console.WriteLine("2) Next Enemy");
         Console.WriteLine("3) Start Next Fight");
@@ -188,24 +162,18 @@ static Characters betweenFight(Characters hero, Characters enemy)
         // if your answer does not contain 1, 2, 3 or 4 
         while (!acceptable.Contains(option))
         {
-
             Console.WriteLine("Unknown option, please try again");
             option = Console.ReadLine();
             int.TryParse(option, out choice);
-
         }
 
         if (choice == 1)
         {
-
             // stats option
             StatPoints(hero);
-
-
         }
         else if (choice == 2)
         {
-
             Console.Clear();
             Console.WriteLine($"Next enemy: {enemy.Name}");
             Console.WriteLine($"Hp: {enemy.Hp}");
@@ -217,43 +185,33 @@ static Characters betweenFight(Characters hero, Characters enemy)
             Console.WriteLine($"Dexterity: {enemy.Dex}");
             Console.WriteLine($"Press enter to get back");
             Console.ReadLine();
-
         }
         else if (choice == 4)
         {
-
             // if you want to exit program
             Console.WriteLine("Are you sure you want to quit? (Write yes if you want to quit)");
             option = Console.ReadLine();
             if (option == "yes")
             {
-
-                // exits the enviroment
+                // exits the program and closes it
                 Environment.Exit(0);
-
             }
-
         }
-
         Console.Clear();
-
     }
-
+    hero.MaxHp = hero.Hp;
     return hero;
-
 }
 
 // FIRST TIME YOU WILL ADD STATPOINTS
 static Characters FirstStats(Characters hero)
 {
-
     int choice;
     string option;
     string[] acceptable = ["1", "2", "3", "4", "5", "6", "7", "8"];
 
     while (hero.Stat > 0)
     {
-
         Console.WriteLine($"Total Stat Points left: {hero.Stat}");
         Console.WriteLine("Add Statpoints to your character:\n");
         Console.WriteLine($"1) Vitality: {hero.Vt}");
@@ -271,59 +229,44 @@ static Characters FirstStats(Characters hero)
         // if your answer does not contain 1, 2, 3, 4, 5, 6, 7
         while (!acceptable.Contains(option))
         {
-
             Console.WriteLine("Unknown option, please try again");
             option = Console.ReadLine();
             int.TryParse(option, out choice);
-
         }
 
         // i feel like this can get more compacted but will leave it like this for now
         if (choice == 1)
         {
-
             hero.Vt++;
             hero.Stat--;
-
         }
         else if (choice == 2)
         {
-
             hero.Atk++;
             hero.Stat--;
-
         }
         else if (choice == 3)
         {
-
             hero.Def++;
             hero.Stat--;
-
         }
         else if (choice == 4)
         {
-
             hero.Spd++;
             hero.Stat--;
-
         }
         else if (choice == 5)
         {
-
             hero.Acc++;
             hero.Stat--;
-
         }
         else if (choice == 6)
         {
-
             hero.Dex++;
             hero.Stat--;
-
         }
         else if (choice == 7)
         {
-
             Console.WriteLine("\nVitality: +10 hp per point");
             Console.WriteLine("Attack: +2 Damage when hitting an attack on someone per point");
             Console.WriteLine("Defence: -1 Damage taken when getting hit per point");
@@ -332,18 +275,15 @@ static Characters FirstStats(Characters hero)
             Console.WriteLine("Dexterity: +1% Chance to dodge an attack per point");
             Console.WriteLine("(Click Enter to get back)");
             Console.ReadLine();
-
         }
         else if (choice == 8)
         {
-
             Console.WriteLine("Are you sure you want to reset your stats?");
             Console.WriteLine("Write 'yes' if you are sure");
             option = Console.ReadLine();
 
             if (option == "yes")
             {
-
                 hero.Stat = hero.Stat + hero.Vt + hero.Atk + hero.Def + hero.Spd + hero.Acc + hero.Dex;
                 hero.Vt = 0;
                 hero.Atk = 0;
@@ -351,33 +291,28 @@ static Characters FirstStats(Characters hero)
                 hero.Spd = 0;
                 hero.Acc = 0;
                 hero.Dex = 0;
-
             }
-
         }
-
         Console.Clear();
-
     }
-
     hero.Hp = 100 + (10 * hero.Vt);
+    hero.MaxHp = hero.Hp;
     return hero;
 }
 
 // ALL OTHER TIMES YOU CHOOSE STATPOINTS AS AN OPTION
 static Characters StatPoints(Characters hero)
 {
-
     int choice = 0;
     string option;
     string[] acceptable = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
     while (choice != 9)
     {
-
         Console.Clear();
         Console.WriteLine($"Total Stat Points left: {hero.Stat}");
         Console.WriteLine("Add Statpoints to your character:\n");
+        Console.WriteLine($"Hp: {hero.Hp}");
         Console.WriteLine($"1) Vitality: {hero.Vt}");
         Console.WriteLine($"2) Attack: {hero.Atk}");
         Console.WriteLine($"3) Defence: {hero.Def}");
@@ -394,17 +329,14 @@ static Characters StatPoints(Characters hero)
         // if your answer does not contain 1, 2, 3, 4, 5, 6, 7
         while (!acceptable.Contains(option))
         {
-
             Console.WriteLine("Unknown option, please try again");
             option = Console.ReadLine();
             int.TryParse(option, out choice);
-
         }
 
         // i feel like this can get more compacted but will leave it like this for now
         if (choice == 7)
         {
-
             Console.WriteLine("\nVitality: +10 hp per point");
             Console.WriteLine("Attack: +2 Damage when hitting an attack on someone per point");
             Console.WriteLine("Defence: -1 Damage taken when getting hit per point");
@@ -413,15 +345,12 @@ static Characters StatPoints(Characters hero)
             Console.WriteLine("Dexterity: +1% Chance to dodge an attack per point");
             Console.WriteLine("(Click Enter to get back)");
             Console.ReadLine();
-
         }
         else if (choice == 8)
         {
-
             Console.WriteLine("Are you sure you want to reset your stats?");
             Console.WriteLine("Write 'yes' if you are sure");
             option = Console.ReadLine();
-
             if (option == "yes")
             {
 
@@ -432,81 +361,64 @@ static Characters StatPoints(Characters hero)
                 hero.Spd = 0;
                 hero.Acc = 0;
                 hero.Dex = 0;
-
             }
-
         }
         else if (choice == 9)
         {
-
-
-
+            // just checking if the user did type 9 so nothing happens
         }
         else if (hero.Stat == 0)
         {
-
             Console.WriteLine("No stat points left, please try again");
             Console.ReadLine();
-
         }
         else if (choice == 1)
         {
-
             hero.Vt++;
             hero.Stat--;
-
         }
         else if (choice == 2)
         {
-
             hero.Atk++;
             hero.Stat--;
-
         }
         else if (choice == 3)
         {
-
             hero.Def++;
             hero.Stat--;
-
         }
         else if (choice == 4)
         {
-
             hero.Spd++;
             hero.Stat--;
-
         }
         else if (choice == 5)
         {
-
             hero.Acc++;
             hero.Stat--;
-
         }
         else if (choice == 6)
         {
-
             hero.Dex++;
             hero.Stat--;
-
         }
-
+        hero.Hp = 100 + (10 * hero.Vt);
     }
-
-    hero.Hp = 100 + (10 * hero.Vt);
+    hero.MaxHp = hero.Hp;
     return hero;
-
 }
 
 static (Characters hero, Characters enemy, int story) fight(Characters hero, Characters enemy, int story)
 {
     Random generator = new Random();
+    string attackChoice;
     int accuracy;
+    int extraDodgeHero = 0;
+    int extraDodgeEnemy = 0;
+    string[] acceptable = ["a", "b", "c", "d", "1", "2", "3", "4"];
     
     while (hero.Hp > 0 && enemy.Hp > 0)
     {
-        
         // going to impliment speed check later
 
         Console.Clear();
@@ -515,11 +427,21 @@ static (Characters hero, Characters enemy, int story) fight(Characters hero, Cha
 
         // lets the user choose what action they want to do
         Console.WriteLine("--- Choose Action ---");
+        Console.WriteLine($"1) Light Attack: {5+hero.Atk}-{20+hero.Atk}, {80+hero.Acc-enemy.Dex-extraDodgeEnemy}% Accuracy");
+        Console.WriteLine($"2) Heavy Attack: {10+hero.Atk}-{40+(hero.Atk * 2)}, {30+hero.Acc-enemy.Dex-extraDodgeEnemy}% Accuracy");
+        Console.WriteLine($"3) Dodge: +{hero.Dex}% to dodge");
+        Console.WriteLine($"4) Rest: {hero.MaxHp/7}-{hero.MaxHp/3} healing");
+        attackChoice = Console.ReadLine();
 
+        // if the answe is not one of the options in the array "acceptable" it asks you to try again
+         while (!acceptable.Contains(attackChoice))
+        {
+            Console.WriteLine("Okänt Svar, försök igen\n");
+            attackChoice = Console.ReadLine();
+        }
     }
-
+    hero.Hp = 100 + (10 * hero.Vt);
     return (hero, enemy, story);
-
 }
 
 // ==================== CLASS ====================
@@ -537,6 +459,7 @@ class Characters
 {
     public string Name;
     public int Hp;
+    public int MaxHp;
     public int Vt;
     public int Atk;
     public int Def;
@@ -544,5 +467,4 @@ class Characters
     public int Acc;
     public int Dex;
     public int Stat;
-
 }
