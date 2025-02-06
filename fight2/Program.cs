@@ -268,7 +268,7 @@ static Characters FirstStats(Characters hero)
         else if (choice == 7)
         {
             Console.WriteLine("\nVitality: +10 hp per point");
-            Console.WriteLine("Attack: +2 Damage when hitting an attack on someone per point");
+            Console.WriteLine("Attack:  Ups the damage cap by 1 (by 2 with heavy attack)");
             Console.WriteLine("Defence: -1 Damage taken when getting hit per point");
             Console.WriteLine("Speed: +5 on Speed Checks per point");
             Console.WriteLine("Accuracy: +1% Chance to hit an attack per point");
@@ -338,7 +338,7 @@ static Characters StatPoints(Characters hero)
         if (choice == 7)
         {
             Console.WriteLine("\nVitality: +10 hp per point");
-            Console.WriteLine("Attack: +2 Damage when hitting an attack on someone per point");
+            Console.WriteLine("Attack: Ups the damage cap by 1 (by 2 with heavy attack)");
             Console.WriteLine("Defence: -1 Damage taken when getting hit per point");
             Console.WriteLine("Speed: +5 on Speed Checks per point");
             Console.WriteLine("Accuracy: +1% Chance to hit an attack per point");
@@ -413,6 +413,8 @@ static (Characters hero, Characters enemy, int story) fight(Characters hero, Cha
     Random generator = new Random();
     string attackChoice;
     int accuracy;
+    int Dmg;
+    int randomChoice;
     int extraDodgeHero = 0;
     int extraDodgeEnemy = 0;
     string[] acceptable = ["a", "b", "c", "d", "1", "2", "3", "4"];
@@ -420,6 +422,7 @@ static (Characters hero, Characters enemy, int story) fight(Characters hero, Cha
     while (hero.Hp > 0 && enemy.Hp > 0)
     {
         // going to impliment speed check later
+        // going to probably need to add everything bellow here in to methods to make it more readable
 
         Console.Clear();
         Console.WriteLine("======= NEW ROUND =======");
@@ -427,7 +430,7 @@ static (Characters hero, Characters enemy, int story) fight(Characters hero, Cha
 
         // lets the user choose what action they want to do
         Console.WriteLine("--- Choose Action ---");
-        Console.WriteLine($"1) Light Attack: {5+hero.Atk}-{20+hero.Atk}, {80+hero.Acc-enemy.Dex-extraDodgeEnemy}% Accuracy");
+        Console.WriteLine($"1) Light Attack: {5+hero.Atk-enemy.Def}-{20+hero.Atk-enemy.Def}, {80+hero.Acc-enemy.Dex-extraDodgeEnemy}% Accuracy");
         Console.WriteLine($"2) Heavy Attack: {10+hero.Atk}-{40+(hero.Atk * 2)}, {30+hero.Acc-enemy.Dex-extraDodgeEnemy}% Accuracy");
         Console.WriteLine($"3) Dodge: +{hero.Dex}% to dodge");
         Console.WriteLine($"4) Rest: {hero.MaxHp/7}-{hero.MaxHp/3} healing");
@@ -439,6 +442,52 @@ static (Characters hero, Characters enemy, int story) fight(Characters hero, Cha
             Console.WriteLine("Okänt Svar, försök igen\n");
             attackChoice = Console.ReadLine();
         }
+
+
+        // ==================== HERO ATTACK =====================
+        accuracy = generator.Next(1, 101);
+        extraDodgeHero = 0;
+
+        // if you choose 1 or a the user tries a light attack
+        if (attackChoice == "a" || attackChoice == "1")
+        {
+            if (accuracy > 80-hero.Acc+enemy.Dex+extraDodgeEnemy)
+            {
+                Console.WriteLine($"{hero.Name} missed their attack\n");
+            }
+            else
+            {
+                Dmg = generator.Next(5+hero.Atk-enemy.Def, 21+hero.Atk-enemy.Def);
+                enemy.Hp -= Dmg;
+                enemy.Hp = Math.Max(0, enemy.Hp);
+                Console.WriteLine($"{hero.Name} uses light attack!");
+                Console.WriteLine($"{hero.Name} does {Dmg} to {enemy.Name}\n");
+            }
+        }
+        // if you chhose 2 or b the user tries a heavy attack
+        else if (attackChoice == "b" || attackChoice == "2")
+        {
+            if (accuracy > 30-hero.Acc+enemy.Dex+extraDodgeEnemy)
+            {
+                Console.WriteLine($"{hero.Name} missed their attack\n");
+            }
+            else
+            {
+                Dmg = generator.Next(10+hero.Atk-enemy.Def, 40+(hero.Atk*2)-enemy.Def);
+                enemy.Hp -= Dmg;
+                enemy.Hp = Math.Max(0, enemy.Hp);
+                Console.WriteLine($"{hero.Name} uses heavy attack!");
+                Console.WriteLine($"{hero.Name} does {Dmg} to {enemy.Name}\n");
+            }
+        }
+
+
+        //  ==================== ENEMY ATTACK ========================
+
+        // gives the enemy a randon choice
+        
+
+
     }
     hero.Hp = 100 + (10 * hero.Vt);
     return (hero, enemy, story);
