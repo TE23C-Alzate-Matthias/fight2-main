@@ -418,18 +418,15 @@ static Characters StatPoints(Characters player)
 
 static (Characters player, Characters enemy, int story) fight(Characters player, Characters enemy, int story)
 {
-    int accuracy;
-    int randomChoice;
-
     while (player.Hp > 0 && enemy.Hp > 0)
     {
-
         Console.Clear();
         Console.WriteLine("======= NEW ROUND =======");
         Console.WriteLine($"{player.Name}: {player.Hp} Hp  |  {enemy.Name}: {enemy.Hp} Hp\n");
 
         // going to impliment speed check later
         (player, enemy) = playerAttack(player, enemy);
+        (player, enemy) = enemyAttack(player, enemy);
 
 
 
@@ -518,10 +515,52 @@ static (Characters player, Characters enemy) playerAttack(Characters player, Cha
     else if (attackChoice == "d" || attackChoice == "4")
     {
         healing = generator.Next(player.MaxHp / 7, player.MaxHp / 4 + 1);
+        player.Hp += healing;
+        Console.WriteLine($"{player.Name} healed {healing} Hp");
     }
 
     return (player, enemy);
 
+}
+
+// 
+static (Characters player, Characters enemy) enemyAttack(Characters player, Characters enemy)
+{
+    Random generator = new Random();
+    int accuracy = generator.Next(1, 101);
+    int randomChoice;
+
+    if (enemy.Hp < enemy.MaxHp / 3) // when hp is 
+    {
+        randomChoice = generator.Next(4);
+    }
+    else if (enemy.Hp < enemy.MaxHp / 3 * 2)
+    {
+        randomChoice = generator.Next(3);
+    }
+    else
+    {
+        randomChoice = generator.Next(2);
+    }
+
+    if (randomChoice == 0)
+    {
+
+    }
+    else if (randomChoice == 1)
+    {
+
+    }
+    else if (randomChoice == 2)
+    {
+
+    }
+    else if (randomChoice == 3)
+    {
+        
+    }
+
+    return (player, enemy);
 }
 
 // ==================== CLASS ====================
