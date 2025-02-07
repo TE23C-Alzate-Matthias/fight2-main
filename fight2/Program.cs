@@ -110,6 +110,7 @@ while (keepPlaying == "yes")
 
 // ==================== METODER ====================
 
+
 // STORY PROGRESSION
 static int story(int story)
 {
@@ -142,8 +143,9 @@ static int story(int story)
     return story;
 }
 
+
 // STUFF YOU CAN DO BETWEEN FIGHTS
-static Characters betweenFight(Characters hero, Characters enemy)
+static Characters betweenFight(Characters player, Characters enemy)
 {
     int choice = 0;
     string option;
@@ -170,7 +172,7 @@ static Characters betweenFight(Characters hero, Characters enemy)
         if (choice == 1)
         {
             // stats option
-            StatPoints(hero);
+            StatPoints(player);
         }
         else if (choice == 2)
         {
@@ -199,27 +201,28 @@ static Characters betweenFight(Characters hero, Characters enemy)
         }
         Console.Clear();
     }
-    hero.MaxHp = hero.Hp;
-    return hero;
+    player.MaxHp = player.Hp;
+    return player;
 }
 
+
 // FIRST TIME YOU WILL ADD STATPOINTS
-static Characters FirstStats(Characters hero)
+static Characters FirstStats(Characters player)
 {
     int choice;
     string option;
     string[] acceptable = ["1", "2", "3", "4", "5", "6", "7", "8"];
 
-    while (hero.Stat > 0)
+    while (player.Stat > 0)
     {
-        Console.WriteLine($"Total Stat Points left: {hero.Stat}");
+        Console.WriteLine($"Total Stat Points left: {player.Stat}");
         Console.WriteLine("Add Statpoints to your character:\n");
-        Console.WriteLine($"1) Vitality: {hero.Vt}");
-        Console.WriteLine($"2) Attack: {hero.Atk}");
-        Console.WriteLine($"3) Defence: {hero.Def}");
-        Console.WriteLine($"4) Speed: {hero.Spd}");
-        Console.WriteLine($"5) Accuracy: {hero.Acc}");
-        Console.WriteLine($"6) Dexterity: {hero.Dex}");
+        Console.WriteLine($"1) Vitality: {player.Vt}");
+        Console.WriteLine($"2) Attack: {player.Atk}");
+        Console.WriteLine($"3) Defence: {player.Def}");
+        Console.WriteLine($"4) Speed: {player.Spd}");
+        Console.WriteLine($"5) Accuracy: {player.Acc}");
+        Console.WriteLine($"6) Dexterity: {player.Dex}");
         Console.WriteLine($"7) Help");
         Console.WriteLine($"8) Reset Stat Points");
 
@@ -237,38 +240,38 @@ static Characters FirstStats(Characters hero)
         // i feel like this can get more compacted but will leave it like this for now
         if (choice == 1)
         {
-            hero.Vt++;
-            hero.Stat--;
+            player.Vt++;
+            player.Stat--;
         }
         else if (choice == 2)
         {
-            hero.Atk++;
-            hero.Stat--;
+            player.Atk++;
+            player.Stat--;
         }
         else if (choice == 3)
         {
-            hero.Def++;
-            hero.Stat--;
+            player.Def++;
+            player.Stat--;
         }
         else if (choice == 4)
         {
-            hero.Spd++;
-            hero.Stat--;
+            player.Spd++;
+            player.Stat--;
         }
         else if (choice == 5)
         {
-            hero.Acc++;
-            hero.Stat--;
+            player.Acc++;
+            player.Stat--;
         }
         else if (choice == 6)
         {
-            hero.Dex++;
-            hero.Stat--;
+            player.Dex++;
+            player.Stat--;
         }
         else if (choice == 7)
         {
             Console.WriteLine("\nVitality: +10 hp per point");
-            Console.WriteLine("Attack:  Ups the damage cap by 1 (by 2 with heavy attack)");
+            Console.WriteLine("Attack:  1+ Minimun and Maximun damage when hitting an attack (+2 maximun damage on heavy attack)");
             Console.WriteLine("Defence: -1 Damage taken when getting hit per point");
             Console.WriteLine("Speed: +5 on Speed Checks per point");
             Console.WriteLine("Accuracy: +1% Chance to hit an attack per point");
@@ -284,24 +287,25 @@ static Characters FirstStats(Characters hero)
 
             if (option == "yes")
             {
-                hero.Stat = hero.Stat + hero.Vt + hero.Atk + hero.Def + hero.Spd + hero.Acc + hero.Dex;
-                hero.Vt = 0;
-                hero.Atk = 0;
-                hero.Def = 0;
-                hero.Spd = 0;
-                hero.Acc = 0;
-                hero.Dex = 0;
+                player.Stat = player.Stat + player.Vt + player.Atk + player.Def + player.Spd + player.Acc + player.Dex;
+                player.Vt = 0;
+                player.Atk = 0;
+                player.Def = 0;
+                player.Spd = 0;
+                player.Acc = 0;
+                player.Dex = 0;
             }
         }
         Console.Clear();
     }
-    hero.Hp = 100 + (10 * hero.Vt);
-    hero.MaxHp = hero.Hp;
-    return hero;
+    player.Hp = 100 + (10 * player.Vt);
+    player.MaxHp = player.Hp;
+    return player;
 }
 
+
 // ALL OTHER TIMES YOU CHOOSE STATPOINTS AS AN OPTION
-static Characters StatPoints(Characters hero)
+static Characters StatPoints(Characters player)
 {
     int choice = 0;
     string option;
@@ -310,15 +314,15 @@ static Characters StatPoints(Characters hero)
     while (choice != 9)
     {
         Console.Clear();
-        Console.WriteLine($"Total Stat Points left: {hero.Stat}");
+        Console.WriteLine($"Total Stat Points left: {player.Stat}");
         Console.WriteLine("Add Statpoints to your character:\n");
-        Console.WriteLine($"Hp: {hero.Hp}");
-        Console.WriteLine($"1) Vitality: {hero.Vt}");
-        Console.WriteLine($"2) Attack: {hero.Atk}");
-        Console.WriteLine($"3) Defence: {hero.Def}");
-        Console.WriteLine($"4) Speed: {hero.Spd}");
-        Console.WriteLine($"5) Accuracy: {hero.Acc}");
-        Console.WriteLine($"6) Dexterity: {hero.Dex}");
+        Console.WriteLine($"Hp: {player.Hp}");
+        Console.WriteLine($"1) Vitality: {player.Vt}");
+        Console.WriteLine($"2) Attack: {player.Atk}");
+        Console.WriteLine($"3) Defence: {player.Def}");
+        Console.WriteLine($"4) Speed: {player.Spd}");
+        Console.WriteLine($"5) Accuracy: {player.Acc}");
+        Console.WriteLine($"6) Dexterity: {player.Dex}");
         Console.WriteLine($"7) Help");
         Console.WriteLine($"8) Reset Stat Points");
         Console.WriteLine($"9) Exit");
@@ -338,7 +342,7 @@ static Characters StatPoints(Characters hero)
         if (choice == 7)
         {
             Console.WriteLine("\nVitality: +10 hp per point");
-            Console.WriteLine("Attack: Ups the damage cap by 1 (by 2 with heavy attack)");
+            Console.WriteLine("Attack: 1+ Minimun and Maximun damage when hitting an attack (+2 maximun damage on heavy attack)");
             Console.WriteLine("Defence: -1 Damage taken when getting hit per point");
             Console.WriteLine("Speed: +5 on Speed Checks per point");
             Console.WriteLine("Accuracy: +1% Chance to hit an attack per point");
@@ -354,143 +358,170 @@ static Characters StatPoints(Characters hero)
             if (option == "yes")
             {
 
-                hero.Stat = hero.Stat + hero.Vt + hero.Atk + hero.Def + hero.Spd + hero.Acc + hero.Dex;
-                hero.Vt = 0;
-                hero.Atk = 0;
-                hero.Def = 0;
-                hero.Spd = 0;
-                hero.Acc = 0;
-                hero.Dex = 0;
+                player.Stat = player.Stat + player.Vt + player.Atk + player.Def + player.Spd + player.Acc + player.Dex;
+                player.Vt = 0;
+                player.Atk = 0;
+                player.Def = 0;
+                player.Spd = 0;
+                player.Acc = 0;
+                player.Dex = 0;
             }
         }
         else if (choice == 9)
         {
             // just checking if the user did type 9 so nothing happens
         }
-        else if (hero.Stat == 0)
+        else if (player.Stat == 0)
         {
             Console.WriteLine("No stat points left, please try again");
             Console.ReadLine();
         }
         else if (choice == 1)
         {
-            hero.Vt++;
-            hero.Stat--;
+            player.Vt++;
+            player.Stat--;
         }
         else if (choice == 2)
         {
-            hero.Atk++;
-            hero.Stat--;
+            player.Atk++;
+            player.Stat--;
         }
         else if (choice == 3)
         {
-            hero.Def++;
-            hero.Stat--;
+            player.Def++;
+            player.Stat--;
         }
         else if (choice == 4)
         {
-            hero.Spd++;
-            hero.Stat--;
+            player.Spd++;
+            player.Stat--;
         }
         else if (choice == 5)
         {
-            hero.Acc++;
-            hero.Stat--;
+            player.Acc++;
+            player.Stat--;
         }
         else if (choice == 6)
         {
-            hero.Dex++;
-            hero.Stat--;
+            player.Dex++;
+            player.Stat--;
         }
-        hero.Hp = 100 + (10 * hero.Vt);
+        player.Hp = 100 + (10 * player.Vt);
     }
-    hero.MaxHp = hero.Hp;
-    return hero;
+    player.MaxHp = player.Hp;
+    return player;
 }
 
-static (Characters hero, Characters enemy, int story) fight(Characters hero, Characters enemy, int story)
+
+// FIGHT METHOD
+// possible to move some stuff from this method to the main, will check on later
+
+static (Characters player, Characters enemy, int story) fight(Characters player, Characters enemy, int story)
 {
-    Random generator = new Random();
-    string attackChoice;
     int accuracy;
-    int Dmg;
     int randomChoice;
-    int extraDodgeHero = 0;
-    int extraDodgeEnemy = 0;
-    string[] acceptable = ["a", "b", "c", "d", "1", "2", "3", "4"];
-    
-    while (hero.Hp > 0 && enemy.Hp > 0)
+
+    while (player.Hp > 0 && enemy.Hp > 0)
     {
-        // going to impliment speed check later
-        // going to probably need to add everything bellow here in to methods to make it more readable
 
         Console.Clear();
         Console.WriteLine("======= NEW ROUND =======");
-        Console.WriteLine($"{hero.Name}: {hero.Hp} Hp  |  {enemy.Name}: {enemy.Hp} Hp\n");
+        Console.WriteLine($"{player.Name}: {player.Hp} Hp  |  {enemy.Name}: {enemy.Hp} Hp\n");
 
-        // lets the user choose what action they want to do
-        Console.WriteLine("--- Choose Action ---");
-        Console.WriteLine($"1) Light Attack: {5+hero.Atk-enemy.Def}-{20+hero.Atk-enemy.Def}, {80+hero.Acc-enemy.Dex-extraDodgeEnemy}% Accuracy");
-        Console.WriteLine($"2) Heavy Attack: {10+hero.Atk}-{40+(hero.Atk * 2)}, {30+hero.Acc-enemy.Dex-extraDodgeEnemy}% Accuracy");
-        Console.WriteLine($"3) Dodge: +{hero.Dex}% to dodge");
-        Console.WriteLine($"4) Rest: {hero.MaxHp/7}-{hero.MaxHp/3} healing");
-        attackChoice = Console.ReadLine();
-
-        // if the answe is not one of the options in the array "acceptable" it asks you to try again
-         while (!acceptable.Contains(attackChoice))
-        {
-            Console.WriteLine("Okänt Svar, försök igen\n");
-            attackChoice = Console.ReadLine();
-        }
+        // going to impliment speed check later
+        (player, enemy) = playerAttack(player, enemy);
 
 
-        // ==================== HERO ATTACK =====================
-        accuracy = generator.Next(1, 101);
-        extraDodgeHero = 0;
-
-        // if you choose 1 or a the user tries a light attack
-        if (attackChoice == "a" || attackChoice == "1")
-        {
-            if (accuracy > 80-hero.Acc+enemy.Dex+extraDodgeEnemy)
-            {
-                Console.WriteLine($"{hero.Name} missed their attack\n");
-            }
-            else
-            {
-                Dmg = generator.Next(5+hero.Atk-enemy.Def, 21+hero.Atk-enemy.Def);
-                enemy.Hp -= Dmg;
-                enemy.Hp = Math.Max(0, enemy.Hp);
-                Console.WriteLine($"{hero.Name} uses light attack!");
-                Console.WriteLine($"{hero.Name} does {Dmg} to {enemy.Name}\n");
-            }
-        }
-        // if you chhose 2 or b the user tries a heavy attack
-        else if (attackChoice == "b" || attackChoice == "2")
-        {
-            if (accuracy > 30-hero.Acc+enemy.Dex+extraDodgeEnemy)
-            {
-                Console.WriteLine($"{hero.Name} missed their attack\n");
-            }
-            else
-            {
-                Dmg = generator.Next(10+hero.Atk-enemy.Def, 40+(hero.Atk*2)-enemy.Def);
-                enemy.Hp -= Dmg;
-                enemy.Hp = Math.Max(0, enemy.Hp);
-                Console.WriteLine($"{hero.Name} uses heavy attack!");
-                Console.WriteLine($"{hero.Name} does {Dmg} to {enemy.Name}\n");
-            }
-        }
 
 
         //  ==================== ENEMY ATTACK ========================
 
         // gives the enemy a randon choice
-        
+
 
 
     }
-    hero.Hp = 100 + (10 * hero.Vt);
-    return (hero, enemy, story);
+    player.Hp = 100 + (10 * player.Vt);
+    return (player, enemy, story);
+}
+
+
+// PLAYER ATTACK METHOD
+static (Characters player, Characters enemy) playerAttack(Characters player, Characters enemy)
+{
+
+    Random generator = new Random();
+    string attackChoice;
+    int accuracy;
+    int healing;
+    string[] acceptable = ["a", "b", "c", "d", "1", "2", "3", "4"];
+
+    // lets the user choose what action they want to do
+    Console.WriteLine("--- Choose Action ---");
+    Console.WriteLine($"1) Light Attack: {5 + player.Atk - enemy.Def}-{20 + player.Atk - enemy.Def}, {80 + player.Acc - enemy.Dex - enemy.ExtraDodge}% Accuracy");
+    Console.WriteLine($"2) Heavy Attack: {10 + player.Atk}-{40 + (player.Atk * 2)}, {30 + player.Acc - enemy.Dex - enemy.ExtraDodge}% Accuracy");
+    Console.WriteLine($"3) Dodge: +{player.Dex}% added to opponents accuracy check");
+    Console.WriteLine($"4) Rest: {player.MaxHp / 7}-{player.MaxHp / 4} healing");
+    attackChoice = Console.ReadLine();
+
+    // if the answer is not one of the options in the array "acceptable" it asks you to try again
+    while (!acceptable.Contains(attackChoice))
+    {
+        Console.WriteLine("Okänt Svar, försök igen\n");
+        attackChoice = Console.ReadLine();
+    }
+
+
+    // ==================== Player ATTACK =====================
+    accuracy = generator.Next(1, 101);
+    player.ExtraDodge = 0;
+
+    // if you choose 1 or a the user tries a light attack
+    if (attackChoice == "a" || attackChoice == "1")
+    {
+        if (accuracy > 80 - player.Acc + enemy.Dex + enemy.ExtraDodge)
+        {
+            Console.WriteLine($"{player.Name} missed their attack\n");
+        }
+        else
+        {
+            player.Dmg = generator.Next(5 + player.Atk - enemy.Def, 21 + player.Atk - enemy.Def);
+            enemy.Hp -= player.Dmg;
+            enemy.Hp = Math.Max(0, enemy.Hp);
+            Console.WriteLine($"{player.Name} uses light attack!");
+            Console.WriteLine($"{player.Name} does {player.Dmg} to {enemy.Name}\n");
+        }
+    }
+    // if you chhose 2 or b the user tries a heavy attack
+    else if (attackChoice == "b" || attackChoice == "2")
+    {
+        if (accuracy > 30 - player.Acc + enemy.Dex + enemy.ExtraDodge)
+        {
+            Console.WriteLine($"{player.Name} missed their attack\n");
+        }
+        else
+        {
+            player.Dmg = generator.Next(10 + player.Atk - enemy.Def, 41 + (player.Atk * 2) - enemy.Def);
+            enemy.Hp -= player.Dmg;
+            enemy.Hp = Math.Max(0, enemy.Hp);
+            Console.WriteLine($"{player.Name} uses heavy attack!");
+            Console.WriteLine($"{player.Name} does {player.Dmg} to {enemy.Name}\n");
+        }
+    }
+    // if you choose 3 or c the user gets extra dodge chance
+    else if (attackChoice == "c" || attackChoice == "3")
+    {
+        player.ExtraDodge = player.Dex;
+        Console.WriteLine($"{player.Name} prepares to dodge {enemy.Name} next action");
+    }
+    // if you choose 4 or d the user heals an amout of hp
+    else if (attackChoice == "d" || attackChoice == "4")
+    {
+        healing = generator.Next(player.MaxHp / 7, player.MaxHp / 4 + 1);
+    }
+
+    return (player, enemy);
+
 }
 
 // ==================== CLASS ====================
@@ -503,12 +534,12 @@ static (Characters hero, Characters enemy, int story) fight(Characters hero, Cha
 // Acc - Accuracy
 // Dex - Dexterity
 // Stat - Stat Points
+// Dmg - Damage
 
 class Characters
 {
     public string Name;
     public int Hp;
-    public int MaxHp;
     public int Vt;
     public int Atk;
     public int Def;
@@ -516,4 +547,7 @@ class Characters
     public int Acc;
     public int Dex;
     public int Stat;
+    public int ExtraDodge;
+    public int MaxHp;
+    public int Dmg;
 }
