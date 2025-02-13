@@ -16,10 +16,10 @@ Characters e1 = new();
 e1.Name = "Kayn";
 e1.Vt = 2;
 e1.Atk = 3;
-e1.Def = 0;
+e1.Def = 1;
 e1.Spd = 8;
 e1.Acc = 3;
-e1.Dex = 0;
+e1.Dex = 1;
 e1.Hp = 100 + (10 * e1.Vt);
 e1.MaxHp = e1.Hp;
 
@@ -63,6 +63,8 @@ bool ContainsNumbers(string input)
 
 
 // ==================== MAIN ====================
+Console.WriteLine("Version 5");
+Console.WriteLine("ENTER to continue");
 
 while (keepPlaying == "yes")
 {
@@ -100,21 +102,24 @@ while (keepPlaying == "yes")
     }
 
     // ------- BEFORE AND DURING FIGHT -------
-    // just checks where you are in the story and makes you fight the correct one
+    // just checks where you are in the story and makes you fight the correct person
     if (storyPoint == 0)
     {
         p1 = betweenFight(p1, e1);
         (p1, e1, storyPoint) = fight(p1, e1, storyPoint);
+        p1.Stat += 10;
     }
     else if (storyPoint == 1)
     {
         p1 = betweenFight(p1, e2);
         (p1, e2, storyPoint) = fight(p1, e2, storyPoint);
+        p1.Stat += 10;
     }
     else if (storyPoint == 2)
     {
         p1 = betweenFight(p1, e3);
         (p1, e3, storyPoint) = fight(p1, e3, storyPoint);
+        p1.Stat += 20;
     }
 
     // ------- STORY PROGRESSION CHECK -------
@@ -125,6 +130,16 @@ while (keepPlaying == "yes")
         Console.WriteLine("Write yes to restart from the beginning, leave it empty to exit");
         keepPlaying = Console.ReadLine();
         storyPoint = 0;
+        e1.Hp = e1.MaxHp;
+        e2.Hp = e2.MaxHp;
+        e3.Hp = e3.MaxHp;
+        p1.Stat = 20;
+        p1.Vt = 0;
+        p1.Atk = 0;
+        p1.Def = 0;
+        p1.Spd = 0;
+        p1.Acc = 0;
+        p1.Dex = 0;
     }
     else
     {
@@ -139,7 +154,7 @@ while (keepPlaying == "yes")
 // STORY PROGRESSION
 static int story(int story)
 {
-
+    // checks what point you are in the story
     if (story == 0)
     {
         Console.WriteLine("you got thrown into prison and to get free you have to win 3 fights. first fight is against Kayn\n");
@@ -174,14 +189,15 @@ static Characters betweenFight(Characters player, Characters enemy)
 {
     int choice = 0;
     string option;
-    string[] acceptable = ["1", "2", "3", "4"];
+    string[] acceptable = ["1", "2", "3", "4", "5"];
 
     while (choice != 3)
     {
         Console.WriteLine("1) Check Stats");
         Console.WriteLine("2) Next Enemy");
         Console.WriteLine("3) Start Next Fight");
-        Console.WriteLine("4) Quit");
+        Console.WriteLine("4) Info (Not implemented yet)");
+        Console.WriteLine("5) Quit");
 
         option = Console.ReadLine();
         int.TryParse(option, out choice);
@@ -214,6 +230,10 @@ static Characters betweenFight(Characters player, Characters enemy)
             Console.ReadLine();
         }
         else if (choice == 4)
+        {
+
+        }
+        else
         {
             // if you want to exit program
             Console.WriteLine("Are you sure you want to quit? (Write yes if you want to quit)");
@@ -339,6 +359,7 @@ static Characters StatPoints(Characters player)
     while (choice != 9)
     {
         Console.Clear();
+        // options on what you can do
         Console.WriteLine($"Total Stat Points left: {player.Stat}");
         Console.WriteLine("Add Statpoints to your character:\n");
         Console.WriteLine($"Hp: {player.Hp}");
@@ -365,7 +386,8 @@ static Characters StatPoints(Characters player)
 
         // i feel like this can get more compacted but will leave it like this for now
         if (choice == 7)
-        {
+        {   
+            // shows what each stat does
             Console.WriteLine("\nVitality: +10 hp per point");
             Console.WriteLine("Attack: 1+ Minimun and Maximun damage when hitting an attack (+2 maximun damage on heavy attack)");
             Console.WriteLine("Defence: -1 Damage taken when getting hit per point");
@@ -456,6 +478,11 @@ static (Characters player, Characters enemy, int story) fight(Characters player,
         enemySpeed = generator.Next(1, 101) + (enemy.Spd * 5);
         playerSpeed = generator.Next(1, 101) + (player.Spd * 5);
 
+        // writes out what both rolled for speed
+        Console.WriteLine("------- Speed Roll -------");
+        Console.WriteLine($"{player.Name} got {playerSpeed}");
+        Console.WriteLine($"{enemy.Name} got {enemySpeed}");
+
         // if enemy speed is higher than player speed, the enemy attacks first
         if (enemySpeed > playerSpeed)
         {
@@ -515,7 +542,7 @@ static (Characters player, Characters enemy) playerAttack(Characters player, Cha
     Console.WriteLine("--- Choose Action ---");
     Console.WriteLine($"1) Light Attack: {5 + player.Atk - enemy.Def}-{20 + player.Atk - enemy.Def}, {80 + player.Acc - enemy.Dex - enemy.ExtraDodge}% Accuracy");
     Console.WriteLine($"2) Heavy Attack: {10 + player.Atk}-{40 + (player.Atk * 2)}, {30 + player.Acc - enemy.Dex - enemy.ExtraDodge}% Accuracy");
-    Console.WriteLine($"3) Dodge: +{player.Dex}% added to opponents accuracy check");
+    Console.WriteLine($"3) Dodge: {player.Dex}% removed to opponents accuracy check");
     Console.WriteLine($"4) Rest: {player.MaxHp / 7}-{player.MaxHp / 4} healing");
     attackChoice = Console.ReadLine();
 
@@ -534,14 +561,18 @@ static (Characters player, Characters enemy) playerAttack(Characters player, Cha
     // if you choose 1 or a the user tries a light attack
     if (attackChoice == "a" || attackChoice == "1")
     {
-        if (accuracy > 80 - player.Acc + enemy.Dex + enemy.ExtraDodge)
+        if (accuracy < 20 - player.Acc + enemy.Dex + enemy.ExtraDodge)
         {
             Console.WriteLine($"{player.Name} missed their attack\n");
         }
         else
-        {
-            player.Dmg = generator.Next(5 + player.Atk - enemy.Def, 21 + player.Atk - enemy.Def);
+        {   
+            // calculates the dmg
+            player.Dmg = generator.Next(5 + player.Atk, 21 + player.Atk) - enemy.Def;
+            // makes sure the dmg isnt bellow 0
+            player.Dmg = Math.Max(0, player.Dmg);
             enemy.Hp -= player.Dmg;
+            // makes sure the health isnt bellow 0
             enemy.Hp = Math.Max(0, enemy.Hp);
             Console.WriteLine($"{player.Name} uses light attack!");
             Console.WriteLine($"{player.Name} does {player.Dmg} damage to {enemy.Name}\n");
@@ -550,14 +581,18 @@ static (Characters player, Characters enemy) playerAttack(Characters player, Cha
     // if you chhose 2 or b the user tries a heavy attack
     else if (attackChoice == "b" || attackChoice == "2")
     {
-        if (accuracy > 30 - player.Acc + enemy.Dex + enemy.ExtraDodge)
+        if (accuracy < 70 - player.Acc + enemy.Dex + enemy.ExtraDodge)
         {
             Console.WriteLine($"{player.Name} missed their attack\n");
         }
         else
-        {
-            player.Dmg = generator.Next(10 + player.Atk - enemy.Def, 41 + (player.Atk * 2) - enemy.Def);
+        {   
+            // calculates the dmg
+            player.Dmg = generator.Next(10 + player.Atk, 41 + (player.Atk * 2)) - enemy.Def;
+            // makes sure the dmg isnt bellow 0
+            player.Dmg = Math.Max(0, player.Dmg);
             enemy.Hp -= player.Dmg;
+            // makes sure the health isnt bellow 0
             enemy.Hp = Math.Max(0, enemy.Hp);
             Console.WriteLine($"{player.Name} uses heavy attack!");
             Console.WriteLine($"{player.Name} does {player.Dmg} damage to {enemy.Name}\n");
@@ -571,10 +606,12 @@ static (Characters player, Characters enemy) playerAttack(Characters player, Cha
     }
     // if you choose 4 or d the user heals an amout of hp
     else if (attackChoice == "d" || attackChoice == "4")
-    {
-        healing = generator.Next(player.MaxHp / 7, player.MaxHp / 4 + 1);
+    {   
+        // heals you between 1/8 or 1/5 of your hp
+        healing = generator.Next(player.MaxHp / 8, player.MaxHp / 5 + 1);
         player.Hp += healing;
         Console.WriteLine($"{player.Name} healed {healing} Hp");
+        player.Hp = Math.Min(player.Hp, player.MaxHp);
     }
     Console.WriteLine("ENTER to continue");
     Console.ReadLine();
@@ -583,7 +620,7 @@ static (Characters player, Characters enemy) playerAttack(Characters player, Cha
 
 }
 
-// 
+// enemy attack
 static (Characters player, Characters enemy) enemyAttack(Characters player, Characters enemy)
 {
     Random generator = new Random();
@@ -592,7 +629,7 @@ static (Characters player, Characters enemy) enemyAttack(Characters player, Char
     int healing;
     enemy.ExtraDodge = 0;
 
-    if (enemy.Hp < enemy.MaxHp / 3) // when hp is 
+    if (enemy.Hp < enemy.MaxHp / 3) // if hp is bellow /3 of max hp it can do one of the 4 actions
     {
         randomChoice = generator.Next(4);
     }
@@ -608,13 +645,14 @@ static (Characters player, Characters enemy) enemyAttack(Characters player, Char
     // enemy using light attack
     if (randomChoice == 0)
     {
-        if (accuracy > 80 - enemy.Acc + player.Dex + player.ExtraDodge)
+        if (accuracy < 20 - enemy.Acc + player.Dex + player.ExtraDodge)
         {
-            Console.WriteLine($"{player.Name} missed their attack\n");
+            Console.WriteLine($"{enemy.Name} missed their attack\n");
         }
         else
         {
-            enemy.Dmg = generator.Next(5 + player.Atk - enemy.Def, 21 + player.Atk - player.Def);
+            enemy.Dmg = generator.Next(5 + enemy.Atk, 21 + enemy.Atk) - player.Def;
+            enemy.Dmg = Math.Max(0, enemy.Dmg);
             player.Hp -= enemy.Dmg;
             player.Hp = Math.Max(0, player.Hp);
             Console.WriteLine($"{enemy.Name} uses light attack!");
@@ -624,13 +662,14 @@ static (Characters player, Characters enemy) enemyAttack(Characters player, Char
     // enemy using heavy attack
     else if (randomChoice == 1)
     {
-        if (accuracy > 30 - enemy.Acc + player.Dex + player.ExtraDodge)
+        if (accuracy < 70 - enemy.Acc + player.Dex + player.ExtraDodge)
         {
             Console.WriteLine($"{enemy.Name} missed their attack\n");
         }
         else
         {
-            enemy.Dmg = generator.Next(10 + player.Atk - enemy.Def, 41 + (player.Atk * 2) - player.Def);
+            enemy.Dmg = generator.Next(10 + player.Atk, 41 + (player.Atk * 2)) - player.Def;
+            enemy.Dmg = Math.Max(0, enemy.Dmg);
             player.Hp -= enemy.Dmg;
             player.Hp = Math.Max(0, player.Hp);
             Console.WriteLine($"{enemy.Name} uses light attack!");
@@ -649,6 +688,7 @@ static (Characters player, Characters enemy) enemyAttack(Characters player, Char
         healing = generator.Next(enemy.MaxHp / 7, enemy.MaxHp / 4 + 1);
         enemy.Hp += healing;
         Console.WriteLine($"{enemy.Name} healed {healing} Hp");
+        enemy.Hp = Math.Min(enemy.Hp, enemy.MaxHp);
     }
     Console.WriteLine("ENTER to continue");
     Console.ReadLine();
