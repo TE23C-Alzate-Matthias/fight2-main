@@ -1,17 +1,20 @@
+
+
+if story progression is 0 allows the user to choose name
 choose name on hero (you)
 
-while numbers, to short, to long
-    tell user to change name
+    while numbers, to short, to long
+     tell user to change name
 
-give backstory to why you are in the fight arena
+    give backstory to why you are in the fight arena
 
-give stats to character
-    vitality - gives 10 hp per vitality (defult: 0)
-    attack - how mcuh harder you punch (defult: 0)
-    defence - makes you take less dmg   (defult: 0)
-    speed - checks if you attack first  (defult: 0)
-    accuracy - how often you hit your attacks (defult: 0)
-    dexterity - if your able to dodge your attacks (defult: 0)
+    give stats to character
+        vitality - gives 10 hp per vitality (defult: 0)
+        attack - how mcuh harder you punch (defult: 0)
+        defence - makes you take less dmg   (defult: 0)
+        speed - checks if you attack first  (defult: 0)
+        accuracy - how often you hit your attacks (defult: 0)
+        dexterity - if your able to dodge your attacks (defult: 0)
 
 give options to what to do
     check stats
@@ -23,15 +26,21 @@ give options to what to do
     exit program
         confirms if you want to exit the program
 
-start fight with enemy
-    user action option defult:
-        heavy attack - takes more stamina, more dmg, less accuracy, if miss you dont attack next time
-        light attack - takes little stamina, less dmg, better accuracy
-        dodge - you dont attack but have higher chance to dodge the enemies attack 
-        rest - gives you back some random hp
+as long hp of both is above 0 the fight continues
+    makes a speed check and the one with highest speed starts the fight
+        user action option defult:
+            heavy attack - takes more stamina, more dmg, less accuracy, if miss you dont attack next time
+            light attack - takes little stamina, less dmg, better accuracy
+            dodge - you dont attack but have higher chance to dodge the enemies attack 
+            rest - gives you back some random hp
+        enemy action option defult:
+            heavy attack - takes more stamina, more dmg, less accuracy, if miss you dont attack next time
+            light attack - takes little stamina, less dmg, better accuracy
+            dodge - you dont attack but have higher chance to dodge the enemies attack
+            rest - gives you back some random hp
 
-    enemy action option defult:
-        heavy attack - takes more stamina, more dmg, less accuracy, if miss you dont attack next time
-        light attack - takes little stamina, less dmg, better accuracy
-        dodge - you dont attack but have higher chance to dodge the enemies attack
-        rest - gives you back some random hp
+checks who lost and assigns a story progression score to it
+
+    gives story background to what happens after
+        after winning last fight asks if they want to play again and reset all stats and story progression
+
