@@ -14,7 +14,7 @@ p1.Stat = 20;
 // all enemies stats are the same for now
 Characters e1 = new();
 e1.Name = "Kayn";
-e1.Vt = 2;
+e1.Vt = 5;
 e1.Atk = 3;
 e1.Def = 1;
 e1.Spd = 8;
@@ -45,12 +45,9 @@ e3.Dex = 0;
 e3.Hp = 100 + (10 * e3.Vt);
 e3.MaxHp = e3.Hp;
 
-
-// int randomChoice;
 int storyPoint = 0;
 
 string keepPlaying = "yes";
-
 
 Random generator = new Random();
 
@@ -59,7 +56,6 @@ bool ContainsNumbers(string input)
 {
     return Regex.IsMatch(input, @"\d");
 }
-
 
 
 // ==================== MAIN ====================
@@ -119,7 +115,6 @@ while (keepPlaying == "yes")
     {
         p1 = betweenFight(p1, e3);
         (p1, e3, storyPoint) = fight(p1, e3, storyPoint);
-        p1.Stat += 20;
     }
 
     // ------- STORY PROGRESSION CHECK -------
@@ -162,12 +157,12 @@ static int story(int story)
     }
     else if (story == 1)
     {
-        Console.WriteLine("you won your first fight against Kayn, now you have to fight Jackie ");
+        Console.WriteLine("you won your first fight against Kayn, now you have to fight Jackie. +10 stat points");
         Console.ReadLine();
     }
     else if (story == 2)
     {
-        Console.WriteLine("you won your second fight against Jackie, now you have to fight Evelynn");
+        Console.WriteLine("you won your second fight against Jackie, now you have to fight Evelynn +10 stat points");
         Console.ReadLine();
     }
     else if (story == 3)
@@ -231,9 +226,9 @@ static Characters betweenFight(Characters player, Characters enemy)
         }
         else if (choice == 4)
         {
-
+            // gonna impliment stuff here
         }
-        else
+        else if (choice == 5)
         {
             // if you want to exit program
             Console.WriteLine("Are you sure you want to quit? (Write yes if you want to quit)");
@@ -282,36 +277,32 @@ static Characters FirstStats(Characters player)
             int.TryParse(option, out choice);
         }
 
-        // i feel like this can get more compacted but will leave it like this for now
-        if (choice == 1)
+        // got help with chatGPT to make this more compact
+        if (choice >= 1 && choice <= 6)
         {
-            player.Vt++;
+            // deduct one stat point and increase the chosen stat
             player.Stat--;
-        }
-        else if (choice == 2)
-        {
-            player.Atk++;
-            player.Stat--;
-        }
-        else if (choice == 3)
-        {
-            player.Def++;
-            player.Stat--;
-        }
-        else if (choice == 4)
-        {
-            player.Spd++;
-            player.Stat--;
-        }
-        else if (choice == 5)
-        {
-            player.Acc++;
-            player.Stat--;
-        }
-        else if (choice == 6)
-        {
-            player.Dex++;
-            player.Stat--;
+            switch (choice)
+            {
+                case 1:
+                    player.Vt++;
+                    break;
+                case 2:
+                    player.Atk++;
+                    break;
+                case 3:
+                    player.Def++;
+                    break;
+                case 4:
+                    player.Spd++;
+                    break;
+                case 5:
+                    player.Acc++;
+                    break;
+                case 6:
+                    player.Dex++;
+                    break;
+            }
         }
         else if (choice == 7)
         {
@@ -332,7 +323,7 @@ static Characters FirstStats(Characters player)
 
             if (option == "yes")
             {
-                player.Stat = player.Stat + player.Vt + player.Atk + player.Def + player.Spd + player.Acc + player.Dex;
+                player.Stat += player.Vt + player.Atk + player.Def + player.Spd + player.Acc + player.Dex;
                 player.Vt = 0;
                 player.Atk = 0;
                 player.Def = 0;
@@ -386,7 +377,7 @@ static Characters StatPoints(Characters player)
 
         // i feel like this can get more compacted but will leave it like this for now
         if (choice == 7)
-        {   
+        {
             // shows what each stat does
             Console.WriteLine("\nVitality: +10 hp per point");
             Console.WriteLine("Attack: 1+ Minimun and Maximun damage when hitting an attack (+2 maximun damage on heavy attack)");
@@ -405,7 +396,7 @@ static Characters StatPoints(Characters player)
             if (option == "yes")
             {
 
-                player.Stat = player.Stat + player.Vt + player.Atk + player.Def + player.Spd + player.Acc + player.Dex;
+                player.Stat += player.Vt + player.Atk + player.Def + player.Spd + player.Acc + player.Dex;
                 player.Vt = 0;
                 player.Atk = 0;
                 player.Def = 0;
@@ -414,44 +405,37 @@ static Characters StatPoints(Characters player)
                 player.Dex = 0;
             }
         }
-        else if (choice == 9)
-        {
-            // just checking if the user did type 9 so nothing happens
-        }
         else if (player.Stat == 0)
         {
             Console.WriteLine("No stat points left, please try again");
             Console.ReadLine();
         }
-        else if (choice == 1)
+        // got help with chatGPT to make this more compact
+        if (choice >= 1 && choice <= 6)
         {
-            player.Vt++;
+            // deduct one stat point and increase the chosen stat
             player.Stat--;
-        }
-        else if (choice == 2)
-        {
-            player.Atk++;
-            player.Stat--;
-        }
-        else if (choice == 3)
-        {
-            player.Def++;
-            player.Stat--;
-        }
-        else if (choice == 4)
-        {
-            player.Spd++;
-            player.Stat--;
-        }
-        else if (choice == 5)
-        {
-            player.Acc++;
-            player.Stat--;
-        }
-        else if (choice == 6)
-        {
-            player.Dex++;
-            player.Stat--;
+            switch (choice)
+            {
+                case 1:
+                    player.Vt++;
+                    break;
+                case 2:
+                    player.Atk++;
+                    break;
+                case 3:
+                    player.Def++;
+                    break;
+                case 4:
+                    player.Spd++;
+                    break;
+                case 5:
+                    player.Acc++;
+                    break;
+                case 6:
+                    player.Dex++;
+                    break;
+            }
         }
         player.Hp = 100 + (10 * player.Vt);
     }
@@ -566,7 +550,7 @@ static (Characters player, Characters enemy) playerAttack(Characters player, Cha
             Console.WriteLine($"{player.Name} missed their attack\n");
         }
         else
-        {   
+        {
             // calculates the dmg
             player.Dmg = generator.Next(5 + player.Atk, 21 + player.Atk) - enemy.Def;
             // makes sure the dmg isnt bellow 0
@@ -586,7 +570,7 @@ static (Characters player, Characters enemy) playerAttack(Characters player, Cha
             Console.WriteLine($"{player.Name} missed their attack\n");
         }
         else
-        {   
+        {
             // calculates the dmg
             player.Dmg = generator.Next(10 + player.Atk, 41 + (player.Atk * 2)) - enemy.Def;
             // makes sure the dmg isnt bellow 0
@@ -606,7 +590,7 @@ static (Characters player, Characters enemy) playerAttack(Characters player, Cha
     }
     // if you choose 4 or d the user heals an amout of hp
     else if (attackChoice == "d" || attackChoice == "4")
-    {   
+    {
         // heals you between 1/8 or 1/5 of your hp
         healing = generator.Next(player.MaxHp / 8, player.MaxHp / 5 + 1);
         player.Hp += healing;
@@ -620,7 +604,7 @@ static (Characters player, Characters enemy) playerAttack(Characters player, Cha
 
 }
 
-// enemy attack
+// enemy attack method
 static (Characters player, Characters enemy) enemyAttack(Characters player, Characters enemy)
 {
     Random generator = new Random();
@@ -629,15 +613,15 @@ static (Characters player, Characters enemy) enemyAttack(Characters player, Char
     int healing;
     enemy.ExtraDodge = 0;
 
-    if (enemy.Hp < enemy.MaxHp / 3) // if hp is bellow /3 of max hp it can do one of the 4 actions
+    if (enemy.Hp < enemy.MaxHp / 3) // if hp is bellow 1/3 of max hp it can do one of the 4 actions
     {
         randomChoice = generator.Next(4);
     }
-    else if (enemy.Hp < enemy.MaxHp / 3 * 2)
+    else if (enemy.Hp < enemy.MaxHp / 3 * 2) // if hp is bellow 2/3 it can do 3 actions
     {
         randomChoice = generator.Next(3);
     }
-    else
+    else // otherwise it has only 2 actions to do
     {
         randomChoice = generator.Next(2);
     }
