@@ -1,4 +1,8 @@
-﻿// allows me to use Regex to know if an answer has numbers in it
+﻿// bundle everything into one exe with .NET runtime
+// dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true
+
+
+// allows me to use Regex to know if an answer has numbers in it
 using System.Text.RegularExpressions;
 
 Characters p1 = new();
@@ -59,7 +63,7 @@ bool ContainsNumbers(string input)
 
 
 // ==================== MAIN ====================
-Console.WriteLine("Version 5");
+Console.WriteLine("Version 6");
 Console.WriteLine("ENTER to continue");
 
 while (keepPlaying == "yes")
@@ -375,7 +379,6 @@ static Characters StatPoints(Characters player)
             int.TryParse(option, out choice);
         }
 
-        // i feel like this can get more compacted but will leave it like this for now
         if (choice == 7)
         {
             // shows what each stat does
@@ -527,7 +530,7 @@ static (Characters player, Characters enemy) playerAttack(Characters player, Cha
     Console.WriteLine($"1) Light Attack: {5 + player.Atk - enemy.Def}-{20 + player.Atk - enemy.Def}, {80 + player.Acc - enemy.Dex - enemy.ExtraDodge}% Accuracy");
     Console.WriteLine($"2) Heavy Attack: {10 + player.Atk}-{40 + (player.Atk * 2)}, {30 + player.Acc - enemy.Dex - enemy.ExtraDodge}% Accuracy");
     Console.WriteLine($"3) Dodge: {player.Dex}% removed to opponents accuracy check");
-    Console.WriteLine($"4) Rest: {player.MaxHp / 7}-{player.MaxHp / 4} healing");
+    Console.WriteLine($"4) Rest: {player.MaxHp / 8}-{player.MaxHp / 5} healing");
     attackChoice = Console.ReadLine();
 
     // if the answer is not one of the options in the array "acceptable" it asks you to try again
@@ -669,7 +672,7 @@ static (Characters player, Characters enemy) enemyAttack(Characters player, Char
     // enemy using rest
     else if (randomChoice == 3)
     {
-        healing = generator.Next(enemy.MaxHp / 7, enemy.MaxHp / 4 + 1);
+        healing = generator.Next(enemy.MaxHp / 8, enemy.MaxHp / 5 + 1);
         enemy.Hp += healing;
         Console.WriteLine($"{enemy.Name} healed {healing} Hp");
         enemy.Hp = Math.Min(enemy.Hp, enemy.MaxHp);
