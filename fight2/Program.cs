@@ -154,29 +154,30 @@ while (keepPlaying == "yes")
 static int story(int story)
 {
     // checks what point you are in the story
+    // story is also AI generated
     if (story == 0)
     {
-        Console.WriteLine("you got thrown into prison and to get free you have to win 3 fights. first fight is against Kayn\n");
+        Console.WriteLine("Thrown into prison for a crime you didn't commit, you soon learn that freedom can only be earned by surviving a brutal series of fights. Your first opponent is Kayn a fighter whose speed and precision make every move a challenge. As you face him in the dimly lit arena, you realize that quick, decisive actions are your only way out.\n");
         Console.ReadLine();
     }
     else if (story == 1)
     {
-        Console.WriteLine("you won your first fight against Kayn, now you have to fight Jackie. +10 stat points");
+        Console.WriteLine("After narrowly overcoming Kayn, you feel the rush of victory and gain a boost that sharpens your resolve (+10 stat points). But there’s no time to celebrate, as your next opponent, Jackie, steps into the ring. Known for his unwavering resilience and relentless defense, Jackie turns the fight into a grueling test of endurance. Every punch and block feels like a battle for survival.");
         Console.ReadLine();
     }
     else if (story == 2)
     {
-        Console.WriteLine("you won your second fight against Jackie, now you have to fight Evelynn +10 stat points");
+        Console.WriteLine("With newfound strength from your previous victory (+10 stat points), you prepare for your final test: Evelynn. Her fighting style is a blend of fluid grace and lethal precision. Though she may seem unpredictable, every movement is calculated to strike fear into the hearts of her opponents. In this high-stakes encounter, every dodge and counterattack could be the difference between life and death.");
         Console.ReadLine();
     }
     else if (story == 3)
     {
-        Console.WriteLine("You won your last fight against Evelynn and are now free to go! CONGRATS!");
+        Console.WriteLine("In an epic showdown with Evelynn, your perseverance is rewarded as you triumph against all odds. The roar of the crowd drowns out the clamor of the arena as the chains of your imprisonment break away. With each battle having pushed you to your limits, you step through the gates to freedom, forever changed by the trials you endured.");
         Console.ReadLine();
     }
     else if (story == 4)
     {
-        Console.WriteLine("You win some, you lose some. this time you lost your life. Game over.");
+        Console.WriteLine("But not every fight ends in victory. Sometimes, despite your courage and skill, fate deals you a harsh blow. In this somber twist, your journey comes to an abrupt end on the battlefield—a stark reminder that every fight is a gamble, and sometimes the odds just aren’t in your favor.");
         Console.ReadLine();
     }
     return story;
@@ -188,7 +189,7 @@ static Characters betweenFight(Characters player, Characters enemy)
 {
     int choice = 0;
     string option;
-    string[] acceptable = ["1", "2", "3", "4", "5"];
+    string[] acceptable = ["1", "2", "3", "4", "5", "6"];
 
     while (choice != 3)
     {
@@ -230,7 +231,7 @@ static Characters betweenFight(Characters player, Characters enemy)
         }
         else if (choice == 4)
         {
-            // gonna impliment stuff here
+            // gonna impliment stuff here that gives some needed info about some stuff
         }
         else if (choice == 5)
         {
@@ -242,6 +243,13 @@ static Characters betweenFight(Characters player, Characters enemy)
                 // exits the program and closes it
                 Environment.Exit(0);
             }
+        }
+        else if (choice == 6)
+        {
+            // insta end fight when it starts
+            Console.WriteLine("Enemy will start wtih 0 hp next fight");
+            enemy.Hp = 0;
+            Console.ReadLine();
         }
         Console.Clear();
     }
@@ -408,13 +416,16 @@ static Characters StatPoints(Characters player)
                 player.Dex = 0;
             }
         }
+        else if (choice == 9)
+        {}
         else if (player.Stat == 0)
         {
             Console.WriteLine("No stat points left, please try again");
             Console.ReadLine();
+    
         }
         // got help with chatGPT to make this more compact
-        if (choice >= 1 && choice <= 6)
+        else if (choice >= 1 && choice <= 6)
         {
             // deduct one stat point and increase the chosen stat
             player.Stat--;
@@ -518,7 +529,7 @@ static (Characters player, Characters enemy, int story) fight(Characters player,
 // PLAYER ATTACK METHOD
 static (Characters player, Characters enemy) playerAttack(Characters player, Characters enemy)
 {
-
+    // code reuses elements from fight1 but is expanded
     Random generator = new Random();
     string attackChoice;
     int accuracy;
