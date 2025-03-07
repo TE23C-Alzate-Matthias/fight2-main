@@ -1,4 +1,4 @@
-// gör mig kunna använda Regex för att ta reda på att om ett svar har ett nummer i sig
+// lets me use regex to know if a answer has a number in it
 using System.Text.RegularExpressions;
 
 bool ContainsNumbers(string input)

@@ -1,4 +1,4 @@
-﻿// bundle everything into one exe with .NET runtime
+﻿// bundle everything into one exe file with .NET runtime
 // dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true
 
 
@@ -15,7 +15,7 @@ p1.Acc = 0;
 p1.Dex = 0;
 p1.Stat = 20;
 
-// all enemies stats are the same for now
+// more precise and has easier time to attack first
 Characters e1 = new();
 e1.Name = "Kayn";
 e1.Vt = 1;
@@ -27,6 +27,7 @@ e1.Dex = 0;
 e1.Hp = 100 + (10 * e1.Vt);
 e1.MaxHp = e1.Hp;
 
+// tanky enemy with high hp and defence
 Characters e2 = new();
 e2.Name = "Jackie";
 e2.Vt = 20;
@@ -38,6 +39,7 @@ e2.Dex = 0;
 e2.Hp = 100 + (10 * e2.Vt);
 e2.MaxHp = e2.Hp;
 
+// hard to hit enemy which deals a lot damage when hitting, has low hp
 Characters e3 = new();
 e3.Name = "Evelynn";
 e3.Vt = 2;
@@ -93,7 +95,7 @@ while (keepPlaying == "yes")
             // same thing but if it has numbers in it
             else if (ContainsNumbers(p1.Name))
             {
-                Console.WriteLine("Namn has numbers in it, please try again");
+                Console.WriteLine("Name has numbers in it, please try again");
                 p1.Name = Console.ReadLine();
             }
         }
@@ -157,31 +159,31 @@ static int story(int story)
     // story is also AI generated
     if (story == 0)
     {
-        Console.WriteLine("Thrown into prison for a crime you didn't commit, you soon learn that freedom can only be earned by surviving a brutal series of fights. Your first opponent is Kayn a fighter whose speed and precision make every move a challenge. As you face him in the dimly lit arena, you realize that quick, decisive actions are your only way out.\n");
+        Console.WriteLine("\nThrown into prison for a crime you didn't commit, you soon learn that freedom can only be earned by surviving a brutal series of fights. Your first opponent is Kayn a fighter whose speed and precision make every move a challenge. As you face him in the dimly lit arena, you realize that quick, decisive actions are your only way out.\n");
         Console.ReadLine();
     }
     else if (story == 1)
     {
-        Console.WriteLine("After narrowly overcoming Kayn, you feel the rush of victory and gain a boost that sharpens your resolve (+10 stat points). But there’s no time to celebrate, as your next opponent, Jackie, steps into the ring. Known for his unwavering resilience and relentless defense, Jackie turns the fight into a grueling test of endurance. Every punch and block feels like a battle for survival.");
+        Console.WriteLine("\nAfter narrowly overcoming Kayn, you feel the rush of victory and gain a boost that sharpens your resolve (+10 stat points). But there’s no time to celebrate, as your next opponent, Jackie, steps into the ring. Known for his unwavering resilience and relentless defense, Jackie turns the fight into a grueling test of endurance. Every punch and block feels like a battle for survival.");
         Console.ReadLine();
     }
     else if (story == 2)
     {
-        Console.WriteLine("With newfound strength from your previous victory (+10 stat points), you prepare for your final test: Evelynn. Her fighting style is a blend of fluid grace and lethal precision. Though she may seem unpredictable, every movement is calculated to strike fear into the hearts of her opponents. In this high-stakes encounter, every dodge and counterattack could be the difference between life and death.");
+        Console.WriteLine("\nWith newfound strength from your previous victory (+10 stat points), you prepare for your final test: Evelynn. Her fighting style is a blend of fluid grace and lethal precision. Though she may seem unpredictable, every movement is calculated to strike fear into the hearts of her opponents. In this high-stakes encounter, every dodge and counterattack could be the difference between life and death.");
         Console.ReadLine();
     }
     else if (story == 3)
     {
-        Console.WriteLine("In an epic showdown with Evelynn, your perseverance is rewarded as you triumph against all odds. The roar of the crowd drowns out the clamor of the arena as the chains of your imprisonment break away. With each battle having pushed you to your limits, you step through the gates to freedom, forever changed by the trials you endured.");
+        Console.WriteLine("\nIn an epic showdown with Evelynn, your perseverance is rewarded as you triumph against all odds. The roar of the crowd drowns out the clamor of the arena as the chains of your imprisonment break away. With each battle having pushed you to your limits, you step through the gates to freedom, forever changed by the trials you endured.");
         Console.ReadLine();
     }
     else if (story == 4)
     {
-        Console.WriteLine("But not every fight ends in victory. Sometimes, despite your courage and skill, fate deals you a harsh blow. In this somber twist, your journey comes to an abrupt end on the battlefield—a stark reminder that every fight is a gamble, and sometimes the odds just aren’t in your favor.");
+        Console.WriteLine("\nNot every fight ends in victory. Sometimes, despite your courage and skill, fate deals you a harsh blow. In this somber twist, your journey comes to an abrupt end on the battlefield—a stark reminder that every fight is a gamble, and sometimes the odds just aren’t in your favor.");
         Console.ReadLine();
     }
     return story;
-}
+} 
 
 
 // STUFF YOU CAN DO BETWEEN FIGHTS
