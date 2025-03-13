@@ -1,4 +1,4 @@
-﻿// bundle everything into one exe file with .NET runtime
+﻿// bundle everything into one exe file with .NET runtime (do it in Terminal (Ctrl + Shift + Ö))
 // dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true
 
 
@@ -67,6 +67,7 @@ bool ContainsNumbers(string input)
 // ==================== MAIN ====================
 Console.WriteLine("Version 6");
 Console.WriteLine("ENTER to continue");
+Console.ReadLine();
 
 while (keepPlaying == "yes")
 {
@@ -100,7 +101,7 @@ while (keepPlaying == "yes")
             }
         }
         story(storyPoint);
-        p1 = FirstStats(p1);
+        p1 = StatPoints(p1);
     }
 
     // ------- BEFORE AND DURING FIGHT -------
@@ -195,8 +196,12 @@ static Characters betweenFight(Characters player, Characters enemy)
 
     while (choice != 3)
     {
-        Console.WriteLine("1) Check Stats");
-        Console.WriteLine("2) Next Enemy");
+        Console.Write("1) Check Stats ");
+        if (player.Stat != 0)
+        {
+            Console.Write($"(YOU HAVE {player.Stat} STAT POINTS TO USE)");
+        }
+        Console.WriteLine("\n2) Next Enemy");
         Console.WriteLine("3) Start Next Fight");
         Console.WriteLine("4) Info (Not implemented yet)");
         Console.WriteLine("5) Quit");
@@ -204,7 +209,7 @@ static Characters betweenFight(Characters player, Characters enemy)
         option = Console.ReadLine();
         int.TryParse(option, out choice);
 
-        // if your answer does not contain 1, 2, 3 or 4 
+        // if your answer does not contain 1, 2, 3, 4, 5 or 6
         while (!acceptable.Contains(option))
         {
             Console.WriteLine("Unknown option, please try again");
@@ -259,102 +264,7 @@ static Characters betweenFight(Characters player, Characters enemy)
     return player;
 }
 
-
-// FIRST TIME YOU WILL ADD STATPOINTS
-static Characters FirstStats(Characters player)
-{
-    int choice;
-    string option;
-    string[] acceptable = ["1", "2", "3", "4", "5", "6", "7", "8"];
-
-    while (player.Stat > 0)
-    {
-        Console.WriteLine($"Total Stat Points left: {player.Stat}");
-        Console.WriteLine("Add Statpoints to your character:\n");
-        Console.WriteLine($"1) Vitality: {player.Vt}");
-        Console.WriteLine($"2) Attack: {player.Atk}");
-        Console.WriteLine($"3) Defence: {player.Def}");
-        Console.WriteLine($"4) Speed: {player.Spd}");
-        Console.WriteLine($"5) Accuracy: {player.Acc}");
-        Console.WriteLine($"6) Dexterity: {player.Dex}");
-        Console.WriteLine($"7) Help");
-        Console.WriteLine($"8) Reset Stat Points");
-
-        option = Console.ReadLine();
-        int.TryParse(option, out choice);
-
-        // if your answer does not contain 1, 2, 3, 4, 5, 6, 7
-        while (!acceptable.Contains(option))
-        {
-            Console.WriteLine("Unknown option, please try again");
-            option = Console.ReadLine();
-            int.TryParse(option, out choice);
-        }
-
-        // got help with chatGPT to make this more compact
-        if (choice >= 1 && choice <= 6)
-        {
-            // deduct one stat point and increase the chosen stat
-            player.Stat--;
-            switch (choice)
-            {
-                case 1:
-                    player.Vt++;
-                    break;
-                case 2:
-                    player.Atk++;
-                    break;
-                case 3:
-                    player.Def++;
-                    break;
-                case 4:
-                    player.Spd++;
-                    break;
-                case 5:
-                    player.Acc++;
-                    break;
-                case 6:
-                    player.Dex++;
-                    break;
-            }
-        }
-        else if (choice == 7)
-        {
-            Console.WriteLine("\nVitality: +10 hp per point");
-            Console.WriteLine("Attack:  1+ Minimun and Maximun damage when hitting an attack (+2 maximun damage on heavy attack)");
-            Console.WriteLine("Defence: -1 Damage taken when getting hit per point");
-            Console.WriteLine("Speed: +5 on Speed Checks per point");
-            Console.WriteLine("Accuracy: +1% Chance to hit an attack per point");
-            Console.WriteLine("Dexterity: +1% Chance to dodge an attack per point");
-            Console.WriteLine("(Click Enter to get back)");
-            Console.ReadLine();
-        }
-        else if (choice == 8)
-        {
-            Console.WriteLine("Are you sure you want to reset your stats?");
-            Console.WriteLine("Write 'yes' if you are sure");
-            option = Console.ReadLine();
-
-            if (option == "yes")
-            {
-                player.Stat += player.Vt + player.Atk + player.Def + player.Spd + player.Acc + player.Dex;
-                player.Vt = 0;
-                player.Atk = 0;
-                player.Def = 0;
-                player.Spd = 0;
-                player.Acc = 0;
-                player.Dex = 0;
-            }
-        }
-        Console.Clear();
-    }
-    player.Hp = 100 + (10 * player.Vt);
-    player.MaxHp = player.Hp;
-    return player;
-}
-
-
-// ALL OTHER TIMES YOU CHOOSE STATPOINTS AS AN OPTION
+// Option to choose stat points
 static Characters StatPoints(Characters player)
 {
     int choice = 0;
@@ -454,6 +364,7 @@ static Characters StatPoints(Characters player)
             }
         }
         player.Hp = 100 + (10 * player.Vt);
+        Console.Clear();
     }
     player.MaxHp = player.Hp;
     return player;
@@ -461,7 +372,6 @@ static Characters StatPoints(Characters player)
 
 
 // FIGHT METHOD
-// possible to move some stuff from this method to the main, will check on later
 
 static (Characters player, Characters enemy, int story) fight(Characters player, Characters enemy, int story)
 {
