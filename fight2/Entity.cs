@@ -1,6 +1,5 @@
 public class Entity
 {
-    
     // ==================== CLASS ====================
 
     // Hp - hitpoint
@@ -9,9 +8,11 @@ public class Entity
     // Def - Defense
     // Spd - Speed
     // Acc - Accuracy
+    // Prc - Precision (new for version 2)
     // Dex - Dexterity
     // Stat - Stat Points
     // Dmg - Damage
+    // Stm - Stamina (new for version 2)
 
     public class Characters
     {
@@ -22,11 +23,13 @@ public class Entity
         public int Def;
         public int Spd;
         public int Acc;
+        public int Prc;
         public int Dex;
         public int Stat;
         public int ExtraDodge;
         public int MaxHp;
         public int Dmg;
+        public int Stm;
     }
 
 }

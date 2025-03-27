@@ -52,6 +52,7 @@ e3.Hp = 100 + (10 * e3.Vt);
 e3.MaxHp = e3.Hp;
 
 int storyPoint = 0;
+int gold = 100;
 
 string keepPlaying = "yes";
 
@@ -65,7 +66,7 @@ bool ContainsNumbers(string input)
 
 
 // ==================== MAIN ====================
-Console.WriteLine("Version 2.1");
+Console.WriteLine("Version 2.0");
 Console.WriteLine("ENTER to continue");
 Console.ReadLine();
 
