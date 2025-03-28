@@ -13,7 +13,7 @@ public class Stat_Story
     {
         int choice = 0;
         string option;
-        string[] acceptable = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+        string[] acceptable = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"];
 
         while (choice != 9)
         {
@@ -22,20 +22,23 @@ public class Stat_Story
             Console.WriteLine($"Total Stat Points left: {player.Stat}");
             Console.WriteLine("Add Statpoints to your character:\n");
             Console.WriteLine($"Hp: {player.Hp}");
+            Console.WriteLine($"Max Stamina: {player.UStm}");
             Console.WriteLine($"1) Vitality: {player.Vt}");
             Console.WriteLine($"2) Attack: {player.Atk}");
             Console.WriteLine($"3) Defence: {player.Def}");
             Console.WriteLine($"4) Speed: {player.Spd}");
             Console.WriteLine($"5) Accuracy: {player.Acc}");
-            Console.WriteLine($"6) Dexterity: {player.Dex}");
-            Console.WriteLine($"7) Help");
-            Console.WriteLine($"8) Reset Stat Points");
-            Console.WriteLine($"9) Exit");
+            Console.WriteLine($"6) Precision: {player.Prc}");
+            Console.WriteLine($"7) Dexterity: {player.Dex}");
+            Console.WriteLine($"8) Stamina: {player.Stm}");
+            Console.WriteLine($"9) Help");
+            Console.WriteLine($"10) Reset Stat Points");
+            Console.WriteLine($"11) Exit");
 
             option = Console.ReadLine();
             int.TryParse(option, out choice);
 
-            // if your answer does not contain 1, 2, 3, 4, 5, 6, 7
+            // if your answer does not contain 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
             while (!acceptable.Contains(option))
             {
                 Console.WriteLine("Unknown option, please try again");
@@ -51,7 +54,9 @@ public class Stat_Story
                 Console.WriteLine("Defence: -1 Damage taken when getting hit per point");
                 Console.WriteLine("Speed: +5 on Speed Checks per point");
                 Console.WriteLine("Accuracy: +1% Chance to hit an attack per point");
+                Console.WriteLine("Precision: +1% Chance to critical hit (1.5X damage)");
                 Console.WriteLine("Dexterity: +1% Chance to dodge an attack per point");
+                Console.WriteLine("Stamina: +5 Stamina Points");
                 Console.WriteLine("(Click Enter to get back)");
                 Console.ReadLine();
             }
@@ -63,13 +68,15 @@ public class Stat_Story
                 if (option == "yes")
                 {
 
-                    player.Stat += player.Vt + player.Atk + player.Def + player.Spd + player.Acc + player.Dex;
+                    player.Stat += player.Vt + player.Atk + player.Def + player.Spd + player.Acc + player.Prc + player.Dex + player.Stm;
                     player.Vt = 0;
                     player.Atk = 0;
                     player.Def = 0;
                     player.Spd = 0;
                     player.Acc = 0;
+                    player.Prc = 0;
                     player.Dex = 0;
+                    player.Stm = 0;
                 }
             }
             else if (choice == 9)
@@ -103,14 +110,22 @@ public class Stat_Story
                         player.Acc++;
                         break;
                     case 6:
+                        player.Prc++;
+                        break;
+                    case 7:
                         player.Dex++;
+                        break;
+                    case 8:
+                        player.Stm++;
                         break;
                 }
             }
             player.Hp = 100 + (10 * player.Vt);
+            player.UStm = 100 + (5 * player.Stm);
             Console.Clear();
         }
         player.MaxHp = player.Hp;
+        player.MaxStm = player.UStm;
         return player;
     }                                                 
 
@@ -138,15 +153,25 @@ public class Stat_Story
         }
         else if (story == 2)
         {
-            Console.WriteLine("\nWith newfound strength from your previous victory (+10 stat points), you prepare for your final test: Evelynn. Her fighting style is a blend of fluid grace and lethal precision. Though she may seem unpredictable, every movement is calculated to strike fear into the hearts of her opponents. In this high-stakes encounter, every dodge and counterattack could be the difference between life and death.");
+            Console.WriteLine("\nWith newfound strength from your previous victory (+10 stat points), you prepare for your third test: Evelynn. Her fighting style is a blend of fluid grace and lethal precision. Though she may seem unpredictable, every movement is calculated to strike fear into the hearts of her opponents. In this high-stakes encounter, every dodge and counterattack could be the difference between life and death.");
             Console.ReadLine();
         }
         else if (story == 3)
         {
-            Console.WriteLine("\nIn an epic showdown with Evelynn, your perseverance is rewarded as you triumph against all odds. The roar of the crowd drowns out the clamor of the arena as the chains of your imprisonment break away. With each battle having pushed you to your limits, you step through the gates to freedom, forever changed by the trials you endured.");
+            Console.WriteLine("\nIn an epic showdown with Evelynn, your perseverance is rewarded as you triumph against all odds (+20 stat points). next fight against (insert name here)");
             Console.ReadLine();
         }
         else if (story == 4)
+        {
+            Console.WriteLine("\n win fourth fight (+5 stat points). next fight against (insert name here)");
+            Console.ReadLine();
+        }
+        else if (story == 5)
+        {
+            Console.WriteLine("\nThe roar of the crowd drowns out the clamor of the arena as the chains of your imprisonment break away. With each battle having pushed you to your limits, you step through the gates to freedom, forever changed by the trials you endured.");
+            Console.ReadLine();
+        }
+        else if (story == 6)
         {
             Console.WriteLine("\nNot every fight ends in victory. Sometimes, despite your courage and skill, fate deals you a harsh blow. In this somber twist, your journey comes to an abrupt end on the battlefield—a stark reminder that every fight is a gamble, and sometimes the odds just aren’t in your favor.");
             Console.ReadLine();

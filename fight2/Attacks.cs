@@ -34,16 +34,16 @@ public class Attacks
             Console.WriteLine($"The enemy attacks first");
             Console.WriteLine("ENTER to continue");
             Console.ReadLine();
-            (player, enemy) = Attacks.EnemyAttack(player, enemy);
-            (player, enemy) = Attacks.PlayerAttack(player, enemy);
+            (player, enemy) = EnemyAttack(player, enemy);
+            (player, enemy) = PlayerAttack(player, enemy);
         }
         else
         {
             Console.WriteLine($"you attacks first");
             Console.WriteLine("ENTER to continue");
             Console.ReadLine();
-            (player, enemy) = Attacks.PlayerAttack(player, enemy);
-            (player, enemy) = Attacks.EnemyAttack(player, enemy);
+            (player, enemy) = PlayerAttack(player, enemy);
+            (player, enemy) = EnemyAttack(player, enemy);
         }
     }
 
@@ -58,7 +58,7 @@ public class Attacks
     else if (player.Hp == 0)
     {
         Console.WriteLine($"{player.Name} died, {enemy.Name} won!\n");
-        story = 4;
+        story = 6;
     }
     else
     {
