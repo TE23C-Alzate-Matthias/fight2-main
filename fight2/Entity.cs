@@ -14,7 +14,7 @@ public class Entity
     // Dmg - Damage
     // Stm - Stamina (new for version 2)
     // UStm - Usable Stamina (new for version 2)
-    // Crit (new for version 2)
+    // Exh - Exhaustion (new for version 2)
 
 
     public class Characters
@@ -36,7 +36,20 @@ public class Entity
         public int UStm; // new
         public int MaxStm; // new
         public int Bonus; // new
-        public int Crit; // new
+        public int Exh;
+    }
+
+    public class Wepons
+    {
+        public string Name;
+        public int Price;
+        public int Vt;
+        public int Atk;
+        public int Def;
+        public int Spd;
+        public int Acc;
+        public int Dex;
+        public int Stm;
     }
 
 }

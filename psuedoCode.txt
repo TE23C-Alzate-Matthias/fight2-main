@@ -14,14 +14,21 @@ choose name on hero (you)
         defence - makes you take less dmg   (defult: 0)
         speed - checks if you attack first  (defult: 0)
         accuracy - how often you hit your attacks (defult: 0)
+        precicion - how often you can critical hit (defult: 0)   // new
         dexterity - if your able to dodge your attacks (defult: 0)
+        stamina - consumes when doing all actins except resting (defult: 0) // new
 
 give options to what to do
     check stats
+        options to add stats to character
         option to refund stat points
             then respec stats
     check next enemy
         shows the stats of the next enemy
+    go to shop // new
+        different option on stuff you can buy to up some stats more // new
+    go to inventort // new
+        option to equip or unequip stuff you got from the shop // new
     start next fight
     exit program
         confirms if you want to exit the program
@@ -29,15 +36,17 @@ give options to what to do
 as long hp of both is above 0 the fight continues
     makes a speed check and the one with highest speed starts the fight
         user action option defult:
-            heavy attack - takes more stamina, more dmg, less accuracy, if miss you dont attack next time
-            light attack - takes little stamina, less dmg, better accuracy
+            heavy attack - high stamina consumption, high dmg, low accuracy, if miss you dont attack next time, low crit chance
+            ranged attack - medium stamina consumption, medium dmg, medium accuracy, high crit chance
+            light attack - low stamina consumption, low dmg, high accuracy, medium crit chance
             dodge - you dont attack but have higher chance to dodge the enemies attack 
-            rest - gives you back some random hp
+            rest - gives you back some random hp and stm
         enemy action option defult:
-            heavy attack - takes more stamina, more dmg, less accuracy, if miss you dont attack next time
-            light attack - takes little stamina, less dmg, better accuracy
+            heavy attack - high stamina consumption, high dmg, low accuracy, if miss you dont attack next time, low crit chance
+            ranged attack - medium stamina consumption, medium dmg, medium accuracy, high crit chance
+            light attack - low stamina consumption, low dmg, high accuracy, medium crit chance
             dodge - you dont attack but have higher chance to dodge the enemies attack
-            rest - gives you back some random hp
+            rest - gives you back some random hp and stm
 
 checks who lost and assigns a story progression score to it
 

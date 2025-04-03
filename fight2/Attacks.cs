@@ -1,99 +1,139 @@
 public class Attacks
 {
-//    ______   _           _       _     _                     __  __          _     _                   _ 
-//   |  ____| (_)         | |     | |   (_)                   |  \/  |        | |   | |                 | |
-//   | |__     _    __ _  | |__   | |_   _   _ __     __ _    | \  / |   ___  | |_  | |__     ___     __| |
-//   |  __|   | |  / _` | | '_ \  | __| | | | '_ \   / _` |   | |\/| |  / _ \ | __| | '_ \   / _ \   / _` |
-//   | |      | | | (_| | | | | | | |_  | | | | | | | (_| |   | |  | | |  __/ | |_  | | | | | (_) | | (_| |
-//   |_|      |_|  \__, | |_| |_|  \__| |_| |_| |_|  \__, |   |_|  |_|  \___|  \__| |_| |_|  \___/   \__,_|
-//                  __/ |                             __/ |                                                
-//                 |___/                             |___/                                                 
+    //    ______   _           _       _     _                     __  __          _     _                   _ 
+    //   |  ____| (_)         | |     | |   (_)                   |  \/  |        | |   | |                 | |
+    //   | |__     _    __ _  | |__   | |_   _   _ __     __ _    | \  / |   ___  | |_  | |__     ___     __| |
+    //   |  __|   | |  / _` | | '_ \  | __| | | | '_ \   / _` |   | |\/| |  / _ \ | __| | '_ \   / _ \   / _` |
+    //   | |      | | | (_| | | | | | | |_  | | | | | | | (_| |   | |  | | |  __/ | |_  | | | | | (_) | | (_| |
+    //   |_|      |_|  \__, | |_| |_|  \__| |_| |_| |_|  \__, |   |_|  |_|  \___|  \__| |_| |_|  \___/   \__,_|
+    //                  __/ |                             __/ |                                                
+    //                 |___/                             |___/                                                 
     public static (Entity.Characters player, Entity.Characters enemy, int story) Fight(Entity.Characters player, Entity.Characters enemy, int story)
-{
-    Random generator = new Random();
-    int enemySpeed;
-    int playerSpeed;
-
-    while (player.Hp > 0 && enemy.Hp > 0)
     {
-        Console.Clear();
-        Console.WriteLine("======= NEW ROUND =======");
-        Console.WriteLine($"{player.Name}: {player.Hp} Hp  |  {enemy.Name}: {enemy.Hp} Hp\n");
+        Random generator = new Random();
+        int enemySpeed;
+        int playerSpeed;
+        int round = 0;
 
-        enemySpeed = generator.Next(1, 101) + (enemy.Spd * 5);
-        playerSpeed = generator.Next(1, 101) + (player.Spd * 5);
-
-        // writes out what both rolled for speed
-        Console.WriteLine("------- Speed Roll -------");
-        Console.WriteLine($"{player.Name} got {playerSpeed}");
-        Console.WriteLine($"{enemy.Name} got {enemySpeed}");
-
-        // if enemy speed is higher than player speed, the enemy attacks first
-        if (enemySpeed > playerSpeed)
+        while (player.Hp > 0 && enemy.Hp > 0)
         {
-            Console.WriteLine($"The enemy attacks first");
-            Console.WriteLine("ENTER to continue");
-            Console.ReadLine();
-            (player, enemy) = EnemyAttack(player, enemy);
-            (player, enemy) = PlayerAttack(player, enemy);
+            round++;
+            Console.Clear();
+            Console.WriteLine($"======= ROUND {round} =======");
+            Console.WriteLine($"{player.Name}: {player.Hp} Hp  |  {enemy.Name}: {enemy.Hp} Hp");
+            Console.WriteLine($"{player.Name}: {player.UStm} Stamina  |  {enemy.Name}: {enemy.UStm} Stamina\n");
+
+            enemySpeed = generator.Next(1, 101) + (enemy.Spd * 5);
+            playerSpeed = generator.Next(1, 101) + (player.Spd * 5);
+
+            // writes out what both rolled for speed
+            Console.WriteLine("------- Speed Roll -------");
+            Console.WriteLine($"{player.Name} got {playerSpeed}");
+            Console.WriteLine($"{enemy.Name} got {enemySpeed}");
+
+            // if enemy speed is higher than player speed, the enemy attacks first
+            if (enemySpeed > playerSpeed)
+            {
+                Console.WriteLine($"The enemy attacks first");
+                Console.WriteLine("ENTER to continue");
+                Console.ReadLine();
+                if (enemy.Exh == 1)
+                {
+                    Console.WriteLine("The enemy is to exhausted to do an action this round");
+                    Console.WriteLine("ENTER to continue");
+                    enemy.Exh = 0;
+                }
+                else
+                {
+                    (player, enemy) = EnemyAttack(player, enemy);
+                }
+
+                if (player.Exh == 1)
+                {
+                    Console.WriteLine("You are to exhuasted to do an action this round");
+                    Console.WriteLine("ENTER to continue");
+                }
+                else
+                {
+                    (player, enemy) = PlayerAttack(player, enemy);
+                }
+            }
+            else
+            {
+                Console.WriteLine($"you attacks first");
+                Console.WriteLine("ENTER to continue");
+                Console.ReadLine();
+                if (player.Exh == 1)
+                {
+                    Console.WriteLine("You are to exhuasted to do an action this round");
+                    Console.WriteLine("ENTER to continue");
+                }
+                else
+                {
+                    (player, enemy) = PlayerAttack(player, enemy);
+                }
+
+                if (enemy.Exh == 1)
+                {
+                    Console.WriteLine("The enemy is to exhausted to do an action this round");
+                    Console.WriteLine("ENTER to continue");
+                    enemy.Exh = 0;
+                }
+                else
+                {
+                    (player, enemy) = EnemyAttack(player, enemy);
+                }
+            }
+        }
+
+        // ------- WHO WIN FIGHT CHECK -------
+        Console.WriteLine("\n======== THE FIGHT IS OVER ========");
+
+        if (player.Hp == 0 && enemy.Hp == 0)
+        {
+            Console.WriteLine("BOTH DIED\n");
+            story = 4;
+        }
+        else if (player.Hp == 0)
+        {
+            Console.WriteLine($"{player.Name} died, {enemy.Name} won!\n");
+            story = 6;
         }
         else
         {
-            Console.WriteLine($"you attacks first");
-            Console.WriteLine("ENTER to continue");
-            Console.ReadLine();
-            (player, enemy) = PlayerAttack(player, enemy);
-            (player, enemy) = EnemyAttack(player, enemy);
+            Console.WriteLine($"{enemy.Name} died, {player.Name} won!\n");
+            story++;
         }
+        Console.WriteLine("ENTER to continue");
+        Console.ReadLine();
+        player.Hp = player.MaxHp;
+
+
+        return (player, enemy, story);
     }
 
-    // ------- WHO WIN FIGHT CHECK -------
-    Console.WriteLine("\n======== THE FIGHT IS OVER ========");
-
-    if (player.Hp == 0 && enemy.Hp == 0)
-    {
-        Console.WriteLine("BOTH DIED\n");
-        story = 4;
-    }
-    else if (player.Hp == 0)
-    {
-        Console.WriteLine($"{player.Name} died, {enemy.Name} won!\n");
-        story = 6;
-    }
-    else
-    {
-        Console.WriteLine($"{enemy.Name} died, {player.Name} won!\n");
-        story++;
-    }
-    Console.WriteLine("ENTER to continue");
-    Console.ReadLine();
-    player.Hp = player.MaxHp;
-    
-
-    return (player, enemy, story);
-}
-
-//    _____    _                                              _     _                    _        __  __          _     _                   _ 
-//   |  __ \  | |                                     /\     | |   | |                  | |      |  \/  |        | |   | |                 | |
-//   | |__) | | |   __ _   _   _    ___   _ __       /  \    | |_  | |_    __ _    ___  | | __   | \  / |   ___  | |_  | |__     ___     __| |
-//   |  ___/  | |  / _` | | | | |  / _ \ | '__|     / /\ \   | __| | __|  / _` |  / __| | |/ /   | |\/| |  / _ \ | __| | '_ \   / _ \   / _` |
-//   | |      | | | (_| | | |_| | |  __/ | |       / ____ \  | |_  | |_  | (_| | | (__  |   <    | |  | | |  __/ | |_  | | | | | (_) | | (_| |
-//   |_|      |_|  \__,_|  \__, |  \___| |_|      /_/    \_\  \__|  \__|  \__,_|  \___| |_|\_\   |_|  |_|  \___|  \__| |_| |_|  \___/   \__,_|
-//                          __/ |                                                                                                             
-//                         |___/                                                                                                              
+    //    _____    _                                              _     _                    _        __  __          _     _                   _ 
+    //   |  __ \  | |                                     /\     | |   | |                  | |      |  \/  |        | |   | |                 | |
+    //   | |__) | | |   __ _   _   _    ___   _ __       /  \    | |_  | |_    __ _    ___  | | __   | \  / |   ___  | |_  | |__     ___     __| |
+    //   |  ___/  | |  / _` | | | | |  / _ \ | '__|     / /\ \   | __| | __|  / _` |  / __| | |/ /   | |\/| |  / _ \ | __| | '_ \   / _ \   / _` |
+    //   | |      | | | (_| | | |_| | |  __/ | |       / ____ \  | |_  | |_  | (_| | | (__  |   <    | |  | | |  __/ | |_  | | | | | (_) | | (_| |
+    //   |_|      |_|  \__,_|  \__, |  \___| |_|      /_/    \_\  \__|  \__|  \__,_|  \___| |_|\_\   |_|  |_|  \___|  \__| |_| |_|  \___/   \__,_|
+    //                          __/ |                                                                                                             
+    //                         |___/                                                                                                              
     public static (Entity.Characters player, Entity.Characters enemy) PlayerAttack(Entity.Characters player, Entity.Characters enemy)
     {
         // code reuses elements from fight1 but is expanded
         Random generator = new Random();
         string attackChoice;
         int accuracy;
+        int critChance;
         int healing;
-        string[] acceptable = ["a", "b", "c", "d", "1", "2", "3", "4"];
+        string[] acceptable = ["1", "2", "3", "4"];
 
         // lets the user choose what action they want to do
         Console.WriteLine("--- Choose Action ---");
-        Console.WriteLine($"1) Light Attack: {5 + player.Atk - enemy.Def}-{20 + player.Atk - enemy.Def}, {80 + player.Acc - enemy.Dex - enemy.ExtraDodge}% Accuracy");
-        Console.WriteLine($"2) Heavy Attack: {10 + player.Atk}-{40 + (player.Atk * 2)}, {30 + player.Acc - enemy.Dex - enemy.ExtraDodge}% Accuracy");
+        Console.WriteLine($"1) Light Attack: {5 + player.Atk - enemy.Def}-{20 + player.Atk - enemy.Def}, {80 + player.Acc - enemy.Dex - enemy.ExtraDodge}% Accuracy, Crit {20 + player.Prc}%");
+        Console.WriteLine($"2) Heavy Attack: {10 + player.Atk}-{40 + (player.Atk * 2)}, {30 + player.Acc - enemy.Dex - enemy.ExtraDodge}% Accuracy, Crit {5 + player.Prc}%");
         Console.WriteLine($"3) Dodge: {player.Dex}% removed to opponents accuracy check");
         Console.WriteLine($"4) Rest: {player.MaxHp / 8}-{player.MaxHp / 5} healing");
         attackChoice = Console.ReadLine();
@@ -108,10 +148,11 @@ public class Attacks
 
         // ==================== Player ATTACK =====================
         accuracy = generator.Next(1, 101);
+        critChance = generator.Next(1, 101);
         player.ExtraDodge = 0;
 
         // if you choose 1 or a the user tries a light attack
-        if (attackChoice == "a" || attackChoice == "1")
+        if (attackChoice == "1")
         {
             if (accuracy < 20 - player.Acc + enemy.Dex + enemy.ExtraDodge)
             {
@@ -119,6 +160,7 @@ public class Attacks
             }
             else
             {
+                // add crit chance check
                 // calculates the dmg
                 player.Dmg = generator.Next(5 + player.Atk, 21 + player.Atk) - enemy.Def;
                 // makes sure the dmg isnt bellow 0
@@ -131,11 +173,12 @@ public class Attacks
             }
         }
         // if you chhose 2 or b the user tries a heavy attack
-        else if (attackChoice == "b" || attackChoice == "2")
+        else if (attackChoice == "2")
         {
             if (accuracy < 70 - player.Acc + enemy.Dex + enemy.ExtraDodge)
             {
-                Console.WriteLine($"{player.Name} missed their attack\n");
+                Console.WriteLine($"{player.Name} missed their attack and loses their next turn\n");
+                player.Exh++;
             }
             else
             {
@@ -151,13 +194,13 @@ public class Attacks
             }
         }
         // if you choose 3 or c the user gets extra dodge chance
-        else if (attackChoice == "c" || attackChoice == "3")
+        else if (attackChoice == "3")
         {
             player.ExtraDodge = player.Dex;
             Console.WriteLine($"{player.Name} prepares to dodge {enemy.Name} next action");
         }
         // if you choose 4 or d the user heals an amout of hp
-        else if (attackChoice == "d" || attackChoice == "4")
+        else if (attackChoice == "4")
         {
             // heals you between 1/8 or 1/5 of your hp
             healing = generator.Next(player.MaxHp / 8, player.MaxHp / 5 + 1);
@@ -172,14 +215,14 @@ public class Attacks
 
     }
 
-//    ______                                                   _     _                    _        __  __          _     _                   _ 
-//   |  ____|                                          /\     | |   | |                  | |      |  \/  |        | |   | |                 | |
-//   | |__     _ __     ___   _ __ ___    _   _       /  \    | |_  | |_    __ _    ___  | | __   | \  / |   ___  | |_  | |__     ___     __| |
-//   |  __|   | '_ \   / _ \ | '_ ` _ \  | | | |     / /\ \   | __| | __|  / _` |  / __| | |/ /   | |\/| |  / _ \ | __| | '_ \   / _ \   / _` |
-//   | |____  | | | | |  __/ | | | | | | | |_| |    / ____ \  | |_  | |_  | (_| | | (__  |   <    | |  | | |  __/ | |_  | | | | | (_) | | (_| |
-//   |______| |_| |_|  \___| |_| |_| |_|  \__, |   /_/    \_\  \__|  \__|  \__,_|  \___| |_|\_\   |_|  |_|  \___|  \__| |_| |_|  \___/   \__,_|
-//                                         __/ |                                                                                               
-//                                        |___/                                                                                                                                                                                      
+    //    ______                                                   _     _                    _        __  __          _     _                   _ 
+    //   |  ____|                                          /\     | |   | |                  | |      |  \/  |        | |   | |                 | |
+    //   | |__     _ __     ___   _ __ ___    _   _       /  \    | |_  | |_    __ _    ___  | | __   | \  / |   ___  | |_  | |__     ___     __| |
+    //   |  __|   | '_ \   / _ \ | '_ ` _ \  | | | |     / /\ \   | __| | __|  / _` |  / __| | |/ /   | |\/| |  / _ \ | __| | '_ \   / _ \   / _` |
+    //   | |____  | | | | |  __/ | | | | | | | |_| |    / ____ \  | |_  | |_  | (_| | | (__  |   <    | |  | | |  __/ | |_  | | | | | (_) | | (_| |
+    //   |______| |_| |_|  \___| |_| |_| |_|  \__, |   /_/    \_\  \__|  \__|  \__,_|  \___| |_|\_\   |_|  |_|  \___|  \__| |_| |_|  \___/   \__,_|
+    //                                         __/ |                                                                                               
+    //                                        |___/                                                                                                                                                                                      
     public static (Entity.Characters player, Entity.Characters enemy) EnemyAttack(Entity.Characters player, Entity.Characters enemy)
     {
         Random generator = new Random();
@@ -223,7 +266,8 @@ public class Attacks
         {
             if (accuracy < 70 - enemy.Acc + player.Dex + player.ExtraDodge)
             {
-                Console.WriteLine($"{enemy.Name} missed their attack\n");
+                Console.WriteLine($"{enemy.Name} missed their attack and loses their next turn\n");
+                enemy.Exh++;
             }
             else
             {

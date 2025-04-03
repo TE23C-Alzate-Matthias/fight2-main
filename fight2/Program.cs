@@ -1,10 +1,6 @@
 ﻿// bundle everything into one exe file with .NET runtime (do it in Terminal (Ctrl + Shift + Ö))
 // dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true
 
-
-// allows me to use Regex to know if an answer has numbers in it
-using System.Text.RegularExpressions;
-
 Entity.Characters p1 = new();
 p1.Hp = 100;
 p1.UStm = 100;
@@ -106,13 +102,6 @@ string keepPlaying = "yes";
 
 Random generator = new Random();
 
-// checks if the given text has numbers in it, if it has its on true, if not its on false
-bool ContainsNumbers(string input)
-{
-    return Regex.IsMatch(input, @"\d");
-}
-
-
 // ==================== MAIN ====================
 Console.WriteLine("Version 2.0");
 Console.WriteLine("ENTER to continue");
@@ -124,33 +113,7 @@ while (keepPlaying == "yes")
     // just happens when you start the program or decide to reset
     if (storyPoint == 0)
     {
-        // lets you choose your name
-        Console.WriteLine("Choose your Entity.Characters name (3-14 Entity.Characters long, no numbers)");
-        p1.Name = Console.ReadLine();
-
-        while (p1.Name.Length < 3 || p1.Name.Length > 15 || ContainsNumbers(p1.Name))
-        {
-            // if the name is shorter than 3 it tells me to try again
-            if (p1.Name.Length < 3)
-            {
-                Console.WriteLine("Name is to short, please try again");
-                p1.Name = Console.ReadLine();
-            }
-            // same thing but if longer than 15
-            else if (p1.Name.Length > 15)
-            {
-                Console.WriteLine("Namn is to long, please try again");
-                p1.Name = Console.ReadLine();
-            }
-            // same thing but if it has numbers in it
-            else if (ContainsNumbers(p1.Name))
-            {
-                Console.WriteLine("Name has numbers in it, please try again");
-                p1.Name = Console.ReadLine();
-            }
-        }
-        Stat_Story.Story(storyPoint);
-        p1 = Stat_Story.StatPoints(p1);
+        p1 = BetweenFighting.NameCheck(p1, storyPoint);
     }
 
     // ------- BEFORE AND DURING FIGHT -------
@@ -203,7 +166,9 @@ while (keepPlaying == "yes")
         p1.Def = 0;
         p1.Spd = 0;
         p1.Acc = 0;
+        p1.Prc = 0;
         p1.Dex = 0;
+        p1.Stm = 0;
     }
     else
     {
