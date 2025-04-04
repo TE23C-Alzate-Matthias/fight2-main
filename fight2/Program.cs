@@ -13,6 +13,7 @@ p1.Prc = 0;
 p1.Dex = 0;
 p1.Stm = 0;
 p1.Stat = 20;
+p1.MaxHp = p1.Hp;
 
 // more precise and has easier time to attack first
 Entity.Characters e1 = new();
@@ -94,9 +95,20 @@ e5.UStm = 100 + (5 * e5.Stm);
 e5.MaxHp = e5.Hp;
 e5.MaxStm = e5.UStm;
 
+// testing right now just on how it will work as im not sure tbh
+Entity.Wepons w1 = new();
+w1.Name = "Sword";
+w1.Type = 1;
+
+Entity.Wepons w2 = new();
+w2.Name = "Helmet";
+w2.Type = 2;
+
+Entity.Wepons w3 = new();
+w3.Name = "Boots";
+w3.Type = 3;
 
 int storyPoint = 0;
-int gold = 100;
 
 string keepPlaying = "yes";
 
@@ -106,6 +118,7 @@ Random generator = new Random();
 Console.WriteLine("Version 2.0");
 Console.WriteLine("ENTER to continue");
 Console.ReadLine();
+
 
 while (keepPlaying == "yes")
 {

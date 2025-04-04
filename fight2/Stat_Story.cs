@@ -46,7 +46,7 @@ public class Stat_Story
                 int.TryParse(option, out choice);
             }
 
-            if (choice == 7)
+            if (choice == 9)
             {
                 // shows what each stat does
                 Console.WriteLine("\nVitality: +10 hp per point");
@@ -60,7 +60,7 @@ public class Stat_Story
                 Console.WriteLine("(Click Enter to get back)");
                 Console.ReadLine();
             }
-            else if (choice == 8)
+            else if (choice == 10)
             {
                 Console.WriteLine("Are you sure you want to reset your stats?");
                 Console.WriteLine("Write 'yes' if you are sure");
@@ -79,8 +79,10 @@ public class Stat_Story
                     player.Stm = 0;
                 }
             }
-            else if (choice == 9)
-            { }
+            else if (choice == 11)
+            { 
+                break;
+            }
             else if (player.Stat == 0)
             {
                 Console.WriteLine("No stat points left, please try again");
@@ -88,7 +90,7 @@ public class Stat_Story
 
             }
             // got help with chatGPT to make this more compact
-            else if (choice >= 1 && choice <= 6)
+            else if (choice >= 1 && choice <= 8)
             {
                 // deduct one stat point and increase the chosen stat
                 player.Stat--;

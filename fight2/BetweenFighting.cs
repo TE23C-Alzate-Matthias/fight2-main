@@ -17,7 +17,7 @@ public class BetweenFighting
         string option;
         string[] acceptable = ["1", "2", "3", "4", "5", "6", "7", "8"];
 
-        while (choice != 3)
+        while (choice != 5)
         {
             Console.Write("1) Check Stats ");
             if (player.Stat != 0)
@@ -116,7 +116,7 @@ public class BetweenFighting
         }
 
         // lets you choose your name
-        Console.WriteLine("Choose your Entity.Characters name (3-14 Entity.Characters long, no numbers)");
+        Console.WriteLine("Choose your Characters name (3-14 Characters long, no numbers)");
         player.Name = Console.ReadLine();
 
         while (player.Name.Length < 3 || player.Name.Length > 15 || ContainsNumbers(player.Name))

@@ -8,11 +8,11 @@ public class Shop_Inv
     //   |_____/  |_| |_|  \___/  | .__/    |_|  |_|  \___|  \__| |_| |_|  \___/   \__,_|
     //                            | |                                                    
     //                            |_|   
-    public static int Shop(int Shop)
+    public static Entity.Characters Shop(Entity.Characters Player)
     {
+        
 
-
-        return Shop;
+        return Player;
     }
 
 

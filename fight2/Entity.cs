@@ -36,12 +36,23 @@ public class Entity
         public int UStm; // new
         public int MaxStm; // new
         public int Bonus; // new
-        public int Exh;
+        public int Exh; // new
+        public int Gold; // new
+        public List<string> Inventory; // new
+        public List<string> Attacks; // new
     }
 
+    // 1 - Weops
+    // 2 - Helmet
+    // 3 - BreastPlate
+    // 4 - Leggings
+    // 5 - Boots
+    // 6 - Ring
     public class Wepons
     {
         public string Name;
+        public string Description;
+        public int Type;
         public int Price;
         public int Vt;
         public int Atk;

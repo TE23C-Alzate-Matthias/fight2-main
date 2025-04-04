@@ -40,7 +40,6 @@ public class Attacks
                 if (enemy.Exh == 1)
                 {
                     Console.WriteLine("The enemy is to exhausted to do an action this round");
-                    Console.WriteLine("ENTER to continue");
                     enemy.Exh = 0;
                 }
                 else
@@ -51,7 +50,6 @@ public class Attacks
                 if (player.Exh == 1)
                 {
                     Console.WriteLine("You are to exhuasted to do an action this round");
-                    Console.WriteLine("ENTER to continue");
                 }
                 else
                 {
@@ -66,7 +64,6 @@ public class Attacks
                 if (player.Exh == 1)
                 {
                     Console.WriteLine("You are to exhuasted to do an action this round");
-                    Console.WriteLine("ENTER to continue");
                 }
                 else
                 {
@@ -76,7 +73,6 @@ public class Attacks
                 if (enemy.Exh == 1)
                 {
                     Console.WriteLine("The enemy is to exhausted to do an action this round");
-                    Console.WriteLine("ENTER to continue");
                     enemy.Exh = 0;
                 }
                 else
@@ -159,16 +155,28 @@ public class Attacks
                 Console.WriteLine($"{player.Name} missed their attack\n");
             }
             else
-            {
+            {   
+                Console.WriteLine($"{player.Name} uses light attack!");
+                Console.WriteLine("ENTER to continue");
+                Console.ReadLine();
                 // add crit chance check
-                // calculates the dmg
-                player.Dmg = generator.Next(5 + player.Atk, 21 + player.Atk) - enemy.Def;
+                if (critChance < 80 - player.Prc)
+                {
+                    // calculates damage with cirt
+                    Console.WriteLine($"{player.Name} hit a critical hit!");
+                    player.Dmg = generator.Next(5 + player.Atk, 21 + player.Atk)*2 - enemy.Def;
+                }
+                else
+                {
+                    // calculates damage without crit
+                    player.Dmg = generator.Next(5 + player.Atk, 21 + player.Atk) - enemy.Def;
+                }
                 // makes sure the dmg isnt bellow 0
                 player.Dmg = Math.Max(0, player.Dmg);
                 enemy.Hp -= player.Dmg;
                 // makes sure the health isnt bellow 0
                 enemy.Hp = Math.Max(0, enemy.Hp);
-                Console.WriteLine($"{player.Name} uses light attack!");
+
                 Console.WriteLine($"{player.Name} does {player.Dmg} damage to {enemy.Name}\n");
             }
         }
@@ -181,15 +189,26 @@ public class Attacks
                 player.Exh++;
             }
             else
-            {
-                // calculates the dmg
-                player.Dmg = generator.Next(10 + player.Atk, 41 + (player.Atk * 2)) - enemy.Def;
+            {   
+                Console.WriteLine($"{player.Name} uses heavy attack!");
+                Console.WriteLine("ENTER to continue");
+                Console.ReadLine();
+                // add crit chance check
+                if (critChance < 95 - player.Prc)
+                {
+                    // calculates damage with cirt
+                    player.Dmg = generator.Next(10 + player.Atk, 41 + (player.Atk * 2))*2 - enemy.Def;
+                }
+                else
+                {
+                    // calculates damage without crit
+                    player.Dmg = generator.Next(10 + player.Atk, 41 + (player.Atk * 2)) - enemy.Def;
+                }
                 // makes sure the dmg isnt bellow 0
                 player.Dmg = Math.Max(0, player.Dmg);
                 enemy.Hp -= player.Dmg;
                 // makes sure the health isnt bellow 0
                 enemy.Hp = Math.Max(0, enemy.Hp);
-                Console.WriteLine($"{player.Name} uses heavy attack!");
                 Console.WriteLine($"{player.Name} does {player.Dmg} damage to {enemy.Name}\n");
             }
         }
@@ -227,6 +246,7 @@ public class Attacks
     {
         Random generator = new Random();
         int accuracy = generator.Next(1, 101);
+        int critChance = generator.Next(1, 101);
         int randomChoice;
         int healing;
         enemy.ExtraDodge = 0;
@@ -253,11 +273,24 @@ public class Attacks
             }
             else
             {
-                enemy.Dmg = generator.Next(5 + enemy.Atk, 21 + enemy.Atk) - player.Def;
+                Console.WriteLine($"{enemy.Name} uses light attack!");
+                Console.WriteLine("ENTER to continue");
+                Console.ReadLine();
+                // add crit chance check
+                if (critChance < 80 - enemy.Prc)
+                {
+                    // calculates damage with cirt
+                    Console.WriteLine($"{enemy.Name} hit a critical hit!");
+                    enemy.Dmg = generator.Next(5 + enemy.Atk, 21 + enemy.Atk)*2 - player.Def;
+                }
+                else
+                {
+                    // calculates damage without crit
+                    enemy.Dmg = generator.Next(5 + enemy.Atk, 21 + enemy.Atk) - player.Def;
+                }
                 enemy.Dmg = Math.Max(0, enemy.Dmg);
                 player.Hp -= enemy.Dmg;
                 player.Hp = Math.Max(0, player.Hp);
-                Console.WriteLine($"{enemy.Name} uses light attack!");
                 Console.WriteLine($"{enemy.Name} does {enemy.Dmg} damage to {player.Name}\n");
             }
         }
@@ -271,11 +304,23 @@ public class Attacks
             }
             else
             {
-                enemy.Dmg = generator.Next(10 + player.Atk, 41 + (player.Atk * 2)) - player.Def;
+               Console.WriteLine($"{enemy.Name} uses heavy attack!");
+                Console.WriteLine("ENTER to continue");
+                Console.ReadLine();
+                // add crit chance check
+                if (critChance < 95 - enemy.Prc)
+                {
+                    // calculates damage with cirt
+                    enemy.Dmg = generator.Next(10 + enemy.Atk, 41 + (enemy.Atk * 2))*2 - player.Def;
+                }
+                else
+                {
+                    // calculates damage without crit
+                    enemy.Dmg = generator.Next(10 + enemy.Atk, 41 + (enemy.Atk * 2)) - player.Def;
+                }
                 enemy.Dmg = Math.Max(0, enemy.Dmg);
                 player.Hp -= enemy.Dmg;
                 player.Hp = Math.Max(0, player.Hp);
-                Console.WriteLine($"{enemy.Name} uses light attack!");
                 Console.WriteLine($"{enemy.Name} does {enemy.Dmg} damage to {player.Name}\n");
             }
         }
