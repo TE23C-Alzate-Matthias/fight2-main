@@ -124,23 +124,30 @@ public class Attacks
         int accuracy;
         int critChance;
         int healing;
-        string[] acceptable = ["1", "2", "3", "4"];
+        int recovering;
+        string[] acceptable = ["1", "2", "3", "4", "5"];
 
         // lets the user choose what action they want to do
         Console.WriteLine("--- Choose Action ---");
-        Console.WriteLine($"1) Light Attack: {5 + player.Atk - enemy.Def}-{20 + player.Atk - enemy.Def}, {80 + player.Acc - enemy.Dex - enemy.ExtraDodge}% Accuracy, Crit {20 + player.Prc}%");
-        Console.WriteLine($"2) Heavy Attack: {10 + player.Atk}-{40 + (player.Atk * 2)}, {30 + player.Acc - enemy.Dex - enemy.ExtraDodge}% Accuracy, Crit {5 + player.Prc}%");
+        Console.WriteLine($"1) Light Attack: {5 + player.Atk - enemy.Def}-{20 + player.Atk - enemy.Def}, {80 + player.Acc - enemy.Dex - enemy.ExtraDodge}% Accuracy, Crit {20 + player.Prc}%, -10 Stamina");
+        Console.WriteLine($"2) Heavy Attack: {10 + player.Atk}-{40 + (player.Atk * 2)}, {30 + player.Acc - enemy.Dex - enemy.ExtraDodge}% Accuracy, Crit {5 + player.Prc}%, -30 Stamina");
         Console.WriteLine($"3) Dodge: {player.Dex}% removed to opponents accuracy check");
-        Console.WriteLine($"4) Rest: {player.MaxHp / 8}-{player.MaxHp / 5} healing");
+        Console.WriteLine($"4) Rest: {player.MaxHp / 10}-{player.MaxHp / 8} healing. {player.MaxStm / 7}-{player.MaxStm / 3} Stamina Recovering");
         attackChoice = Console.ReadLine();
 
-        // if the answer is not one of the options in the array "acceptable" it asks you to try again
-        while (!acceptable.Contains(attackChoice))
+        while (!acceptable.Contains(attackChoice) || attackChoice == "1" && player.UStm < 10 || attackChoice == "2" && player.UStm < 30)
         {
-            Console.WriteLine("Unknown answer, please try again\n");
+            // if the answer is not one of the options in the array "acceptable" it asks you to try again
+            if (!acceptable.Contains(attackChoice))
+            {
+                Console.WriteLine("Unknown answer, please try again\n");
+            }
+            else if (attackChoice == "1" && player.UStm < 10 || attackChoice == "2" && player.UStm < 30)
+            {
+                Console.WriteLine("You dont have enougt stamina to do your action, please try again");
+            }
             attackChoice = Console.ReadLine();
         }
-
 
         // ==================== Player ATTACK =====================
         accuracy = generator.Next(1, 101);
@@ -155,7 +162,7 @@ public class Attacks
                 Console.WriteLine($"{player.Name} missed their attack\n");
             }
             else
-            {   
+            {
                 Console.WriteLine($"{player.Name} uses light attack!");
                 Console.WriteLine("ENTER to continue");
                 Console.ReadLine();
@@ -164,7 +171,7 @@ public class Attacks
                 {
                     // calculates damage with cirt
                     Console.WriteLine($"{player.Name} hit a critical hit!");
-                    player.Dmg = generator.Next(5 + player.Atk, 21 + player.Atk)*2 - enemy.Def;
+                    player.Dmg = generator.Next(5 + player.Atk, 21 + player.Atk) + 15 - enemy.Def;
                 }
                 else
                 {
@@ -176,6 +183,7 @@ public class Attacks
                 enemy.Hp -= player.Dmg;
                 // makes sure the health isnt bellow 0
                 enemy.Hp = Math.Max(0, enemy.Hp);
+                player.UStm -= 10;
 
                 Console.WriteLine($"{player.Name} does {player.Dmg} damage to {enemy.Name}\n");
             }
@@ -189,7 +197,7 @@ public class Attacks
                 player.Exh++;
             }
             else
-            {   
+            {
                 Console.WriteLine($"{player.Name} uses heavy attack!");
                 Console.WriteLine("ENTER to continue");
                 Console.ReadLine();
@@ -197,7 +205,7 @@ public class Attacks
                 if (critChance < 95 - player.Prc)
                 {
                     // calculates damage with cirt
-                    player.Dmg = generator.Next(10 + player.Atk, 41 + (player.Atk * 2))*2 - enemy.Def;
+                    player.Dmg = generator.Next(10 + player.Atk, 41 + (player.Atk * 2)) + 30 - enemy.Def;
                 }
                 else
                 {
@@ -209,6 +217,8 @@ public class Attacks
                 enemy.Hp -= player.Dmg;
                 // makes sure the health isnt bellow 0
                 enemy.Hp = Math.Max(0, enemy.Hp);
+                player.UStm -= 30;
+
                 Console.WriteLine($"{player.Name} does {player.Dmg} damage to {enemy.Name}\n");
             }
         }
@@ -221,11 +231,19 @@ public class Attacks
         // if you choose 4 or d the user heals an amout of hp
         else if (attackChoice == "4")
         {
-            // heals you between 1/8 or 1/5 of your hp
-            healing = generator.Next(player.MaxHp / 8, player.MaxHp / 5 + 1);
+            // heals you between 1/10 or 1/7 of your hp
+            healing = generator.Next(player.MaxHp / 10, player.MaxHp / 7 + 1);
+            recovering = generator.Next(player.MaxStm / 7, player.MaxStm / 3 + 1);
+            player.UStm += recovering;
             player.Hp += healing;
-            Console.WriteLine($"{player.Name} healed {healing} Hp");
+            Console.WriteLine($"{player.Name} healed {healing} Hp and recovered {recovering} Stamina");
             player.Hp = Math.Min(player.Hp, player.MaxHp);
+            player.UStm = Math.Min(player.UStm, player.MaxStm);
+        }
+        else if (attackChoice == "5")
+        {   
+            Console.WriteLine("Setting Enemies Hp to 0");
+            enemy.Hp = 0;
         }
         Console.WriteLine("ENTER to continue");
         Console.ReadLine();
@@ -249,6 +267,7 @@ public class Attacks
         int critChance = generator.Next(1, 101);
         int randomChoice;
         int healing;
+        int recovering;
         enemy.ExtraDodge = 0;
 
         if (enemy.Hp < enemy.MaxHp / 3) // if hp is bellow 1/3 of max hp it can do one of the 4 actions
@@ -262,6 +281,15 @@ public class Attacks
         else // otherwise it has only 2 actions to do
         {
             randomChoice = generator.Next(2);
+        }
+
+        if (enemy.UStm < 30 && randomChoice == 1)
+        {
+            randomChoice = 0;
+            if (enemy.UStm < 10)
+            {
+                randomChoice = 3;
+            }
         }
 
         // enemy using light attack
@@ -281,7 +309,7 @@ public class Attacks
                 {
                     // calculates damage with cirt
                     Console.WriteLine($"{enemy.Name} hit a critical hit!");
-                    enemy.Dmg = generator.Next(5 + enemy.Atk, 21 + enemy.Atk)*2 - player.Def;
+                    enemy.Dmg = generator.Next(5 + enemy.Atk, 21 + enemy.Atk) * 2 - player.Def;
                 }
                 else
                 {
@@ -304,14 +332,14 @@ public class Attacks
             }
             else
             {
-               Console.WriteLine($"{enemy.Name} uses heavy attack!");
+                Console.WriteLine($"{enemy.Name} uses heavy attack!");
                 Console.WriteLine("ENTER to continue");
                 Console.ReadLine();
                 // add crit chance check
                 if (critChance < 95 - enemy.Prc)
                 {
                     // calculates damage with cirt
-                    enemy.Dmg = generator.Next(10 + enemy.Atk, 41 + (enemy.Atk * 2))*2 - player.Def;
+                    enemy.Dmg = generator.Next(10 + enemy.Atk, 41 + (enemy.Atk * 2)) * 2 - player.Def;
                 }
                 else
                 {
@@ -334,9 +362,12 @@ public class Attacks
         else if (randomChoice == 3)
         {
             healing = generator.Next(enemy.MaxHp / 8, enemy.MaxHp / 5 + 1);
+            recovering = generator.Next(enemy.MaxStm / 7, enemy.MaxStm / 3 + 1);
             enemy.Hp += healing;
-            Console.WriteLine($"{enemy.Name} healed {healing} Hp");
+            enemy.UStm += recovering;
+            Console.WriteLine($"{enemy.Name} healed {healing} Hp and recovered {recovering} Stamina");
             enemy.Hp = Math.Min(enemy.Hp, enemy.MaxHp);
+            enemy.UStm = Math.Min(enemy.UStm, enemy.MaxStm);
         }
         Console.WriteLine("ENTER to continue");
         Console.ReadLine();

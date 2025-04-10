@@ -72,7 +72,7 @@ public class BetweenFighting
             }
             else if (choice == 6)
             {
-                // gonna impliment stuff here that gives some needed info about some stuff
+                Information.Info();
             }
             else if (choice == 7)
             {
@@ -145,5 +145,4 @@ public class BetweenFighting
 
         return player;
     }
-
 }

@@ -138,7 +138,9 @@ public class Stat_Story
     //    ____) |    | |    | |__| | | | \ \     | |      | |  | | | |____     | |    | |  | | | |__| | | |__| |
     //   |_____/     |_|     \____/  |_|  \_\    |_|      |_|  |_| |______|    |_|    |_|  |_|  \____/  |_____/ 
     //                                                                                                          
-    //                                                                                                          
+    //       
+
+    // REMEMVBER TO SPLIT THE STRINGS SO WORDS DONT FUCKING FUCK UP                                                                                                   
     public static int Story(int story)
     {
         // checks what point you are in the story
