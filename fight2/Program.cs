@@ -3,6 +3,7 @@
 
 Entity.Characters p1 = new();
 p1.Hp = 100;
+p1.Gold = 100;
 p1.UStm = 100;
 p1.Vt = 0;
 p1.Atk = 0;
@@ -95,18 +96,17 @@ e5.UStm = 100 + (5 * e5.Stm);
 e5.MaxHp = e5.Hp;
 e5.MaxStm = e5.UStm;
 
-// testing right now just on how it will work as im not sure tbh
-Entity.Wepons w1 = new();
-w1.Name = "Sword";
-w1.Type = 1;
+List<Entity.Weapons> inventory = new List<Entity.Weapons>();
 
-Entity.Wepons w2 = new();
-w2.Name = "Helmet";
-w2.Type = 2;
+// creates a list to store wepons objects for the shop
+List<Entity.Weapons> weapons = new List<Entity.Weapons>();
+// add wepons to the list
+weapons.Add(new Entity.Weapons("Basic Sword", "The Sword you got when thrown into prison", 1, 0, 0, 0, 0, 0, 0, 0));
+weapons.Add(new Entity.Weapons("Iron Sword", "A sword made of higher metal which deals more damage", 1, 50, 0, 5, 0, 0, 0, 0));
+weapons.Add(new Entity.Weapons("Steel Sword", "The best sword you can buy", 1, 100, 0, 15, 0, 0, 0, 0));
 
-Entity.Wepons w3 = new();
-w3.Name = "Boots";
-w3.Type = 3;
+// creates a list to store object in the players inventory
+
 
 int storyPoint = 0;
 
@@ -133,31 +133,31 @@ while (keepPlaying == "yes")
     // just checks where you are in the story and makes you fight the correct person
     if (storyPoint == 0) // first enemy
     {
-        p1 = BetweenFighting.Intermission(p1, e1);
+        (p1, weapons) = BetweenFighting.Intermission(p1, e1, weapons);
         (p1, e1, storyPoint) = Attacks.Fight(p1, e1, storyPoint);
         p1.Stat += 10;
     }
     else if (storyPoint == 1) // second enemy
     {
-        p1 = BetweenFighting.Intermission(p1, e2);
+        (p1, weapons)  = BetweenFighting.Intermission(p1, e2, weapons);
         (p1, e2, storyPoint) = Attacks.Fight(p1, e2, storyPoint);
         p1.Stat += 10;
     }
     else if (storyPoint == 2) // third enemy
     {
-        p1 = BetweenFighting.Intermission(p1, e3);
+        (p1, weapons)  = BetweenFighting.Intermission(p1, e3, weapons);
         (p1, e3, storyPoint) = Attacks.Fight(p1, e3, storyPoint);
         p1.Stat += 20;
     }
     else if (storyPoint == 3) // fourth enemy
     {
-        p1 = BetweenFighting.Intermission(p1, e4);
+        (p1, weapons)  = BetweenFighting.Intermission(p1, e4, weapons);
         (p1, e4, storyPoint) = Attacks.Fight(p1, e4, storyPoint);
         p1.Stat += 5;
     }
     else if (storyPoint == 4) // fifth enemy
     {
-        p1 = BetweenFighting.Intermission(p1, e5);
+        (p1, weapons)  = BetweenFighting.Intermission(p1, e5, weapons);
         (p1, e5, storyPoint) = Attacks.Fight(p1, e5, storyPoint);
 
     }

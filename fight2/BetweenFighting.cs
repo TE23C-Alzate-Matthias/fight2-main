@@ -11,25 +11,27 @@ public class BetweenFighting
     //   |_____| |_| |_|  \__|  \___| |_|    |_| |_| |_| |_| |___/ |___/ |_|  \___/  |_| |_|   |_|  |_|  \___|  \__| |_| |_|  \___/   \__,_|
     //                                                                                                                                      
     //                                                                                                                                      
-    public static Entity.Characters Intermission(Entity.Characters player, Entity.Characters enemy)
-    {
+    public static (Entity.Characters, List<Entity.Weapons>) Intermission(Entity.Characters player, Entity.Characters enemy, List<Entity.Weapons> weapons)
+    {   
+
         int choice = 0;
         string option;
         string[] acceptable = ["1", "2", "3", "4", "5", "6", "7", "8"];
 
         while (choice != 5)
         {
+            Console.Clear();
             Console.Write("1) Check Stats ");
             if (player.Stat != 0)
             {
                 Console.Write($"(YOU HAVE {player.Stat} STAT POINTS TO USE)");
             }
             // i will probably make the start fight number 5 later
-            Console.WriteLine("\n2) Shop (Not implemented yet)");
+            Console.WriteLine("\n2) Shop");
             Console.WriteLine("3) Inventory (Not implemented yet)");
             Console.WriteLine("4) Next Enemy");
             Console.WriteLine("5) Start Next Fight");
-            Console.WriteLine("6) Info (Not implemented yet)");
+            Console.WriteLine("6) Info");
             Console.WriteLine("7) Quit");
 
             option = Console.ReadLine();
@@ -46,11 +48,12 @@ public class BetweenFighting
             if (choice == 1)
             {
                 // stats option
-                Stat_Story.StatPoints(player);
+                player = Stat_Story.StatPoints(player);
             }
             else if (choice == 2)
             {
-                // impliment shop
+                // shop option
+                (weapons, player) = Shop_Inv.Shop(weapons, player);
             }
             else if (choice == 3)
             {
@@ -92,10 +95,9 @@ public class BetweenFighting
                 enemy.Hp = 0;
                 Console.ReadLine();
             }
-            Console.Clear();
         }
         player.MaxHp = player.Hp;
-        return player;
+        return (player, weapons);
     }
 
     //    _   _                                 _____   _                     _        __  __          _     _                   _ 

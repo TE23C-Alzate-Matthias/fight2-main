@@ -16,14 +16,15 @@ public class Information
 
         while (num != 6)
         {
+            Console.Clear();
             success = false;
             Console.WriteLine("===== What do you want to know? =====\n");
-            Console.WriteLine("5) Stats");
-            Console.WriteLine("1) Combat");
-            Console.WriteLine("2) Enemies");
-            Console.WriteLine("3) Shop (nothing yet)");
-            Console.WriteLine("4) Inventory (nothing yet)");
-            Console.WriteLine("5) Exit");
+            Console.WriteLine("1) Stats");
+            Console.WriteLine("2) Combat");
+            Console.WriteLine("3) Enemies");
+            Console.WriteLine("4) Shop");
+            Console.WriteLine("5) Inventory");
+            Console.WriteLine("6) Exit");
             while (success == false) 
             {
                 choice = Console.ReadLine();
