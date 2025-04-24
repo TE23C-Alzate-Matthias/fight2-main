@@ -3,16 +3,8 @@
 
 Entity.Characters p1 = new();
 p1.Hp = 100;
-p1.Gold = 100;
+p1.Gold = 10000;
 p1.UStm = 100;
-p1.Vt = 0;
-p1.Atk = 0;
-p1.Def = 0;
-p1.Spd = 0;
-p1.Acc = 0;
-p1.Prc = 0;
-p1.Dex = 0;
-p1.Stm = 0;
 p1.Stat = 20;
 p1.MaxHp = p1.Hp;
 
@@ -98,12 +90,20 @@ e5.MaxStm = e5.UStm;
 
 List<Entity.Weapons> inventory = new List<Entity.Weapons>();
 
+    // 1 - Wepons
+    // 2 - Helmet
+    // 3 - BreastPlate
+    // 4 - Leggings
+    // 5 - Boots
+    // 6 - Ring
+
 // creates a list to store wepons objects for the shop
 List<Entity.Weapons> weapons = new List<Entity.Weapons>();
 // add wepons to the list
-weapons.Add(new Entity.Weapons("Basic Sword", "The Sword you got when thrown into prison", 1, 0, 0, 0, 0, 0, 0, 0));
-weapons.Add(new Entity.Weapons("Iron Sword", "A sword made of higher metal which deals more damage", 1, 50, 0, 5, 0, 0, 0, 0));
+weapons.Add(new Entity.Weapons("Basic Sword", "A Sword made out of cheap metal", 1, 10, 0, 5, 0, 0, 0, 0));
+weapons.Add(new Entity.Weapons("Iron Sword", "A sword made of higher metal which deals more damage", 1, 50, 0, 10, 0, 0, 0, 0));
 weapons.Add(new Entity.Weapons("Steel Sword", "The best sword you can buy", 1, 100, 0, 15, 0, 0, 0, 0));
+weapons.Add(new Entity.Weapons("Basic Helmet", "A Helmet made out cheap material", 2, 10, 3, 0, 2, 0, 0, 0));
 
 // creates a list to store object in the players inventory
 

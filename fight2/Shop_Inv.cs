@@ -1,3 +1,5 @@
+using System.Reflection.PortableExecutable;
+
 public class Shop_Inv
 {
     //     _____   _                         __  __          _     _                   _ 
@@ -13,51 +15,101 @@ public class Shop_Inv
         string choice;
 
         int i;
+        int price;
         int num = 0;
 
         bool success;
 
 
-        while (num != 7)
+        while (num != weapons.Count)
         {
             Console.Clear();
             success = false;
 
             Console.WriteLine($"Gold: {player.Gold}");
             Console.WriteLine("What do you want to buy?");
-            Console.WriteLine("1) Weapons");
-            Console.WriteLine("2) Helmets");
-            Console.WriteLine("3) Chestplates");
-            Console.WriteLine("4) Leggings");
-            Console.WriteLine("5) Boots");
-            Console.WriteLine("6) Rings");
-            Console.WriteLine("7) Exit");
+            for (i = 0; i < weapons.Count; i++)
+            {
+                Entity.Weapons w = weapons[i];
+                Console.WriteLine($"{i}) {w.Name}, Price: {w.Price}");
+            }
+            Console.WriteLine($"{weapons.Count}) Exit");
 
-            while (success == false)
+            while (success == false || num < 0 || num >= weapons.Count)
             {
                 choice = Console.ReadLine();
                 success = int.TryParse(choice, out num);
                 if (success == false)
                 {
-                    Console.WriteLine("Unknown answer, please try again");
+                    Console.WriteLine("This is not a number, please try again");
                 }
-            }
-
-            Console.Clear();
-            if (num == 1)
-            {   
-                for (i = 0; i < weapons.Count; i++)
+                else if (num == weapons.Count)
                 {
-                    Entity.Weapons w = weapons[i];
-                    Console.WriteLine($"{i}) {w.Name}, Price: {w.Price}");
-                    if (i == weapons.Count - 1)
-                    {
-                        Console.WriteLine($"{i + 1}) Exit");
-                    }
-
+                    break;
                 }
-                Console.ReadLine();
+                else if (num < 0 || num >= weapons.Count)
+                {
+                    Console.WriteLine("Invalid index, please try again");
+                }
             }
+
+            if (num == weapons.Count)
+            {
+                break;
+            }
+
+            Entity.Weapons selectedWeapon = weapons[num];
+            Console.Clear();
+            Console.WriteLine($"You selected: {selectedWeapon.Name}");
+            Console.WriteLine($"Description: {selectedWeapon.Description}");
+            Console.WriteLine($"Price: {selectedWeapon.Price}");
+
+            if (selectedWeapon.Vt > 0)
+            {
+                Console.WriteLine($"Vt: {selectedWeapon.Vt}");
+            }
+            if (selectedWeapon.Atk > 0)
+            {
+                Console.WriteLine($"Atk: {selectedWeapon.Atk}");
+            }
+            if (selectedWeapon.Def > 0)
+            {
+                Console.WriteLine($"Def: {selectedWeapon.Def}");
+            }
+            if (selectedWeapon.Spd > 0)
+            {
+                Console.WriteLine($"Spd: {selectedWeapon.Spd}");
+            }
+            if (selectedWeapon.Acc > 0)
+            {
+                Console.WriteLine($"Acc: {selectedWeapon.Acc}");
+            }
+            if (selectedWeapon.Dex > 0)
+            {
+                Console.WriteLine($"Dex: {selectedWeapon.Dex}");
+            }
+            Console.WriteLine("Do you want to buy this item? (yes/no)");
+            choice = Console.ReadLine().ToLower();
+            if (choice == "yes")
+            {
+                if (player.Gold >= selectedWeapon.Price)
+                {
+                    player.Gold -= selectedWeapon.Price;
+                    player.Inventory.Add(selectedWeapon);
+                    weapons.RemoveAt(num);
+                    Console.WriteLine("Item purchased and added to your inventory!");
+                }
+                else
+                {
+                    Console.WriteLine("Not enough gold to buy this item.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Purchase canceled.");
+            }
+            Console.ReadLine();
+
         }
 
         return (weapons, player);
@@ -72,10 +124,61 @@ public class Shop_Inv
     //   |_____| |_| |_|   \_/    \___| |_| |_|  \__|  \___/  |_|     \__, |   |_|  |_|  \___|  \__| |_| |_|  \___/   \__,_|
     //                                                                 __/ |                                                
     //                                                                |___/                                                 
-    public static int Inventory(int Inventory)
-    {
+    public static Entity.Characters Inventory(Entity.Characters player)
+    {   
+        string choice;
 
+        int num = 0;
 
-        return Inventory;
+        bool success;
+        while (num != player.Inventory.Count)
+        {   
+            success = false;
+            Console.Clear();
+            Console.WriteLine("Your Inventory:");
+            if (player.Inventory.Count == 0)
+            {
+                Console.WriteLine("Inventory is empty.");
+            }
+            else
+            {
+                for (int i = 0; i < player.Inventory.Count; i++)
+                {
+                    var item = player.Inventory[i];
+                    Console.WriteLine($"{i}) {item.Name}");
+                }
+                Console.WriteLine($"{player.Inventory.Count}) Exit");
+            }
+
+            while (success == false || num < 0 || num >= player.Inventory.Count)
+            {
+                choice = Console.ReadLine();
+                success = int.TryParse(choice, out num);
+                if (success == false)
+                {
+                    Console.WriteLine("This is not a number, please try again");
+                }
+                else if (num == player.Inventory.Count)
+                {
+                    break;
+                }
+                else if (num < 0 || num >= player.Inventory.Count)
+                {
+                    Console.WriteLine("Invalid index, please try again");
+                }
+            }
+
+            if (num == player.Inventory.Count)
+            {
+                break;
+            }
+
+            var selectedItem = player.Inventory[num];
+            Console.Clear();
+            Console.WriteLine($"You selected: {selectedItem.Name}");
+            Console.ReadLine();
+        }
+
+        return player;
     }
 }

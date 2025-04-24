@@ -39,6 +39,7 @@ public class Entity
         public int Bonus { get; set; } // new
         public int Exh { get; set; } // new
         public int Gold { get; set; } // new
+        public List<Weapons> Inventory { get; set; } = new List<Weapons>();
         // public List<string> Attacks; // new
     }
 
@@ -62,7 +63,7 @@ public class Entity
         public int Dex { get; set; }
         public int Stm { get; set; }
 
-        // much help with ai to know what the fuck to do for the shop to be viable and working
+        // much help with ai to know what the fuck to do for the shop to be viable and working, pretty sure this will work
         public Weapons(string name, string description, int type, int price, int vt, int atk, int def, int spd, int acc, int dex)
         {
             Name = name;

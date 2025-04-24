@@ -57,7 +57,8 @@ public class BetweenFighting
             }
             else if (choice == 3)
             {
-                // impliment inventory
+                // inventory option
+                player = Shop_Inv.Inventory(player);
             }
             else if (choice == 4)
             {
