@@ -10,32 +10,32 @@ public class Shop_Inv
     //   |_____/  |_| |_|  \___/  | .__/    |_|  |_|  \___|  \__| |_| |_|  \___/   \__,_|
     //                            | |                                                    
     //                            |_|   
-    public static (List<Entity.Weapons>, Entity.Characters) Shop(List<Entity.Weapons> weapons, Entity.Characters player)
+    public static (List<Entity.Items>, Entity.Characters) Shop(List<Entity.Items> items, Entity.Characters player)
     {
+        // this method had help from AI to work on the way that i want it to work
         string choice;
 
         int i;
-        int price;
         int num = 0;
 
         bool success;
 
 
-        while (num != weapons.Count)
+        while (num != items.Count)
         {
             Console.Clear();
             success = false;
 
             Console.WriteLine($"Gold: {player.Gold}");
             Console.WriteLine("What do you want to buy?");
-            for (i = 0; i < weapons.Count; i++)
+            for (i = 0; i < items.Count; i++)
             {
-                Entity.Weapons w = weapons[i];
+                var w = items[i];
                 Console.WriteLine($"{i}) {w.Name}, Price: {w.Price}");
             }
-            Console.WriteLine($"{weapons.Count}) Exit");
+            Console.WriteLine($"{items.Count}) Exit");
 
-            while (success == false || num < 0 || num >= weapons.Count)
+            while (success == false || num < 0 || num >= items.Count)
             {
                 choice = Console.ReadLine();
                 success = int.TryParse(choice, out num);
@@ -43,60 +43,60 @@ public class Shop_Inv
                 {
                     Console.WriteLine("This is not a number, please try again");
                 }
-                else if (num == weapons.Count)
+                else if (num == items.Count)
                 {
                     break;
                 }
-                else if (num < 0 || num >= weapons.Count)
+                else if (num < 0 || num >= items.Count)
                 {
                     Console.WriteLine("Invalid index, please try again");
                 }
             }
 
-            if (num == weapons.Count)
+            if (num == items.Count)
             {
                 break;
             }
 
-            Entity.Weapons selectedWeapon = weapons[num];
+            var selectedItem = items[num];
             Console.Clear();
-            Console.WriteLine($"You selected: {selectedWeapon.Name}");
-            Console.WriteLine($"Description: {selectedWeapon.Description}");
-            Console.WriteLine($"Price: {selectedWeapon.Price}");
+            Console.WriteLine($"You selected: {selectedItem.Name}");
+            Console.WriteLine($"Description: {selectedItem.Description}");
+            Console.WriteLine($"Price: {selectedItem.Price}");
 
-            if (selectedWeapon.Vt > 0)
+            if (selectedItem.Vt > 0)
             {
-                Console.WriteLine($"Vt: {selectedWeapon.Vt}");
+                Console.WriteLine($"Vt: {selectedItem.Vt}");
             }
-            if (selectedWeapon.Atk > 0)
+            if (selectedItem.Atk > 0)
             {
-                Console.WriteLine($"Atk: {selectedWeapon.Atk}");
+                Console.WriteLine($"Atk: {selectedItem.Atk}");
             }
-            if (selectedWeapon.Def > 0)
+            if (selectedItem.Def > 0)
             {
-                Console.WriteLine($"Def: {selectedWeapon.Def}");
+                Console.WriteLine($"Def: {selectedItem.Def}");
             }
-            if (selectedWeapon.Spd > 0)
+            if (selectedItem.Spd > 0)
             {
-                Console.WriteLine($"Spd: {selectedWeapon.Spd}");
+                Console.WriteLine($"Spd: {selectedItem.Spd}");
             }
-            if (selectedWeapon.Acc > 0)
+            if (selectedItem.Acc > 0)
             {
-                Console.WriteLine($"Acc: {selectedWeapon.Acc}");
+                Console.WriteLine($"Acc: {selectedItem.Acc}");
             }
-            if (selectedWeapon.Dex > 0)
+            if (selectedItem.Dex > 0)
             {
-                Console.WriteLine($"Dex: {selectedWeapon.Dex}");
+                Console.WriteLine($"Dex: {selectedItem.Dex}");
             }
             Console.WriteLine("Do you want to buy this item? (yes/no)");
             choice = Console.ReadLine().ToLower();
             if (choice == "yes")
             {
-                if (player.Gold >= selectedWeapon.Price)
+                if (player.Gold >= selectedItem.Price)
                 {
-                    player.Gold -= selectedWeapon.Price;
-                    player.Inventory.Add(selectedWeapon);
-                    weapons.RemoveAt(num);
+                    player.Gold -= selectedItem.Price;
+                    player.Inventory.Add(selectedItem);
+                    items.RemoveAt(num);
                     Console.WriteLine("Item purchased and added to your inventory!");
                 }
                 else
@@ -112,7 +112,7 @@ public class Shop_Inv
 
         }
 
-        return (weapons, player);
+        return (items, player);
     }
 
 
@@ -125,20 +125,22 @@ public class Shop_Inv
     //                                                                 __/ |                                                
     //                                                                |___/                                                 
     public static Entity.Characters Inventory(Entity.Characters player)
-    {   
+    {
         string choice;
 
         int num = 0;
 
         bool success;
         while (num != player.Inventory.Count)
-        {   
+        {
             success = false;
             Console.Clear();
             Console.WriteLine("Your Inventory:");
             if (player.Inventory.Count == 0)
             {
                 Console.WriteLine("Inventory is empty.");
+                Console.ReadLine();
+                break;
             }
             else
             {
@@ -177,8 +179,59 @@ public class Shop_Inv
             Console.Clear();
             Console.WriteLine($"You selected: {selectedItem.Name}");
             Console.ReadLine();
-        }
+            if (selectedItem.Vt > 0)
+            {
+                Console.WriteLine($"Vt: {selectedItem.Vt}");
+            }
+            if (selectedItem.Atk > 0)
+            {
+                Console.WriteLine($"Atk: {selectedItem.Atk}");
+            }
+            if (selectedItem.Def > 0)
+            {
+                Console.WriteLine($"Def: {selectedItem.Def}");
+            }
+            if (selectedItem.Spd > 0)
+            {
+                Console.WriteLine($"Spd: {selectedItem.Spd}");
+            }
+            if (selectedItem.Acc > 0)
+            {
+                Console.WriteLine($"Acc: {selectedItem.Acc}");
+            }
+            if (selectedItem.Dex > 0)
+            {
+                Console.WriteLine($"Dex: {selectedItem.Dex}");
+            }
+            Console.WriteLine("Do you want to equip this item? (yes/no)");
+            choice = Console.ReadLine().ToLower();
 
+            if (choice == "yes")
+            {
+                int slot = selectedItem.Type - 1;
+                var previous = player.Equipments[slot];
+
+                // Unequip previous stats
+                if (previous != null)
+                {
+                    player.BonusAtk -= previous.Atk;
+                    player.BonusDef -= previous.Def;
+                    player.BonusSpd -= previous.Spd;
+                    player.BonusAcc -= previous.Acc;
+                    player.BonusDex -= previous.Dex;
+                }
+
+                // Equip new item and add stats
+                player.Equipments[slot] = selectedItem;
+                player.BonusAtk += selectedItem.Atk;
+                player.BonusDef += selectedItem.Def;
+                player.BonusSpd += selectedItem.Spd;
+                player.BonusAcc += selectedItem.Acc;
+                player.BonusDex += selectedItem.Dex;
+
+                Console.WriteLine($"Equipped {selectedItem.Name} in slot {slot + 1}.");
+            }
+        }
         return player;
     }
 }

@@ -24,7 +24,7 @@ public class Attacks
             Console.WriteLine($"{player.Name}: {player.UStm} Stamina  |  {enemy.Name}: {enemy.UStm} Stamina\n");
 
             enemySpeed = generator.Next(1, 101) + (enemy.Spd * 5);
-            playerSpeed = generator.Next(1, 101) + (player.Spd * 5);
+            playerSpeed = generator.Next(1, 101) + ((player.Spd + player.BonusSpd) * 5);
 
             // writes out what both rolled for speed
             Console.WriteLine("------- Speed Roll -------");
@@ -129,9 +129,9 @@ public class Attacks
 
         // lets the user choose what action they want to do
         Console.WriteLine("--- Choose Action ---");
-        Console.WriteLine($"1) Light Attack: {5 + player.Atk - enemy.Def}-{20 + player.Atk - enemy.Def}, {80 + player.Acc - enemy.Dex - enemy.ExtraDodge}% Accuracy, Crit {20 + player.Prc}%, -10 Stamina");
-        Console.WriteLine($"2) Heavy Attack: {10 + player.Atk}-{40 + (player.Atk * 2)}, {30 + player.Acc - enemy.Dex - enemy.ExtraDodge}% Accuracy, Crit {5 + player.Prc}%, -30 Stamina");
-        Console.WriteLine($"3) Dodge: {player.Dex}% removed to opponents accuracy check");
+        Console.WriteLine($"1) Light Attack: {5 + player.Atk + player.BonusAtk - enemy.Def}-{20 + player.Atk + player.BonusAtk - enemy.Def}, {80 + player.Acc + player.BonusAcc - enemy.Dex - enemy.ExtraDodge}% Accuracy, Crit {20 + player.Prc}%, -10 Stamina");
+        Console.WriteLine($"2) Heavy Attack: {10 + player.Atk + player.BonusAtk}-{40 + (player.Atk + player.BonusAtk) * 2}, {30 + player.Acc + player.BonusAcc - enemy.Dex - enemy.ExtraDodge}% Accuracy, Crit {5 + player.Prc}%, -30 Stamina");
+        Console.WriteLine($"3) Dodge: {player.Dex + player.BonusDex}% removed to opponents accuracy check");
         Console.WriteLine($"4) Rest: {player.MaxHp / 10}-{player.MaxHp / 8} healing. {player.MaxStm / 7}-{player.MaxStm / 3} Stamina Recovering");
         attackChoice = Console.ReadLine();
 
@@ -157,7 +157,7 @@ public class Attacks
         // if you choose 1 or a the user tries a light attack
         if (attackChoice == "1")
         {
-            if (accuracy < 20 - player.Acc + enemy.Dex + enemy.ExtraDodge)
+            if (accuracy < 20 - player.Acc - player.BonusAcc + enemy.Dex + enemy.ExtraDodge)
             {
                 Console.WriteLine($"{player.Name} missed their attack\n");
             }
@@ -171,12 +171,12 @@ public class Attacks
                 {
                     // calculates damage with cirt
                     Console.WriteLine($"{player.Name} hit a critical hit!");
-                    player.Dmg = generator.Next(5 + player.Atk, 21 + player.Atk) + 15 - enemy.Def;
+                    player.Dmg = generator.Next(5 + player.Atk + player.BonusAtk, 21 + player.Atk + player.BonusAtk) + 15 - enemy.Def;
                 }
                 else
                 {
                     // calculates damage without crit
-                    player.Dmg = generator.Next(5 + player.Atk, 21 + player.Atk) - enemy.Def;
+                    player.Dmg = generator.Next(5 + player.Atk + player.BonusAtk, 21 + player.Atk + player.BonusAtk) - enemy.Def;
                 }
                 // makes sure the dmg isnt bellow 0
                 player.Dmg = Math.Max(0, player.Dmg);
@@ -191,7 +191,7 @@ public class Attacks
         // if you chhose 2 or b the user tries a heavy attack
         else if (attackChoice == "2")
         {
-            if (accuracy < 70 - player.Acc + enemy.Dex + enemy.ExtraDodge)
+            if (accuracy < 70 - player.Acc - player.BonusAcc + enemy.Dex + enemy.ExtraDodge)
             {
                 Console.WriteLine($"{player.Name} missed their attack and loses their next turn\n");
                 player.Exh++;
@@ -205,12 +205,12 @@ public class Attacks
                 if (critChance < 95 - player.Prc)
                 {
                     // calculates damage with cirt
-                    player.Dmg = generator.Next(10 + player.Atk, 41 + (player.Atk * 2)) + 30 - enemy.Def;
+                    player.Dmg = generator.Next(10 + player.Atk + player.BonusAtk, 41 + (player.Atk + player.BonusAtk) * 2) + 30 - enemy.Def;
                 }
                 else
                 {
                     // calculates damage without crit
-                    player.Dmg = generator.Next(10 + player.Atk, 41 + (player.Atk * 2)) - enemy.Def;
+                    player.Dmg = generator.Next(10 + player.Atk, 41 + (player.Atk + player.BonusAtk) * 2) - enemy.Def;
                 }
                 // makes sure the dmg isnt bellow 0
                 player.Dmg = Math.Max(0, player.Dmg);
@@ -225,7 +225,7 @@ public class Attacks
         // if you choose 3 or c the user gets extra dodge chance
         else if (attackChoice == "3")
         {
-            player.ExtraDodge = player.Dex;
+            player.ExtraDodge = player.Dex + player.BonusDex;
             Console.WriteLine($"{player.Name} prepares to dodge {enemy.Name} next action");
         }
         // if you choose 4 or d the user heals an amout of hp
@@ -295,7 +295,7 @@ public class Attacks
         // enemy using light attack
         if (randomChoice == 0)
         {
-            if (accuracy < 20 - enemy.Acc + player.Dex + player.ExtraDodge)
+            if (accuracy < 20 - enemy.Acc + player.Dex + player.BonusDex + player.ExtraDodge)
             {
                 Console.WriteLine($"{enemy.Name} missed their attack\n");
             }
@@ -309,12 +309,12 @@ public class Attacks
                 {
                     // calculates damage with cirt
                     Console.WriteLine($"{enemy.Name} hit a critical hit!");
-                    enemy.Dmg = generator.Next(5 + enemy.Atk, 21 + enemy.Atk) * 2 - player.Def;
+                    enemy.Dmg = generator.Next(5 + enemy.Atk, 21 + enemy.Atk) * 2 - player.Def - player.BonusDef;
                 }
                 else
                 {
                     // calculates damage without crit
-                    enemy.Dmg = generator.Next(5 + enemy.Atk, 21 + enemy.Atk) - player.Def;
+                    enemy.Dmg = generator.Next(5 + enemy.Atk, 21 + enemy.Atk) - player.Def - player.BonusDef;
                 }
                 enemy.Dmg = Math.Max(0, enemy.Dmg);
                 player.Hp -= enemy.Dmg;
@@ -325,7 +325,7 @@ public class Attacks
         // enemy using heavy attack
         else if (randomChoice == 1)
         {
-            if (accuracy < 70 - enemy.Acc + player.Dex + player.ExtraDodge)
+            if (accuracy < 70 - enemy.Acc + player.Dex + player.BonusDex + player.ExtraDodge)
             {
                 Console.WriteLine($"{enemy.Name} missed their attack and loses their next turn\n");
                 enemy.Exh++;
@@ -339,12 +339,12 @@ public class Attacks
                 if (critChance < 95 - enemy.Prc)
                 {
                     // calculates damage with cirt
-                    enemy.Dmg = generator.Next(10 + enemy.Atk, 41 + (enemy.Atk * 2)) * 2 - player.Def;
+                    enemy.Dmg = generator.Next(10 + enemy.Atk, 41 + (enemy.Atk * 2)) * 2 - player.Def - player.BonusDef;
                 }
                 else
                 {
                     // calculates damage without crit
-                    enemy.Dmg = generator.Next(10 + enemy.Atk, 41 + (enemy.Atk * 2)) - player.Def;
+                    enemy.Dmg = generator.Next(10 + enemy.Atk, 41 + (enemy.Atk * 2)) - player.Def - player.BonusDef;
                 }
                 enemy.Dmg = Math.Max(0, enemy.Dmg);
                 player.Hp -= enemy.Dmg;

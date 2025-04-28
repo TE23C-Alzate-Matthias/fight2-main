@@ -11,7 +11,7 @@ public class BetweenFighting
     //   |_____| |_| |_|  \__|  \___| |_|    |_| |_| |_| |_| |___/ |___/ |_|  \___/  |_| |_|   |_|  |_|  \___|  \__| |_| |_|  \___/   \__,_|
     //                                                                                                                                      
     //                                                                                                                                      
-    public static (Entity.Characters, List<Entity.Weapons>) Intermission(Entity.Characters player, Entity.Characters enemy, List<Entity.Weapons> weapons)
+    public static (Entity.Characters, List<Entity.Items>) Intermission(Entity.Characters player, Entity.Characters enemy, List<Entity.Items> items)
     {   
 
         int choice = 0;
@@ -53,7 +53,7 @@ public class BetweenFighting
             else if (choice == 2)
             {
                 // shop option
-                (weapons, player) = Shop_Inv.Shop(weapons, player);
+                (items, player) = Shop_Inv.Shop(items, player);
             }
             else if (choice == 3)
             {
@@ -98,7 +98,7 @@ public class BetweenFighting
             }
         }
         player.MaxHp = player.Hp;
-        return (player, weapons);
+        return (player, items);
     }
 
     //    _   _                                 _____   _                     _        __  __          _     _                   _ 

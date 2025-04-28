@@ -23,23 +23,29 @@ public class Entity
         public string Name { get; set; }
         public int Hp { get; set; }
         public int Vt { get; set; }
+        public int BonusVt; // new
         public int Atk { get; set; }
+        public int BonusAtk; // new
         public int Def { get; set; }
+        public int BonusDef; // new
         public int Spd { get; set; }
+        public int BonusSpd; // new
         public int Acc { get; set; }
+        public int BonusAcc; // new
         public int Prc { get; set; } // new
         public int Dex { get; set; }
+        public int BonusDex; // new
+        public int Stm { get; set; } // new
         public int Stat { get; set; }
         public int ExtraDodge { get; set; }
         public int MaxHp { get; set; }
         public int Dmg;
-        public int Stm { get; set; } // new
         public int UStm { get; set; } // new
         public int MaxStm { get; set; } // new
-        public int Bonus { get; set; } // new
         public int Exh { get; set; } // new
         public int Gold { get; set; } // new
-        public List<Weapons> Inventory { get; set; } = new List<Weapons>();
+        public List<Items> Inventory = new List<Items>();
+        public List<Items> Equipments = new List<Items>();
         // public List<string> Attacks; // new
     }
 
@@ -49,7 +55,7 @@ public class Entity
     // 4 - Leggings
     // 5 - Boots
     // 6 - Ring
-    public class Weapons
+    public class Items
     {
         public string Name { get; set; }
         public string Description { get; set; }
@@ -64,7 +70,7 @@ public class Entity
         public int Stm { get; set; }
 
         // much help with ai to know what the fuck to do for the shop to be viable and working, pretty sure this will work
-        public Weapons(string name, string description, int type, int price, int vt, int atk, int def, int spd, int acc, int dex)
+        public Items(string name, string description, int type, int price, int vt, int atk, int def, int spd, int acc, int dex)
         {
             Name = name;
             Description = description;

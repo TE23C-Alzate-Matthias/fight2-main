@@ -10,7 +10,7 @@ public class Stat_Story
     //                                                                                                                          
     //                                                                                                                          
     public static Entity.Characters StatPoints(Entity.Characters player)
-    {
+    {   
         int choice = 0;
         string option;
         string[] acceptable = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"];
@@ -23,13 +23,13 @@ public class Stat_Story
             Console.WriteLine("Add Statpoints to your character:\n");
             Console.WriteLine($"Hp: {player.Hp}");
             Console.WriteLine($"Max Stamina: {player.UStm}");
-            Console.WriteLine($"1) Vitality: {player.Vt}");
-            Console.WriteLine($"2) Attack: {player.Atk}");
-            Console.WriteLine($"3) Defence: {player.Def}");
-            Console.WriteLine($"4) Speed: {player.Spd}");
+            Console.WriteLine($"1) Vitality: {player.Vt} (+ {player.BonusVt})");
+            Console.WriteLine($"2) Attack: {player.Atk} (+ {player.BonusAtk})");
+            Console.WriteLine($"3) Defence: {player.Def} (+ {player.BonusDef})");
+            Console.WriteLine($"4) Speed: {player.Spd} (+ {player.BonusSpd})");
             Console.WriteLine($"5) Accuracy: {player.Acc}");
             Console.WriteLine($"6) Precision: {player.Prc}");
-            Console.WriteLine($"7) Dexterity: {player.Dex}");
+            Console.WriteLine($"7) Dexterity: {player.Dex} (+ {player.BonusDex})");
             Console.WriteLine($"8) Stamina: {player.Stm}");
             Console.WriteLine($"9) Help");
             Console.WriteLine($"10) Reset Stat Points");
@@ -49,6 +49,7 @@ public class Stat_Story
             if (choice == 9)
             {
                 // shows what each stat does
+                Console.WriteLine("Stats with '(+ Number)' are stats which you can get bonuses from equipments you buy in the shop");
                 Console.WriteLine("\nVitality: +10 hp per point");
                 Console.WriteLine("Attack: 1+ Minimun and Maximun damage when hitting an attack (+2 maximun damage on heavy attack)");
                 Console.WriteLine("Defence: -1 Damage taken when getting hit per point");
@@ -122,7 +123,7 @@ public class Stat_Story
                         break;
                 }
             }
-            player.Hp = 100 + (10 * player.Vt);
+            player.Hp = 100 + (10 * (player.Vt + player.BonusAcc));
             player.UStm = 100 + (5 * player.Stm);
             Console.Clear();
         }

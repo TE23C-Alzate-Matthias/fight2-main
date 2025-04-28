@@ -88,8 +88,6 @@ e5.UStm = 100 + (5 * e5.Stm);
 e5.MaxHp = e5.Hp;
 e5.MaxStm = e5.UStm;
 
-List<Entity.Weapons> inventory = new List<Entity.Weapons>();
-
     // 1 - Wepons
     // 2 - Helmet
     // 3 - BreastPlate
@@ -98,12 +96,12 @@ List<Entity.Weapons> inventory = new List<Entity.Weapons>();
     // 6 - Ring
 
 // creates a list to store wepons objects for the shop
-List<Entity.Weapons> weapons = new List<Entity.Weapons>();
+List<Entity.Items> items = new List<Entity.Items>();
 // add wepons to the list
-weapons.Add(new Entity.Weapons("Basic Sword", "A Sword made out of cheap metal", 1, 10, 0, 5, 0, 0, 0, 0));
-weapons.Add(new Entity.Weapons("Iron Sword", "A sword made of higher metal which deals more damage", 1, 50, 0, 10, 0, 0, 0, 0));
-weapons.Add(new Entity.Weapons("Steel Sword", "The best sword you can buy", 1, 100, 0, 15, 0, 0, 0, 0));
-weapons.Add(new Entity.Weapons("Basic Helmet", "A Helmet made out cheap material", 2, 10, 3, 0, 2, 0, 0, 0));
+items.Add(new Entity.Items("Basic Sword", "A Sword made out of cheap metal", 1, 10, 0, 5, 0, 0, 0, 0));
+items.Add(new Entity.Items("Iron Sword", "A sword made of higher metal which deals more damage", 1, 50, 0, 10, 0, 0, 0, 0));
+items.Add(new Entity.Items("Steel Sword", "The best sword you can buy", 1, 100, 0, 15, 0, 0, 0, 0));
+items.Add(new Entity.Items("Basic Helmet", "A Helmet made out cheap material", 2, 10, 3, 0, 2, 0, 0, 0));
 
 // creates a list to store object in the players inventory
 
@@ -133,31 +131,31 @@ while (keepPlaying == "yes")
     // just checks where you are in the story and makes you fight the correct person
     if (storyPoint == 0) // first enemy
     {
-        (p1, weapons) = BetweenFighting.Intermission(p1, e1, weapons);
+        (p1, items) = BetweenFighting.Intermission(p1, e1, items);
         (p1, e1, storyPoint) = Attacks.Fight(p1, e1, storyPoint);
         p1.Stat += 10;
     }
     else if (storyPoint == 1) // second enemy
     {
-        (p1, weapons)  = BetweenFighting.Intermission(p1, e2, weapons);
+        (p1, items)  = BetweenFighting.Intermission(p1, e2, items);
         (p1, e2, storyPoint) = Attacks.Fight(p1, e2, storyPoint);
         p1.Stat += 10;
     }
     else if (storyPoint == 2) // third enemy
     {
-        (p1, weapons)  = BetweenFighting.Intermission(p1, e3, weapons);
+        (p1, items)  = BetweenFighting.Intermission(p1, e3, items);
         (p1, e3, storyPoint) = Attacks.Fight(p1, e3, storyPoint);
         p1.Stat += 20;
     }
     else if (storyPoint == 3) // fourth enemy
     {
-        (p1, weapons)  = BetweenFighting.Intermission(p1, e4, weapons);
+        (p1, items)  = BetweenFighting.Intermission(p1, e4, items);
         (p1, e4, storyPoint) = Attacks.Fight(p1, e4, storyPoint);
         p1.Stat += 5;
     }
     else if (storyPoint == 4) // fifth enemy
     {
-        (p1, weapons)  = BetweenFighting.Intermission(p1, e5, weapons);
+        (p1, items)  = BetweenFighting.Intermission(p1, e5, items);
         (p1, e5, storyPoint) = Attacks.Fight(p1, e5, storyPoint);
 
     }
