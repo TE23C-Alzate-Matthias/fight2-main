@@ -21,7 +21,7 @@ public class Shop_Inv
         bool success;
 
 
-        while (num != items.Count)
+        while (true)
         {
             Console.Clear();
             success = false;
@@ -131,10 +131,12 @@ public class Shop_Inv
         int num = 0;
 
         bool success;
-        while (num != player.Inventory.Count)
+        while (true)
         {
             success = false;
             Console.Clear();
+            Console.WriteLine("WARNING: Please dont try equipping any items right now as it will crash");
+            Console.ReadLine();
             Console.WriteLine("Your Inventory:");
             if (player.Inventory.Count == 0)
             {
@@ -206,6 +208,7 @@ public class Shop_Inv
             Console.WriteLine("Do you want to equip this item? (yes/no)");
             choice = Console.ReadLine().ToLower();
 
+            // this part is not working as i want so i will be fixing it later
             if (choice == "yes")
             {
                 int slot = selectedItem.Type - 1;

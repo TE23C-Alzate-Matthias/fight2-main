@@ -37,13 +37,13 @@ as long hp of both is above 0 the fight continues
     makes a speed check and the one with highest speed starts the fight
         user action option defult:
             heavy attack - high stamina consumption, high dmg, low accuracy, if miss you dont attack next time, low crit chance
-            ranged attack - medium stamina consumption, medium dmg, medium accuracy, high crit chance
+            multi attack - medium stamina consumption, medium dmg, medium accuracy, high crit chance
             light attack - low stamina consumption, low dmg, high accuracy, medium crit chance
             dodge - you dont attack but have higher chance to dodge the enemies attack 
             rest - gives you back some random hp and stm
         enemy action option defult:
             heavy attack - high stamina consumption, high dmg, low accuracy, if miss you dont attack next time, low crit chance
-            ranged attack - medium stamina consumption, medium dmg, medium accuracy, high crit chance
+            multi attack - medium stamina consumption, medium dmg, medium accuracy, high crit chance
             light attack - low stamina consumption, low dmg, high accuracy, medium crit chance
             dodge - you dont attack but have higher chance to dodge the enemies attack
             rest - gives you back some random hp and stm

@@ -28,7 +28,7 @@ public class BetweenFighting
             }
             // i will probably make the start fight number 5 later
             Console.WriteLine("\n2) Shop");
-            Console.WriteLine("3) Inventory (Not implemented yet)");
+            Console.WriteLine("3) Inventory (Half implemented)");
             Console.WriteLine("4) Next Enemy");
             Console.WriteLine("5) Start Next Fight");
             Console.WriteLine("6) Info");
