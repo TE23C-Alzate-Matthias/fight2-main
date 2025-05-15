@@ -115,7 +115,8 @@ public class Attacks
     //   | |      | | | (_| | | |_| | |  __/ | |       / ____ \  | |_  | |_  | (_| | | (__  |   <    | |  | | |  __/ | |_  | | | | | (_) | | (_| |
     //   |_|      |_|  \__,_|  \__, |  \___| |_|      /_/    \_\  \__|  \__|  \__,_|  \___| |_|\_\   |_|  |_|  \___|  \__| |_| |_|  \___/   \__,_|
     //                          __/ |                                                                                                             
-    //                         |___/                                                                                                              
+    //                         |___/                                                                                             
+    // player attack method is way to long and some parts can be divided into other methods to make it easier to see what is going on                 
     public static (Entity.Characters player, Entity.Characters enemy) PlayerAttack(Entity.Characters player, Entity.Characters enemy)
     {   
         Console.Clear();
@@ -310,6 +311,8 @@ public class Attacks
     //                                        |___/                                                                                                                                                                                      
     public static (Entity.Characters player, Entity.Characters enemy) EnemyAttack(Entity.Characters player, Entity.Characters enemy)
     {   
+
+        // have sadly not had time to allow the enemy to be able to do the multi attack but will maybe be adding it later
         Console.Clear();
         Random generator = new Random();
         int accuracy = generator.Next(1, 101);

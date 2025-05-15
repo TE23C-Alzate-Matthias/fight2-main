@@ -1,0 +1,3 @@
+Be able to add enemies into a list to make main program a bit shorter
+add more equipments
+divide player attack into smaller methods as its way to big right now

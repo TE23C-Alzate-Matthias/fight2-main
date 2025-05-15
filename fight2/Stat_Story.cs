@@ -145,20 +145,27 @@ public class Stat_Story
     public static int Story(int story)
     {
         // checks what point you are in the story
-        // story is also AI generated
+        // story is AI generated
         if (story == 0)
         {
-            Console.WriteLine("\nThrown into prison for a crime you didn't commit, you soon learn that freedom can only be earned by surviving a brutal series of fights. Your first opponent is Kayn a fighter whose speed and precision make every move a challenge. As you face him in the dimly lit arena, you realize that quick, decisive actions are your only way out.\n");
+            Console.WriteLine("\nThrown into prison for a crime you didn't commit, you soon learn that freedom can only");
+            Console.WriteLine("be earned by surviving a brutal series of fights. Your first opponent is Kayn a fighter");
+            Console.WriteLine("whose speed and precision make every move a challenge. As you face him in the dimly lit");
+            Console.WriteLine("arena, you realize that quick, decisive actions are your only way out.");
             Console.ReadLine();
         }
         else if (story == 1)
         {
-            Console.WriteLine("\nAfter narrowly overcoming Kayn, you feel the rush of victory and gain a boost that sharpens your resolve (+10 stat points). But there’s no time to celebrate, as your next opponent, Jackie, steps into the ring. Known for his unwavering resilience and relentless defense, Jackie turns the fight into a grueling test of endurance. Every punch and block feels like a battle for survival.");
+            Console.WriteLine("\nAfter narrowly overcoming Kayn, you feel the rush of victory and gain a boost that sharpens");
+            Console.WriteLine("your resolve (+10 stat points). But there’s no time to celebrate, as your next opponent, Jackie,");
+            Console.WriteLine("steps into the ring. Known for his unwavering resilience and relentless defense, Jackie turns ");
+            Console.WriteLine("the fight into a grueling test of endurance. Every punch and block feels like a battle for survival.");
             Console.ReadLine();
         }
         else if (story == 2)
         {
-            Console.WriteLine("\nWith newfound strength from your previous victory (+10 stat points), you prepare for your third test: Evelynn. Her fighting style is a blend of fluid grace and lethal precision. Though she may seem unpredictable, every movement is calculated to strike fear into the hearts of her opponents. In this high-stakes encounter, every dodge and counterattack could be the difference between life and death.");
+            Console.WriteLine("\nWith newfound strength from your previous victory (+10 stat points), you prepare for your third ");
+            Console.WriteLine("test: Evelynn. Her fighting style is a blend of fluid grace and lethal precision. Though she may seem unpredictable, every movement is calculated to strike fear into the hearts of her opponents. In this high-stakes encounter, every dodge and counterattack could be the difference between life and death.");
             Console.ReadLine();
         }
         else if (story == 3)

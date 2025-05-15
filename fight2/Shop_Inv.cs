@@ -1,4 +1,3 @@
-using System.Reflection.PortableExecutable;
 
 public class Shop_Inv
 {
@@ -28,6 +27,7 @@ public class Shop_Inv
 
             Console.WriteLine($"Gold: {player.Gold}");
             Console.WriteLine("What do you want to buy?");
+            // writes out all the items that are in the shop
             for (i = 0; i < items.Count; i++)
             {
                 var w = items[i];
@@ -53,6 +53,7 @@ public class Shop_Inv
                 }
             }
 
+            // gets you out of the shop method
             if (num == items.Count)
             {
                 break;
@@ -90,12 +91,16 @@ public class Shop_Inv
             }
             Console.WriteLine("Do you want to buy this item? (yes/no)");
             choice = Console.ReadLine().ToLower();
+            // if yes it tries to allow you to buy the item
             if (choice == "yes")
-            {
+            {   
+                // looks that the player has enough gold to be able to buy the item
                 if (player.Gold >= selectedItem.Price)
                 {
                     player.Gold -= selectedItem.Price;
+                    // adds the item to the players inventory
                     player.Inventory.Add(selectedItem);
+                    // and removes it from shops inventory
                     items.RemoveAt(num);
                     Console.WriteLine("Item purchased and added to your inventory!");
                 }
@@ -151,19 +156,29 @@ public class Shop_Inv
                 for (int i = 0; i < player.Inventory.Count; i++)
                 {
                     var item = player.Inventory[i];
-                    Console.Write($"\n{i}) {item.Name}");
+                    Console.Write($"{i}) {item.Name}");
                     // checks if the item is equiped, not working right now
                     for (int j = 0; j < 6; j++)
-                    {
-                        if (player.Inventory.Contains(player.Equipments[j]))
+                    {   
+                        // goes through all if a item in your inventory matches with
+                        if (player.Inventory[i] == player.Equipments[j])
                         {
                             Console.Write(" (Equiped)");
                         }
                     }
+                    Console.Write("\n");
                 }
                 // at last writes out how to exit
-                Console.Write($"\n{player.Inventory.Count}) Exit\n");
+                Console.Write($"{player.Inventory.Count}) Exit\n");
             }
+
+            Console.WriteLine("Total Added Stats:");
+            Console.WriteLine($"Vt: {player.BonusVt}");
+            Console.WriteLine($"Atk: {player.BonusAtk}");
+            Console.WriteLine($"Def: {player.BonusDef}");
+            Console.WriteLine($"Spd: {player.BonusSpd}");
+            Console.WriteLine($"Acc: {player.BonusAcc}");
+            Console.WriteLine($"Dex: {player.BonusDex}");
 
             // if you didnt write only numbers, its lower than 0 or it is equal to the number of items in the invetory
             // it goes into this loop

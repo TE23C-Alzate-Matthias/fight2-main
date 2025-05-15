@@ -102,9 +102,9 @@ items.Add(new Entity.Items("Basic Sword", "A Sword made out of cheap metal", 1, 
 items.Add(new Entity.Items("Iron Sword", "A sword made of higher metal which deals more damage", 1, 50, 0, 10, 0, 0, 0, 0));
 items.Add(new Entity.Items("Steel Sword", "The best sword you can buy", 1, 100, 0, 15, 0, 0, 0, 0));
 items.Add(new Entity.Items("Basic Helmet", "A Helmet made out cheap material", 2, 10, 3, 0, 2, 0, 0, 0));
-
-// creates a list to store object in the players inventory
-
+items.Add(new Entity.Items("Heavy Helmet", "A Helmet Great for defense", 2, 50, 10, 0, 10, 0, 0, 0));
+items.Add(new Entity.Items("Light Helmet", "A Helmet great for speed and dex", 2, 50, 3, 0, 2, 5, 0, 5));
+items.Add(new Entity.Items("A bit of everything ring", "Gives a bit of everything ", 6, 1, 10, 10, 10, 10, 10, 10));
 
 int storyPoint = 0;
 
@@ -129,6 +129,7 @@ while (keepPlaying == "yes")
 
     // ------- BEFORE AND DURING FIGHT -------
     // just checks where you are in the story and makes you fight the correct person
+    // i am able to make this part shorter but i dont have the time to do it right now
     if (storyPoint == 0) // first enemy
     {
         (p1, items) = BetweenFighting.Intermission(p1, e1, items);

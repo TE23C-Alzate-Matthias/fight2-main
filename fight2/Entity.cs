@@ -47,7 +47,6 @@ public class Entity
         public List<Items> Inventory = new List<Items>();
         // makes the list have 6 empty spots that can be used
         public List<Items> Equipments = new List<Items>(new Items[6]);
-        // public List<string> Attacks; // new
     }
 
     // 1 - Wepons
@@ -70,7 +69,7 @@ public class Entity
         public int Dex { get; set; }
         public int Stm { get; set; }
 
-        // much help with ai to know what the fuck to do for the shop to be viable and working, pretty sure this will work
+        // much help with ai to know what the fuck to do for the shop to be able to work
         public Items(string name, string description, int type, int price, int vt, int atk, int def, int spd, int acc, int dex)
         {
             Name = name;
