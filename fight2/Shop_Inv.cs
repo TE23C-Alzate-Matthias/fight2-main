@@ -12,7 +12,7 @@ public class Shop_Inv
     //                            |_|   
     public static (List<Entity.Items>, Entity.Characters) Shop(List<Entity.Items> items, Entity.Characters player)
     {
-        // this method had help from AI to work on the way that i want it to work
+        // this method had asistance from AI to work on the way that i want it to work
         string choice;
 
         int i;
@@ -20,7 +20,7 @@ public class Shop_Inv
 
         bool success;
 
-
+        // stays inside the loop for ever
         while (true)
         {
             Console.Clear();
@@ -129,31 +129,44 @@ public class Shop_Inv
         string choice;
 
         int num = 0;
+        int slot;
 
         bool success;
+        // stays in the loop forever
         while (true)
         {
             success = false;
             Console.Clear();
-            Console.WriteLine("WARNING: Please dont try equipping any items right now as it will crash");
-            Console.ReadLine();
             Console.WriteLine("Your Inventory:");
             if (player.Inventory.Count == 0)
             {
                 Console.WriteLine("Inventory is empty.");
                 Console.ReadLine();
+                // gets you out of the loop if your inventory is empty
                 break;
             }
             else
             {
+                // writes out all the items that you have in your inventory
                 for (int i = 0; i < player.Inventory.Count; i++)
                 {
                     var item = player.Inventory[i];
-                    Console.WriteLine($"{i}) {item.Name}");
+                    Console.Write($"\n{i}) {item.Name}");
+                    // checks if the item is equiped, not working right now
+                    for (int j = 0; j < 6; j++)
+                    {
+                        if (player.Inventory.Contains(player.Equipments[j]))
+                        {
+                            Console.Write(" (Equiped)");
+                        }
+                    }
                 }
-                Console.WriteLine($"{player.Inventory.Count}) Exit");
+                // at last writes out how to exit
+                Console.Write($"\n{player.Inventory.Count}) Exit\n");
             }
 
+            // if you didnt write only numbers, its lower than 0 or it is equal to the number of items in the invetory
+            // it goes into this loop
             while (success == false || num < 0 || num >= player.Inventory.Count)
             {
                 choice = Console.ReadLine();
@@ -164,6 +177,7 @@ public class Shop_Inv
                 }
                 else if (num == player.Inventory.Count)
                 {
+                    // gets you out of the loop
                     break;
                 }
                 else if (num < 0 || num >= player.Inventory.Count)
@@ -172,15 +186,17 @@ public class Shop_Inv
                 }
             }
 
+            // instantly gets you out of the loop
             if (num == player.Inventory.Count)
             {
                 break;
             }
 
+            // puts the item you selected into a variable to be used
             var selectedItem = player.Inventory[num];
             Console.Clear();
+            // writes out the stats that the item has
             Console.WriteLine($"You selected: {selectedItem.Name}");
-            Console.ReadLine();
             if (selectedItem.Vt > 0)
             {
                 Console.WriteLine($"Vt: {selectedItem.Vt}");
@@ -208,13 +224,13 @@ public class Shop_Inv
             Console.WriteLine("Do you want to equip this item? (yes/no)");
             choice = Console.ReadLine().ToLower();
 
-            // this part is not working as i want so i will be fixing it later
+            // chosing yes makes the process of equiping the item
             if (choice == "yes")
             {
-                int slot = selectedItem.Type - 1;
+                slot = selectedItem.Type - 1;
                 var previous = player.Equipments[slot];
 
-                // Unequip previous stats
+                // if there was already an previous item equiped it removed the stats from it
                 if (previous != null)
                 {
                     player.BonusAtk -= previous.Atk;
@@ -224,7 +240,7 @@ public class Shop_Inv
                     player.BonusDex -= previous.Dex;
                 }
 
-                // Equip new item and add stats
+                // Equip/replaces ne item and add stats
                 player.Equipments[slot] = selectedItem;
                 player.BonusAtk += selectedItem.Atk;
                 player.BonusDef += selectedItem.Def;
@@ -233,6 +249,7 @@ public class Shop_Inv
                 player.BonusDex += selectedItem.Dex;
 
                 Console.WriteLine($"Equipped {selectedItem.Name} in slot {slot + 1}.");
+                Console.ReadLine();
             }
         }
         return player;

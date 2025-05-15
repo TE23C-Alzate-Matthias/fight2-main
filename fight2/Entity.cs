@@ -45,7 +45,8 @@ public class Entity
         public int Exh { get; set; } // new
         public int Gold { get; set; } // new
         public List<Items> Inventory = new List<Items>();
-        public List<Items> Equipments = new List<Items>();
+        // makes the list have 6 empty spots that can be used
+        public List<Items> Equipments = new List<Items>(new Items[6]);
         // public List<string> Attacks; // new
     }
 
